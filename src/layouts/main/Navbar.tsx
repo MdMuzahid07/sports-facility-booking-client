@@ -17,7 +17,8 @@ const Navbar = () => {
                 <div>
                     {/* <img className="w-1- h-10" src="" alt="" /> */}
                     <Link to="/">
-                        <h1 className="md:text-2xl font-bold px-4 inline py-2 md:py-1 bg-[#171717] text-white">PlayTime Pro</h1>
+                        <img className="w-32" src="https://i.ibb.co.com/yfwf1YG/play-Time-Pro.png" alt="" />
+                        {/* <h1 className="md:text-2xl font-bold px-4 inline py-2 md:py-1 bg-[#171717] text-white">PlayTime Pro</h1> */}
                     </Link>
                 </div>
                 {/* // desktop menu starts =================>>>>>>>>>>>>>>>>> */}
