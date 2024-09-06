@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button"
 import { navLinks } from "@/constants"
 import { useState } from "react"
 import { Link, NavLink } from "react-router-dom"
+import { Menu, X } from "lucide-react";
 
 const Navbar = () => {
     const [isMobileNavOpen, setIsMobileAppOpen] = useState(false);
@@ -16,7 +17,7 @@ const Navbar = () => {
                 <div>
                     {/* <img className="w-1- h-10" src="" alt="" /> */}
                     <Link to="/">
-                        <h1 className="md:text-2xl font-bold px-4 py-2 md:py-1 bg-[#171717] text-white">PlayTime Pro</h1>
+                        <h1 className="md:text-2xl font-bold px-4 inline py-2 md:py-1 bg-[#171717] text-white">PlayTime Pro</h1>
                     </Link>
                 </div>
                 {/* // desktop menu starts =================>>>>>>>>>>>>>>>>> */}
@@ -34,13 +35,9 @@ const Navbar = () => {
                         {
                             isMobileNavOpen
                                 ?
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
-                                </svg>
+                                < X />
                                 :
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                                </svg>
+                                <Menu />
                         }
                     </Button>
                 </div>
