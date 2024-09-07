@@ -3,6 +3,7 @@ import HowItWorks from "./components/main/HowItWorks";
 import ScrollToTop from "./components/ScrollToTop";
 
 const App = () => {
+
   return (
     <>
       <Hero />
@@ -11,6 +12,6 @@ const App = () => {
       <ScrollToTop />
     </>
   )
-}
+};
 
 export default App;
