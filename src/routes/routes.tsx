@@ -1,6 +1,10 @@
 import App from "@/App";
 import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 import MainLayout from "@/layouts/main/MainLayout";
+import AboutUs from "@/pages/main/AboutUs";
+import ContactUs from "@/pages/main/ContactUs";
+import Facilities from "@/pages/main/Facilities";
+import PageNotFound from "@/pages/PageNotFound";
 import {
     createBrowserRouter,
 
@@ -15,6 +19,18 @@ const routes = createBrowserRouter([
                 path: "/",
                 element: <App />
             },
+            {
+                path: "/about-us",
+                element: <AboutUs />
+            },
+            {
+                path: "/contact-us",
+                element: <ContactUs />
+            },
+            {
+                path: "/facilities",
+                element: <Facilities />
+            },
         ]
     },
     {
@@ -23,6 +39,10 @@ const routes = createBrowserRouter([
         children: [
 
         ]
+    },
+    {
+        path: "*",
+        element: <PageNotFound />
     }
 ]);
 

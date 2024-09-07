@@ -49,7 +49,7 @@ const Navbar = () => {
                     isMobileNavOpen && <div className="flex md:hidden w-full sm:w-[350px] h-screen p-8 top-20 bg-[#171717] text-white absolute right-0">
                         <ul className="space-y-8 mt-10">
                             {
-                                navLinks?.map((nav) => <li className="font-bold uppercase text-lg" key={nav?.title}><NavLink to={nav?.path}>{nav?.title}</NavLink></li>)
+                                navLinks?.map((nav) => <li onClick={() => setIsMobileAppOpen(false)} className="font-bold uppercase text-lg w-full" key={nav?.title}><NavLink to={nav?.path}>{nav?.title}</NavLink></li>)
                             }
                         </ul>
                     </div>
