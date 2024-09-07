@@ -44,7 +44,7 @@ const Testimonial = () => {
 
     return (
         <div className="bg-slate-200">
-            <div className="max-w-[1312px] mx-auto px-4 lg:px-0 py-28">
+            <div className="max-w-[1312px] mx-auto py-28">
                 <div className="flex items-center justify-end mb-5 mr-4">
                     <div className="flex items-center space-x-6">
                         <Button onClick={() => sliderRef.current?.slickPrev()} className="rounded-none">
