@@ -1,0 +1,20 @@
+import { Button } from "../ui/button"
+
+const Hero = () => {
+    return (
+        <section className="min-h-screen w-ful bg-cover bg-no-repeat bg-[url('https://res.cloudinary.com/dymo0iyee/image/upload/v1725689329/1752_x3nrjw.jpg')]">
+            <div className="bg-black bg-opacity-50 w-full h-screen text-slate-200">
+                <div className="max-w-7xl mx-auto px-4 xl:px-0 flex items-center h-full">
+                    <div>
+                        <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-7xl font-extrabold  bg-[#171717] px-4 inline">PlayTime Pro</h1>
+                        <h3 className="text-xl md:text-2xl lg:text-3xl xl:text-5xl font-extrabold mb-10 mt-10">Unlock Your Sports Experience with Ease</h3>
+                        <p className="text-xl md:text-2xl lg:text-3xl">Your trusted partner for hassle-free sports facility bookings.Enjoy seamless access to top-notch courts, fields, and gyms—just a click away.</p>
+                        <Button className="mt-6 rounded-none text-2xl md:text-3xl lg:text-4xl">Book Now</Button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    )
+}
+
+export default Hero;
