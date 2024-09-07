@@ -30,7 +30,7 @@ const howItsWorksCardData = [
 const HowItWorks = () => {
     return (
         <section className="bg-slate-200">
-            <div className="max-w-7xl mx-auto pt-28 pb-32 px-4 lg:px-0">
+            <div className="max-w-7xl mx-auto pt-28 pb-32 px-4 xl:px-0">
                 <h3 className="text-xl md:text-2xl lg:text-3xl xl:text-5xl font-extrabold mb-5 ">Unlock Your Sports Experience with Ease </h3>
                 <p className="text-xl md:text-2xl lg:text-3xl">Our platform makes booking your next sports facility easy and hassle-free. Follow these simple steps to get started.</p>
 
