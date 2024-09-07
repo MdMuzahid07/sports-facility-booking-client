@@ -5,7 +5,7 @@ const Footer = () => {
     const date = new Date().getFullYear();
 
     return (
-        <footer className="bg-[#2E2E2E] border-t px-4 xl:px-0 text-white roboto-regular">
+        <footer className="bg-[#2E2E2E] px-4 xl:px-0 text-white roboto-regular">
             <div>
                 <div
                     className="max-w-7xl mx-auto w-full pt-32 pb-20 flex justify-between flex-wrap md:flex-nowrap gap-16 px-4 xl:px-0"
