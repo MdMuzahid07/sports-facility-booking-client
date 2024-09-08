@@ -8,14 +8,14 @@ import ScrollToTop from "./components/ScrollToTop";
 const App = () => {
 
   return (
-    <>
+    <main>
       <Hero />
       <HowItWorks />
       <FeaturedFacilities />
       <Testimonial />
       <MosaicSportsGallery />
       <ScrollToTop />
-    </>
+    </main>
   )
 };
 
