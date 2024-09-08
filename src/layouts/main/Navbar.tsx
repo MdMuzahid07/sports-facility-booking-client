@@ -3,9 +3,11 @@ import { navLinks } from "@/constants"
 import { useState } from "react"
 import { Link, NavLink } from "react-router-dom"
 import { Menu, X } from "lucide-react";
+import UserDropdown from "./UserDropdown";
 
 const Navbar = () => {
     const [isMobileNavOpen, setIsMobileAppOpen] = useState(false);
+    const user = false;
 
     const handleMobileNav = () => setIsMobileAppOpen(!isMobileNavOpen);
 
@@ -28,9 +30,11 @@ const Navbar = () => {
                             navLinks?.map((nav) => <li className="font-bold uppercase text-lg" key={nav?.title}><NavLink to={nav?.path}>{nav?.title}</NavLink></li>)
                         }
                     </ul>
-                    <Button className="hidden md:flex rounded-none md:text-xl">
-                        <NavLink to="/login">Login</NavLink>
-                    </Button>
+                    {
+                        user ? <UserDropdown /> : <Button className="hidden md:flex rounded-none md:text-xl">
+                            <NavLink to="/login">Login</NavLink>
+                        </Button>
+                    }
                     <Button
                         onClick={handleMobileNav}
                         className="flex md:hidden rounded-none md:text-xl"
