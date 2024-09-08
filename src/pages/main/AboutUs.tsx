@@ -10,12 +10,14 @@ const AboutUs = () => {
 
     return (
         <div className="bg-slate-200">
-            <div className="max-w-7xl mx-auto px-4 xl:px-0">
-                <Mission />
-                <TeamSection />
-                <HistoryAndTimeline />
-                <ContactInfo />
+            <div className="h-[300px] w-screen">
+                <img className="h-full w-full object-cover" src="https://res.cloudinary.com/dymo0iyee/image/upload/v1725805321/Untitled_design_xi0qdl.png" alt="" />
             </div>
+            <Mission />
+            <TeamSection />
+            <HistoryAndTimeline />
+            <ContactInfo />
+
             <ScrollToTop />
         </div>
     );
