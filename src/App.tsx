@@ -4,8 +4,10 @@ import HowItWorks from "./components/main/HowItWorks";
 import MosaicSportsGallery from "./components/main/MosaicSportsGallery";
 import Testimonial from "./components/main/Testimonial";
 import ScrollToTop from "./components/ScrollToTop";
+import PageTopByDefault from "./utils/PageTopByDefault";
 
 const App = () => {
+  PageTopByDefault();
 
   return (
     <main>
