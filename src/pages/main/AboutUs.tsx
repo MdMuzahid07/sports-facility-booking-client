@@ -10,7 +10,7 @@ const AboutUs = () => {
 
     return (
         <div className="bg-slate-200">
-            <div className="max-w-7xl mx-auto px-4 xl:px-0 py-32">
+            <div className="max-w-7xl mx-auto px-4 xl:px-0">
                 <Mission />
                 <TeamSection />
                 <HistoryAndTimeline />
