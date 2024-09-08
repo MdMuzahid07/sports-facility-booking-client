@@ -1,4 +1,6 @@
 import App from "@/App";
+import Login from "@/components/auth/Login";
+import SignUp from "@/components/auth/SignUp";
 import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 import MainLayout from "@/layouts/main/MainLayout";
 import AboutUs from "@/pages/main/AboutUs";
@@ -7,7 +9,6 @@ import Facilities from "@/pages/main/Facilities";
 import PageNotFound from "@/pages/PageNotFound";
 import {
     createBrowserRouter,
-
 } from "react-router-dom";
 
 const routes = createBrowserRouter([
@@ -43,7 +44,15 @@ const routes = createBrowserRouter([
     {
         path: "*",
         element: <PageNotFound />
-    }
+    },
+    {
+        path: "/login",
+        element: <Login />
+    },
+    {
+        path: "/sign-up",
+        element: <SignUp />
+    },
 ]);
 
 

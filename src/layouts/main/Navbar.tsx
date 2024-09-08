@@ -28,7 +28,9 @@ const Navbar = () => {
                             navLinks?.map((nav) => <li className="font-bold uppercase text-lg" key={nav?.title}><NavLink to={nav?.path}>{nav?.title}</NavLink></li>)
                         }
                     </ul>
-                    <Button className="hidden md:flex rounded-none md:text-xl">Login</Button>
+                    <Button className="hidden md:flex rounded-none md:text-xl">
+                        <NavLink to="/login">Login</NavLink>
+                    </Button>
                     <Button
                         onClick={handleMobileNav}
                         className="flex md:hidden rounded-none md:text-xl"
