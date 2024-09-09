@@ -6,6 +6,8 @@ import MainLayout from "@/layouts/main/MainLayout";
 import AboutUs from "@/pages/main/AboutUs";
 import ContactUs from "@/pages/main/ContactUs";
 import Facilities from "@/pages/main/Facilities";
+import FacilityBooking from "@/pages/main/FacilityBooking";
+import FacilityDetails from "@/pages/main/FacilityDetails";
 import PageNotFound from "@/pages/PageNotFound";
 import {
     createBrowserRouter,
@@ -32,6 +34,14 @@ const routes = createBrowserRouter([
                 path: "/facilities",
                 element: <Facilities />
             },
+            {
+                path: "/facility-details/:facilityId",
+                element: <FacilityDetails />
+            },
+            {
+                path: "/facility-booking",
+                element: <FacilityBooking />
+            }
         ]
     },
     {

@@ -1,22 +1,107 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import FacilityCars from "@/components/main/FacilityCars";
+import { Input } from "@/components/ui/input";
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
+import { useState } from "react";
 
 const Facilities = () => {
+    const [price, setPrice] = useState<string | undefined>(undefined);
+    const [searchFacility, setSearchFacility] = useState<string | undefined>(undefined);
+
+    const handleFilterChange = (value: string) => {
+        setPrice(value);
+    };
+
+    const handleSearch = (e: any) => {
+        setSearchFacility(e.target.value)
+    };
+
+    // const totalFacilities = filteredFacilities?.length;
+    // const facilityPerPage = 9
+
+    // const totalPages = Math?.ceil(totalFacilities / facilityPerPage);
+    // const paginatedFacilites = filteredFacilities?.slice(
+    //     (currentPage - 1) * facilityPerPage,
+    //     currentPage * facilityPerPage
+    // );
+
+
     return (
         <section className="bg-slate-200">
             <div className="h-[300px] w-screen relative">
                 <img className="h-full w-full object-cover" src="https://res.cloudinary.com/dymo0iyee/image/upload/v1725805321/Untitled_design_xi0qdl.png" alt="" />
             </div>
             <div className="max-w-7xl mx-auto px-4 xl:px-0 py-32">
-                <div className="grid grid-cols-9 gap-6">
-                    <div className="col-span-2">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam cupiditate et voluptatum, eligendi temporibus facilis odit deleniti ex rum um minima veniam vitae quos quibusdam vero earum explicabo voluptates repellendus perspiciatis voluptatibus delectus est cupiditate et harum accusantium minus!
-                    </div>
-                    <div className="col-span-7">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia cupiditate nostrum ipsum voluptatibus laudantium in, culpa obcaecati, eligendi quod totam qui, recusandae quos iure? Iusto numquam totam at voluptates voluptatem debitis, inventore vitae possimus, ipsum quo nemo obcaecati omnis provident nihil culpa magni dignissimos sunt officiis quis. Provident atque quis officia quos! Esse ipsum quisquam reiciendis eos repellat temporibus dignissimos atque optio blanditiis nobis similique, asperiores, quaerat incidunt tempora vero. Numquam dolore atque adipisci officia, incidunt tenetur assumenda cupiditate eos aliquam, repellendus quo facere. Maxime explicabo ipsam itaque debitis voluptate rerum vel perferendis excepturi repellat omnis laudantium accusamus, obcaecati aspernatur quae adipisci illo. Modi sint facilis adipisci recusandae soluta, hic cupiditate nobis provident non quia expedita maiores distinctio harum deserunt incidunt quo, consequuntur ab unde corrupti fugiat. Aliquam amet labore eveniet odit. Vero nam dolor minima animi magni est id dicta, in qui ipsam quaerat officia accusantium vel hic eveniet illo distinctio dolorum fugiat neque. Dolore alias impedit quam obcaecati quidem maiores laboriosam velit eveniet repellat illum, veritatis, ea quas sint cumque aliquid, dolores itaque distinctio. Veniam, quis dolores ex porro sequi neque corrupti dolorem, assumenda ad, libero sint perspiciatis sed necessitatibus harum optio cumque? Sint beatae assumenda nihil totam tempore asperiores perspiciatis voluptas accusamus, natus possimus laboriosam itaque corrupti quisquam doloribus voluptatum nam porro alias facere quo unde impedit inventore provident? Quia cumque unde eveniet quisquam autem porro vitae maxime eum asperiores voluptatibus alias itaque fugit molestiae architecto minus dicta labore, suscipit tempore recusandae. Esse autem vel consectetur dolore cupiditate asperiores eligendi, voluptates ipsum mollitia laborum corrupti, rem aperiam ipsam ducimus. Possimus corrupti ex, quisquam delectus aperiam eaque et illo. Obcaecati sapiente veritatis unde consequuntur voluptates necessitatibus. Magnam vero laborum aut, quos ducimus exercitationem velit officia dolorum nobis illo ipsum repellendus excepturi enim saepe, recusandae provident. Soluta iure maxime reiciendis ab a numquam qui assumenda? Necessitatibus repudiandae, nulla dignissimos repellendus aspernatur ipsa molestias commodi cumque, repellat facere omnis explicabo. Laudantium voluptas sequi, id natus dignissimos dicta, dolorem, iure quo deleniti officiis labore rem necessitatibus laboriosam impedit ratione debitis fuga. Delectus amet nostrum atque doloremque maxime unde. Porro dolorem consectetur distinctio repellendus quod recusandae ducimus unde expedita natus. Similique velit earum doloremque aperiam error sed accusantium recusandae ut officia deserunt eaque natus ducimus ad, iusto consequuntur nesciunt libero possimus culpa officiis totam blanditiis sapiente! Explicabo consequatur, dolor aliquid neque tenetur commodi iure consequuntur assumenda quisquam sapiente blanditiis dignissimos ad quo?
+                <div className="grid grid-cols-1 lg:grid-cols-4 lg:gap-10">
+                    {/* Search and Filter Section */}
+                    <aside className="col-span-1 max-h-[700px] sticky top-24 bg-slate-100 p-6 w-full mb-10 lg:mb-0">
+                        <h2 className="text-2xl font-extrabold  mb-10">Filter Facility</h2>
+                        {/* Search Input */}
+                        <div className="mb-8">
+                            <label className="block font-semibold mb-2">Search Facility</label>
+                            <Input
+                                type="text"
+                                className="rounded-none"
+                                placeholder="write here..."
+                                value={searchFacility}
+                                onChange={handleSearch}
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block font-semibold mb-2">Filter by price</label>
+                            <Select value={price} onValueChange={handleFilterChange}>
+                                <SelectTrigger className="w-full rounded-none">
+                                    <SelectValue placeholder="Select a fruit" />
+                                </SelectTrigger>
+                                <SelectContent className="rounded-none">
+                                    <SelectGroup>
+                                        <SelectLabel>Fruits</SelectLabel>
+                                        <SelectItem value="apple">Apple</SelectItem>
+                                        <SelectItem value="banana">Banana</SelectItem>
+                                        <SelectItem value="blueberry">Blueberry</SelectItem>
+                                        <SelectItem value="grapes">Grapes</SelectItem>
+                                        <SelectItem value="pineapple">Pineapple</SelectItem>
+                                    </SelectGroup>
+                                </SelectContent>
+                            </Select>
+                        </div>
+                    </aside>
+
+                    <div className="col-span-3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                        {
+                            // paginatedFacilites?.length > 0 ? (
+                            [1, 2, 3, 4, 5, 6, 7, 2, 1, 2, 3, 4, 5, 6, 7, 2, 1, 2, 3, 4, 5, 6, 7, 2, 1, 2, 3, 4, 5, 6, 7, 2, 3, 4, 5, 6, 7, 8]?.map((facility: any) => (
+                                <FacilityCars styles="bg-[#1F1F1F] text-white" />
+                            ))
+                            // ) : (
+                            //     <p className=" text-lg col-span-full">No facility found.</p>
+                            // )
+                        }
                     </div>
                 </div>
+                {/* <div className="flex justify-end mt-8">
+                    <nav>
+                        <ul className="flex items-center space-x-2">
+                            {Array?.from({ length: totalPages }, (_, index) => (
+                                <li key={index}>
+                                    <button onClick={() => handlePageChange(index + 1)} className="w-7 h-7 flex justify-center items-center  border border-green-900 hover:bg-green-900 hover:text-white">{index + 1}</button>
+                                </li>
+                            ))}
+                        </ul>
+                    </nav>
+                </div> */}
             </div>
         </section>
     )
 };
 
-export default Facilities;;
+export default Facilities;

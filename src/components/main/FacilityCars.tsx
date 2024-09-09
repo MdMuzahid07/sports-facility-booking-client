@@ -3,11 +3,19 @@ import { useRef } from "react";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../ui/card";
 import { motion, useInView } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 
 const FacilityCars = ({ styles }: any) => {
     const ref = useRef(null);
     const isInView = useInView(ref);
+    const navigate = useNavigate();
+
+
+    const handleRedirectToDetails = (id: string) => {
+        navigate(`/facility-details/${id}`);
+    };
+
 
     return (
         <div ref={ref}>
@@ -16,7 +24,7 @@ const FacilityCars = ({ styles }: any) => {
                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
                 transition={{ duration: 0.5, ease: "easeOut" }}
             >
-                <Card className={`w-full  rounded-none border-none bg-slate-200 ${styles}`}>
+                <Card onClick={() => handleRedirectToDetails("p9aydofihybfp9da")} className={`w-full  rounded-none border-none bg-slate-200 ${styles}`}>
                     <CardHeader className="p-0 mb-3">
                         <img className="w-full h-full object-contain object-center" src="https://res.cloudinary.com/dymo0iyee/image/upload/v1725689329/1752_x3nrjw.jpg" alt="" />
                     </CardHeader>
