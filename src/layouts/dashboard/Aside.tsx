@@ -19,7 +19,7 @@ const Aside = ({ isSidebarOpen, setIsSidebarOpen }: any) => {
 
                 <button
                     onClick={() => setIsSidebarOpen(false)}
-                    className="fixed right-10 top-10 border rounded-full w-10 h-10 flex justify-center items-center md:hidden bg-black"
+                    className="fixed right-10 top-10 border rounded-full w-10 h-10 flex justify-center items-center md:hidden bg-black text-white"
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"

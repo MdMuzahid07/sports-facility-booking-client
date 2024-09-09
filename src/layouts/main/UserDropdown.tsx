@@ -15,8 +15,16 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
 import { AvatarFallback } from "@/components/ui/avatar";
+import { NavLink } from "react-router-dom";
+import { toast } from "sonner";
 
 const UserDropdown = () => {
+
+    const handleLogout = () => {
+        toast.success("logout successfully")
+    };
+
+
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -29,14 +37,16 @@ const UserDropdown = () => {
                 <DropdownMenuLabel className="text-xl">Hello, John</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
-                    <DropdownMenuItem className="rounded-none">
-                        <User className="mr-2 h-4 w-4" />
-                        <span>My Dashboard</span>
-                        <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-                    </DropdownMenuItem>
+                    <NavLink to="/dashboard/home" >
+                        <DropdownMenuItem className="rounded-none">
+                            <User className="mr-2 h-4 w-4" />
+                            <span>My Dashboard</span>
+                            <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+                        </DropdownMenuItem>
+                    </NavLink>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem className="rounded-none">
+                <DropdownMenuItem onClick={handleLogout} className="rounded-none">
                     <LogOut className="mr-2 h-4 w-4" />
                     <span>Log out</span>
                     <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
