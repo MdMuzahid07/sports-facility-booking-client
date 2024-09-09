@@ -39,7 +39,7 @@ const routes = createBrowserRouter([
                 element: <FacilityDetails />
             },
             {
-                path: "/facility-booking",
+                path: "/facility-booking/:bookById",
                 element: <FacilityBooking />
             }
         ]

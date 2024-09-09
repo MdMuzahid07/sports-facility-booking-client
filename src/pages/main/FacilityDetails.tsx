@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
 import { DollarSign, MapPin } from 'lucide-react';
@@ -7,7 +7,15 @@ import FacilityCars from '@/components/main/FacilityCars';
 
 const FacilityDetails = () => {
     const { facilityId } = useParams();
+    const navigate = useNavigate();
+
     const img = "https://res.cloudinary.com/dymo0iyee/image/upload/v1725689329/1752_x3nrjw.jpg"
+
+
+    const handleBookingPageRedirect = (id: string) => {
+        navigate(`/facility-booking/${id}`);
+    };
+
 
     return (
         <div className="bg-slate-200 py-32 px-4 xl:px-0">
@@ -35,7 +43,7 @@ const FacilityDetails = () => {
                             <span>30 hour</span>
                         </p>
                         <div className="mt-14">
-                            <Button className="rounded-none text-2xl">Book now</Button>
+                            <Button onClick={() => handleBookingPageRedirect("9087nb6876v")} className="rounded-none text-2xl">Book now</Button>
                         </div>
                     </div>
                 </div>
@@ -55,6 +63,6 @@ const FacilityDetails = () => {
             </div>
         </div>
     )
-}
+};
 
-export default FacilityDetails
+export default FacilityDetails;
