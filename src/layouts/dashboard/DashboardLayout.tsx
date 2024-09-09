@@ -19,11 +19,7 @@ const DashboardLayout = () => {
             {
                 isLoading ? (<Preloader />) : (
                     <>
-                        <Header
-                            setIsSidebarOpen={setIsSidebarOpen}
-                            isSidebarOpen={isSidebarOpen}
-                        />
-                        <div className="grid grid-cols-12 h-full w-full">
+                        <div className="grid grid-cols-12 h-full w-full relative">
                             <Aside
                                 isSidebarOpen={isSidebarOpen}
                                 setIsSidebarOpen={setIsSidebarOpen}
@@ -31,17 +27,22 @@ const DashboardLayout = () => {
                             <div
                                 className={
                                     `${isSidebarOpen
-                                        ? "col-span-12 sm:col-span-8 lg:col-span-10"
+                                        ? "col-span-12 md:col-span-8 lg:col-span-10"
                                         : "col-span-12"
                                     }`
                                 }
                             >
-
-                                <div
-                                    className={`sm:px-16 px-6 ${isSidebarOpen ? "max-w-7xl" : "max-w-screen-2xl"
-                                        } min-h-screen w-full mx-auto`}
-                                >
-                                    <Outlet />
+                                <Header
+                                    setIsSidebarOpen={setIsSidebarOpen}
+                                    isSidebarOpen={isSidebarOpen}
+                                />
+                                <div className="bg-slate-100">
+                                    <div
+                                        className={`sm:px-16 px-6 ${isSidebarOpen ? "max-w-7xl" : "max-w-screen-2xl"
+                                            } min-h-screen w-full mx-auto `}
+                                    >
+                                        <Outlet />
+                                    </div>
                                 </div>
                             </div>
                         </div>
