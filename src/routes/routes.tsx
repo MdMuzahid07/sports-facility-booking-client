@@ -3,6 +3,12 @@ import Login from "@/components/auth/Login";
 import SignUp from "@/components/auth/SignUp";
 import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 import MainLayout from "@/layouts/main/MainLayout";
+import AddAdmin from "@/pages/dashboard/AddAdmin";
+import ManageBookings from "@/pages/dashboard/bookings/ManageBookings";
+import DashboardWelcome from "@/pages/dashboard/DashboardWelcome";
+import AddFacility from "@/pages/dashboard/facilities/AddFacility";
+import ManageFacilities from "@/pages/dashboard/facilities/ManageFacilities";
+import MyBookings from "@/pages/dashboard/MyBookings";
 import AboutUs from "@/pages/main/AboutUs";
 import ContactUs from "@/pages/main/ContactUs";
 import Facilities from "@/pages/main/Facilities";
@@ -48,7 +54,30 @@ const routes = createBrowserRouter([
         path: "/dashboard",
         element: <DashboardLayout />,
         children: [
-
+            {
+                path: "home",
+                element: <DashboardWelcome />
+            },
+            {
+                path: "add-admin",
+                element: <AddAdmin />
+            },
+            {
+                path: "my-bookings",
+                element: <MyBookings />
+            },
+            {
+                path: "manage-bookings",
+                element: <ManageBookings />
+            },
+            {
+                path: "add-facilities",
+                element: <AddFacility />
+            },
+            {
+                path: "manage-facilities",
+                element: <ManageFacilities />
+            },
         ]
     },
     {
