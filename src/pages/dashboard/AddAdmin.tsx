@@ -1,7 +1,9 @@
 
 const AddAdmin = () => {
     return (
-        <div>AddAdmin</div>
+        <div className="py-10">
+            add admin
+        </div>
     )
 };
 
