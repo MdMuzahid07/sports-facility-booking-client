@@ -1,16 +1,38 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Label } from "@radix-ui/react-label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../ui/card";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Key, User } from "lucide-react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import { useForm } from "react-hook-form";
+import { useLoginUserMutation } from "@/redux/features/auth/authApi";
 
 const Login = () => {
-    // const sample = {
-    //     "email": "user@gmail.com",
-    //     "password": "user123"
-    // }
+    const [loginUser, { data, error, isLoading }] = useLoginUserMutation();
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const navigate = useNavigate();
 
+
+    if (isLoading) {
+        return toast.loading("Please wait", { id: "loginUser" })
+    };
+    if (error) {
+        toast.error("Login failed, please try again!", { id: "loginUser" });
+    };
+    if (!error && data?.success) {
+        toast.success(`Welcome back ${data?.data?.name}, login successfully`, { id: "loginUser" });
+        navigate("/");
+    };
+
+
+    const onSubmit = async (data: any) => {
+        const login = await {
+            ...data,
+        };
+        loginUser(login);
+    };
 
     return (
         <div className="w-screen h-screen bg-cover bg-[url('https://res.cloudinary.com/dymo0iyee/image/upload/v1725725369/2150426501_xar9gl.jpg')]">
@@ -21,31 +43,39 @@ const Login = () => {
                         <CardDescription>Enter your username and password</CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <form>
+                        <form onSubmit={handleSubmit(onSubmit)}>
                             <div className="grid w-full items-center gap-4">
                                 <div className="flex flex-col space-y-1.5">
-                                    <Label className=" flex items-center gap-2" htmlFor="name">
+                                    <Label className=" flex items-center gap-2" htmlFor="email">
                                         <span><User /></span>
-                                        <span>Name</span>
+                                        <span>Email</span>
                                     </Label>
-                                    <Input id="name" placeholder="Name of your project" />
+                                    <Input
+                                        {...register("email", { required: true })}
+                                        id="email" placeholder="your account email address"
+                                        aria-invalid={errors.name ? "true" : "false"}
+                                    />
                                 </div>
                                 <div className="flex flex-col space-y-1.5">
                                     <Label className=" flex items-center gap-2" htmlFor="password">
                                         <span><Key /></span>
                                         <span>Password</span>
                                     </Label>
-                                    <Input type="password" id="password" placeholder="Name of your project" />
+                                    <Input
+                                        {...register("password", { required: true })}
+                                        type="password" id="password" placeholder="Name of your project"
+                                        aria-invalid={errors.password ? "true" : "false"}
+                                    />
                                 </div>
                                 <div className="text-slate-600">
                                     <small>New here? <span className="font-bold"><NavLink to="/sign-up">Create Account</NavLink></span></small>
                                 </div>
                             </div>
+                            <CardFooter className="flex justify-end">
+                                <Button type="submit" className="rounded-none">Login</Button>
+                            </CardFooter>
                         </form>
                     </CardContent>
-                    <CardFooter className="flex justify-end">
-                        <Button className="rounded-none">Login</Button>
-                    </CardFooter>
                 </Card>
             </div>
         </div>

@@ -7,7 +7,7 @@ import UserDropdown from "./UserDropdown";
 
 const Navbar = () => {
     const [isMobileNavOpen, setIsMobileAppOpen] = useState(false);
-    const user = true;
+    const user = false;
 
     const handleMobileNav = () => setIsMobileAppOpen(!isMobileNavOpen);
 
