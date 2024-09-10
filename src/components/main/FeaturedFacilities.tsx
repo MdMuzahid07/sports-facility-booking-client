@@ -8,7 +8,7 @@ const FeaturedFacilities = () => {
 
                 <div className="mt-20 grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                     {
-                        [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2]?.map(() => <FacilityCars styles="border-slate-200" />)
+                        [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2]?.map((index) => <FacilityCars key={index + Math.random()} styles="border-slate-200" />)
                     }
                 </div>
             </div>

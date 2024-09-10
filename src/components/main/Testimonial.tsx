@@ -58,8 +58,8 @@ const Testimonial = () => {
                 <div className="slider-container">
                     <Slider ref={sliderRef} arrows={false} {...settings}>
                         {
-                            [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]?.map(() => (
-                                <TestimonialCard />
+                            [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]?.map((index) => (
+                                <TestimonialCard key={index + Math.random()} />
                             ))
                         }
                     </Slider>

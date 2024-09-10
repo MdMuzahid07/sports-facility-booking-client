@@ -26,7 +26,6 @@ const Login = () => {
         navigate("/");
     };
 
-
     const onSubmit = async (data: any) => {
         const login = await {
             ...data,

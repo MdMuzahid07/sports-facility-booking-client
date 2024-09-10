@@ -8,12 +8,16 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useCreateUserMutation } from "@/redux/features/auth/authApi";
 import { toast } from "sonner";
+import { useDispatch } from "react-redux";
+import { setUser } from "@/redux/features/auth/authSlice";
 
 const SignUp = () => {
     const [createUser, { data, error, isLoading }] = useCreateUserMutation();
     const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
+    console.log(data)
 
 
     if (isLoading) {
@@ -24,6 +28,11 @@ const SignUp = () => {
     };
     if (!error && data?.success) {
         toast.success(`Welcome ${data?.data?.name}, your account created successfully`, { id: "signUpUser" });
+        dispatch(setUser({
+            user: data?.data?._id,
+            userEmail: data?.data?.email,
+            role: data?.data?.role,
+        }))
         navigate("/");
     };
 
