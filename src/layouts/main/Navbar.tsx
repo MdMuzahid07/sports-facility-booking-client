@@ -32,9 +32,11 @@ const Navbar = () => {
                         }
                     </ul>
                     {
-                        user?.role ? <UserDropdown /> : <Button className="hidden md:flex rounded-none md:text-xl">
-                            <NavLink to="/login">Login</NavLink>
-                        </Button>
+                        user?.role ? <UserDropdown /> : <NavLink to="/login">
+                            <Button className="hidden md:flex rounded-none md:text-xl">
+                                Login
+                            </Button>
+                        </NavLink>
                     }
                     <Button
                         onClick={handleMobileNav}
@@ -65,6 +67,6 @@ const Navbar = () => {
             </nav>
         </header >
     )
-}
+};
 
 export default Navbar;

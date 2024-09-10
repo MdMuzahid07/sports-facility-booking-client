@@ -15,7 +15,6 @@ const ProtectedRoutes = ({ children }: { children: ReactNode }) => {
         }
     }, [user, navigate]);
 
-
     if (user && user.userEmail && user.role) {
         return <>
             {children}

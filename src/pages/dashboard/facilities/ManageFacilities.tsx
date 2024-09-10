@@ -3,13 +3,11 @@ import {
     TableBody,
     TableCaption,
     TableCell,
-    TableFooter,
     TableHead,
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
 
-import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu"
 import { Button } from "@/components/ui/button"
 import {
     DropdownMenu,
@@ -21,11 +19,9 @@ import {
     DropdownMenuShortcut,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { useState } from "react"
 import { Pencil, Trash } from "lucide-react"
 import { toast } from "sonner"
 
-type Checked = DropdownMenuCheckboxItemProps["checked"]
 
 const facilities = [
     {

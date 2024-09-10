@@ -1,10 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { useAppSelector } from "@/redux/hooks";
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 
 const Aside = ({ isSidebarOpen, setIsSidebarOpen }: any) => {
+    const [userRole, setUserRole] = useState(" ");
+    const user = useAppSelector((state) => state.auth);
+
+
+    useEffect(() => {
+        setUserRole(user?.role as string);
+    }, [user]);
+
+    console.log(userRole)
 
     return (
         <aside className={
@@ -39,44 +50,54 @@ const Aside = ({ isSidebarOpen, setIsSidebarOpen }: any) => {
 
                 <div className="mt-6 sm:mt-14 md:mt-16 border-t">
                     <Accordion type="single" collapsible className="w-full">
-
                         <NavLink to="/dashboard/home">
                             <button className="px-4 font-semibold py-2 text-lg bg-white text-left rounded-lg text-[#000000] w-full mb-7">
                                 Dashboard
                             </button>
                         </NavLink>
+                        {
+                            (user && (userRole === "user")) && (
+                                <>
+                                    <NavLink to="/dashboard/my-bookings">
+                                        <button className="px-4 font-semibold py-2 text-lg bg-white text-left rounded-lg text-[rgb(0,0,0)] w-full mb-7">
+                                            My Bookings
+                                        </button>
+                                    </NavLink>
+                                </>
+                            )
+                        }
 
-                        <NavLink to="/dashboard/my-bookings">
-                            <button className="px-4 font-semibold py-2 text-lg bg-white text-left rounded-lg text-[rgb(0,0,0)] w-full mb-7">
-                                My Bookings
-                            </button>
-                        </NavLink>
+                        {
+                            (user && (userRole === "admin")) && (
+                                <>
+                                    <NavLink to="/dashboard/add-admin">
+                                        <button className="px-4 font-semibold py-2 text-lg bg-white text-left rounded-lg text-[#000000] w-full mb-7">Add Admin</button>
+                                    </NavLink>
 
-                        <NavLink to="/dashboard/add-admin">
-                            <button className="px-4 font-semibold py-2 text-lg bg-white text-left rounded-lg text-[#000000] w-full mb-7">Add Admin</button>
-                        </NavLink>
+                                    <AccordionItem className="mb-7" value="item-1">
+                                        <AccordionTrigger className="text-lg bg-white rounded-lg w-full px-4 py-2">Facility Management</AccordionTrigger>
+                                        <AccordionContent className="bg-white rounded-lg p-4 mt-3">
+                                            <NavLink to="/dashboard/add-facilities">
+                                                <button className="px-4 font-semibold py-2 text-lg bg-slate-200 text-left rounded-lg text-[#000000] w-full mb-7">Add Facility</button>
+                                            </NavLink>
+                                            <hr />
+                                            <NavLink to="/dashboard/manage-facilities">
+                                                <button className="px-4 font-semibold py-2 text-lg bg-slate-200 text-left rounded-lg text-[#000000] w-full">Manage Facilities</button>
+                                            </NavLink>
+                                        </AccordionContent>
+                                    </AccordionItem>
 
-                        <AccordionItem className="mb-7" value="item-1">
-                            <AccordionTrigger className="text-lg bg-white rounded-lg w-full px-4 py-2">Facility Management</AccordionTrigger>
-                            <AccordionContent className="bg-white rounded-lg p-4 mt-3">
-                                <NavLink to="/dashboard/add-facilities">
-                                    <button className="px-4 font-semibold py-2 text-lg bg-slate-200 text-left rounded-lg text-[#000000] w-full mb-7">Add Facility</button>
-                                </NavLink>
-                                <hr />
-                                <NavLink to="/dashboard/manage-facilities">
-                                    <button className="px-4 font-semibold py-2 text-lg bg-slate-200 text-left rounded-lg text-[#000000] w-full">Manage Facilities</button>
-                                </NavLink>
-                            </AccordionContent>
-                        </AccordionItem>
-
-                        <AccordionItem className="mb-7" value="item-3">
-                            <AccordionTrigger className="text-lg bg-white rounded-lg w-full px-4 py-2">Booking Management</AccordionTrigger>
-                            <AccordionContent className="bg-white rounded-lg p-4 mt-3">
-                                <NavLink to="/dashboard/manage-bookings">
-                                    <button className="px-4 font-semibold py-2 text-lg bg-slate-200 text-left rounded-lg text-[#000000] w-full">All Bookings</button>
-                                </NavLink>
-                            </AccordionContent>
-                        </AccordionItem>
+                                    <AccordionItem className="mb-7" value="item-3">
+                                        <AccordionTrigger className="text-lg bg-white rounded-lg w-full px-4 py-2">Booking Management</AccordionTrigger>
+                                        <AccordionContent className="bg-white rounded-lg p-4 mt-3">
+                                            <NavLink to="/dashboard/manage-bookings">
+                                                <button className="px-4 font-semibold py-2 text-lg bg-slate-200 text-left rounded-lg text-[#000000] w-full">All Bookings</button>
+                                            </NavLink>
+                                        </AccordionContent>
+                                    </AccordionItem>
+                                </>
+                            )
+                        }
                     </Accordion>
                 </div>
             </div>

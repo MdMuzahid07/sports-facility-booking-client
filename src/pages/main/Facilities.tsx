@@ -80,7 +80,7 @@ const Facilities = () => {
                         {
                             // paginatedFacilites?.length > 0 ? (
                             [1, 2, 3, 4, 5, 6, 7, 2, 1, 2, 3, 4, 5, 6, 7, 2, 1, 2, 3, 4, 5, 6, 7, 2, 1, 2, 3, 4, 5, 6, 7, 2, 3, 4, 5, 6, 7, 8]?.map((facility: any) => (
-                                <FacilityCars styles="bg-[#1F1F1F] text-white" />
+                                <FacilityCars key={facility + Math.random()} styles="bg-[#1F1F1F] text-white" />
                             ))
                             // ) : (
                             //     <p className=" text-lg col-span-full">No facility found.</p>

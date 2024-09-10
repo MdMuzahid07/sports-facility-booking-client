@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
 import { DollarSign, MapPin } from 'lucide-react';
@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import FacilityCars from '@/components/main/FacilityCars';
 
 const FacilityDetails = () => {
-    const { facilityId } = useParams();
+    // const { facilityId } = useParams();
     const navigate = useNavigate();
 
     const img = "https://res.cloudinary.com/dymo0iyee/image/upload/v1725689329/1752_x3nrjw.jpg"
