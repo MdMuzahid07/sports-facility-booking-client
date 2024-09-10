@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import {
     Table,
     TableBody,
@@ -8,54 +9,90 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import { toast } from "sonner";
 
-const invoices = [
+const bookings = [
     {
-        invoice: "INV001",
-        paymentStatus: "Paid",
-        totalAmount: "$250.00",
-        paymentMethod: "Credit Card",
+        invoice: "INV-011",
+        paymentStatus: "Refunded",
+        name: "Alice Johnson",
+        price: 399.99,
+        userId: 98765,
     },
     {
-        invoice: "INV002",
+        invoice: "INV-012",
         paymentStatus: "Pending",
-        totalAmount: "$150.00",
-        paymentMethod: "PayPal",
+        name: "Bob Smith",
+        price: 149.99,
+        userId: 54321,
     },
     {
-        invoice: "INV003",
-        paymentStatus: "Unpaid",
-        totalAmount: "$350.00",
-        paymentMethod: "Bank Transfer",
-    },
-    {
-        invoice: "INV004",
+        invoice: "INV-013",
         paymentStatus: "Paid",
-        totalAmount: "$450.00",
-        paymentMethod: "Credit Card",
+        name: "Charlie Brown",
+        price: 299.99,
+        userId: 78901,
     },
     {
-        invoice: "INV005",
+        invoice: "INV-014",
+        paymentStatus: "Overdue",
+        name: "David Lee",
+        price: 179.99,
+        userId: 32109,
+    },
+    {
+        invoice: "INV-015",
         paymentStatus: "Paid",
-        totalAmount: "$550.00",
-        paymentMethod: "PayPal",
+        name: "Emily Wilson",
+        price: 229.99,
+        userId: 87654,
     },
     {
-        invoice: "INV006",
+        invoice: "INV-016",
         paymentStatus: "Pending",
-        totalAmount: "$200.00",
-        paymentMethod: "Bank Transfer",
+        name: "Frank Taylor",
+        price: 199.99,
+        userId: 43210,
     },
     {
-        invoice: "INV007",
-        paymentStatus: "Unpaid",
-        totalAmount: "$300.00",
-        paymentMethod: "Credit Card",
+        invoice: "INV-017",
+        paymentStatus: "Refunded",
+        name: "Grace Williams",
+        price: 349.99,
+        userId: 90123,
     },
-]
-
+    {
+        invoice: "INV-018",
+        paymentStatus: "Paid",
+        name: "Henry Baker",
+        price: 279.99,
+        userId: 65432,
+    },
+    {
+        invoice: "INV-019",
+        paymentStatus: "Pending",
+        name: "Isabella Clark",
+        price: 159.99,
+        userId: 12345,
+    },
+    {
+        invoice: "INV-020",
+        paymentStatus: "Overdue",
+        name: "Jack Carter",
+        price: 219.99,
+        userId: 78901,
+    }
+];
 
 const MyBookings = () => {
+
+    const handleCancel = () => {
+        const isProceed = window.confirm("Cancel Order");
+        if (isProceed) {
+            toast.success("Order cancelled successfully")
+        }
+    }
+
     return (
         <div className="py-10">
             <h1 className="gap-8 text-3xl md:text-4xl lg:text-5xl xl:text-7xl font-extrabold">
@@ -66,19 +103,27 @@ const MyBookings = () => {
                     <TableCaption>A list of your recent invoices.</TableCaption>
                     <TableHeader>
                         <TableRow>
-                            <TableHead className="w-[100px]">Invoice</TableHead>
-                            <TableHead>Status</TableHead>
-                            <TableHead>Method</TableHead>
-                            <TableHead className="text-right">Amount</TableHead>
+                            <TableHead className="w-[100px]">No.</TableHead>
+                            <TableHead>Invoice</TableHead>
+                            <TableHead>Payment Status</TableHead>
+                            <TableHead>Name</TableHead>
+                            <TableHead>Price</TableHead>
+                            <TableHead>user id</TableHead>
+                            <TableHead className="text-right">Actions</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {invoices?.map((invoice) => (
-                            <TableRow key={invoice.invoice}>
-                                <TableCell className="font-medium">{invoice.invoice}</TableCell>
-                                <TableCell>{invoice.paymentStatus}</TableCell>
-                                <TableCell>{invoice.paymentMethod}</TableCell>
-                                <TableCell className="text-right">{invoice.totalAmount}</TableCell>
+                        {bookings?.map(({ invoice, paymentStatus, name, userId, price }, index) => (
+                            <TableRow key={invoice}>
+                                <TableCell className="font-medium">{index + 1}</TableCell>
+                                <TableCell>{invoice}</TableCell>
+                                <TableCell>{paymentStatus}</TableCell>
+                                <TableCell>{name}</TableCell>
+                                <TableCell>{price}</TableCell>
+                                <TableCell>{userId}</TableCell>
+                                <TableCell className="text-right">
+                                    <Button onClick={() => handleCancel()}>Cancel</Button>
+                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

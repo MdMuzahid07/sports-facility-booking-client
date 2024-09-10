@@ -93,7 +93,6 @@ const ManageBookings = () => {
         }
     }
 
-
     return (
         <div className="py-10">
             <h1 className="gap-8 text-3xl md:text-4xl lg:text-5xl xl:text-7xl font-extrabold">

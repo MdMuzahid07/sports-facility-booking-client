@@ -15,8 +15,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
 import { AvatarFallback } from "@/components/ui/avatar";
+import { NavLink } from "react-router-dom";
 
 const UserDropdownDashboard = () => {
+
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -29,18 +31,20 @@ const UserDropdownDashboard = () => {
                 <DropdownMenuLabel className="text-xl">Hello, John</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
-                    <DropdownMenuItem className="rounded-none">
+                    <DropdownMenuItem>
                         <User className="mr-2 h-4 w-4" />
                         <span>Profile</span>
                         <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
                     </DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem className="rounded-none">
-                    <LogOut className="mr-2 h-4 w-4" />
-                    <span>Log out</span>
-                    <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-                </DropdownMenuItem>
+                <NavLink to="/">
+                    <DropdownMenuItem >
+                        <LogOut className="mr-2 h-4 w-4" />
+                        <span>Log out</span>
+                        <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+                    </DropdownMenuItem>
+                </NavLink>
             </DropdownMenuContent>
         </DropdownMenu>
     )
