@@ -3,6 +3,7 @@ import Login from "@/components/auth/Login";
 import SignUp from "@/components/auth/SignUp";
 import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 import MainLayout from "@/layouts/main/MainLayout";
+import ProtectedRoutes from "@/layouts/ProtectedRoutes";
 import AddAdmin from "@/pages/dashboard/AddAdmin";
 import ManageBookings from "@/pages/dashboard/bookings/ManageBookings";
 import DashboardWelcome from "@/pages/dashboard/DashboardWelcome";
@@ -52,7 +53,11 @@ const routes = createBrowserRouter([
     },
     {
         path: "/dashboard",
-        element: <DashboardLayout />,
+        element: (
+            <ProtectedRoutes>
+                <DashboardLayout />
+            </ProtectedRoutes>
+        ),
         children: [
             {
                 path: "home",
