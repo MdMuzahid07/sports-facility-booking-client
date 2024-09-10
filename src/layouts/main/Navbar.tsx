@@ -4,10 +4,13 @@ import { useState } from "react"
 import { Link, NavLink } from "react-router-dom"
 import { Menu, X } from "lucide-react";
 import UserDropdown from "./UserDropdown";
+import { useAppSelector } from "@/redux/hooks";
 
 const Navbar = () => {
     const [isMobileNavOpen, setIsMobileAppOpen] = useState(false);
-    const user = false;
+    const user = useAppSelector((state) => state.auth);
+    console.log(user, "getting by useAPPReducer ")
+    // const user = false;
 
     const handleMobileNav = () => setIsMobileAppOpen(!isMobileNavOpen);
 
@@ -31,7 +34,7 @@ const Navbar = () => {
                         }
                     </ul>
                     {
-                        user ? <UserDropdown /> : <Button className="hidden md:flex rounded-none md:text-xl">
+                        user?.role ? <UserDropdown /> : <Button className="hidden md:flex rounded-none md:text-xl">
                             <NavLink to="/login">Login</NavLink>
                         </Button>
                     }

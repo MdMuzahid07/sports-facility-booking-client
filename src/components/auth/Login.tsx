@@ -8,11 +8,14 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 import { useLoginUserMutation } from "@/redux/features/auth/authApi";
+import { setUser } from "@/redux/features/auth/authSlice";
+import { useAppDispatch } from "@/redux/hooks";
 
 const Login = () => {
     const [loginUser, { data, error, isLoading }] = useLoginUserMutation();
     const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
 
 
     if (isLoading) {
@@ -23,6 +26,11 @@ const Login = () => {
     };
     if (!error && data?.success) {
         toast.success(`Welcome back ${data?.data?.name}, login successfully`, { id: "loginUser" });
+        dispatch(setUser({
+            user: data?.data?._id,
+            userEmail: data?.data?.email,
+            role: data?.data?.role,
+        }))
         navigate("/");
     };
 

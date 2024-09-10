@@ -8,16 +8,14 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useCreateUserMutation } from "@/redux/features/auth/authApi";
 import { toast } from "sonner";
-import { useDispatch } from "react-redux";
 import { setUser } from "@/redux/features/auth/authSlice";
+import { useAppDispatch } from "@/redux/hooks";
 
 const SignUp = () => {
     const [createUser, { data, error, isLoading }] = useCreateUserMutation();
     const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate();
-    const dispatch = useDispatch();
-
-    console.log(data)
+    const dispatch = useAppDispatch();
 
 
     if (isLoading) {

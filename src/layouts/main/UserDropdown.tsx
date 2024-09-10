@@ -17,13 +17,19 @@ import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
 import { AvatarFallback } from "@/components/ui/avatar";
 import { NavLink } from "react-router-dom";
 import { toast } from "sonner";
+import { useAppDispatch } from "@/redux/hooks";
+import { logout } from "@/redux/features/auth/authSlice";
 
 const UserDropdown = () => {
+    const dispatch = useAppDispatch();
 
     const handleLogout = () => {
-        toast.success("logout successfully")
+        const proceed = window.confirm("logout?")
+        if (proceed) {
+            dispatch(logout());
+            toast.success("logout successfully");
+        }
     };
-
 
     return (
         <DropdownMenu>
