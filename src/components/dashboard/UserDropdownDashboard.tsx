@@ -1,4 +1,5 @@
 import {
+    Home,
     LogOut,
     User,
 } from "lucide-react";
@@ -41,6 +42,16 @@ const UserDropdownDashboard = () => {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-56 rounded-lg bg-white bg-opacity-45 backdrop-blur-sm py-4">
                 <DropdownMenuLabel className="text-xl">Hello, John</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuGroup>
+                    <NavLink to="/">
+                        <DropdownMenuItem>
+                            <Home className="mr-2 h-4 w-4" />
+                            <span>Home</span>
+                            <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+                        </DropdownMenuItem>
+                    </NavLink>
+                </DropdownMenuGroup>
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
                     <DropdownMenuItem>

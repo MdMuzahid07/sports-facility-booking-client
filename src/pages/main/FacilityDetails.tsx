@@ -1,12 +1,17 @@
-import { useNavigate } from 'react-router-dom';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useNavigate, useParams } from 'react-router-dom';
 import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
 import { DollarSign, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import FacilityCars from '@/components/main/FacilityCars';
+import { useGetAllFacilitiesQuery, useGetASingleFacilityQuery } from '@/redux/features/facilities/facilityApi';
+import PageTopByDefault from '@/utils/PageTopByDefault';
 
 const FacilityDetails = () => {
-    // const { facilityId } = useParams();
+    const { facilityId } = useParams();
+    const { data: allFacilities } = useGetAllFacilitiesQuery(undefined);
+    const { data: singleFacility } = useGetASingleFacilityQuery(facilityId);
     const navigate = useNavigate();
 
     const img = "https://res.cloudinary.com/dymo0iyee/image/upload/v1725689329/1752_x3nrjw.jpg"
@@ -16,6 +21,7 @@ const FacilityDetails = () => {
         navigate(`/facility-booking/${id}`);
     };
 
+    PageTopByDefault();
 
     return (
         <div className="bg-slate-200 py-32 px-4 xl:px-0">
@@ -33,30 +39,30 @@ const FacilityDetails = () => {
                         </div>
                     </div>
                     <div className="col-span-2 flex flex-col">
-                        <h3 className="text-2xl md:text-4xl font-extrabold mb-5 mt-8">Basketball</h3>
+                        <h3 className="text-2xl md:text-4xl font-extrabold mb-5 mt-8">{singleFacility?.data?.name}</h3>
                         <p className="mt-8 text-xl md:text-2xl mb-5 flex items-center gap-2">
                             <span><MapPin /></span>
-                            <span>Dhaka</span>
+                            <span>{singleFacility?.data?.location}</span>
                         </p>
                         <p className="text-xl md:text-2xl mb-5 flex items-center gap-2">
                             <span><DollarSign /></span>
-                            <span>30 hour</span>
+                            <span>{singleFacility?.data?.price} hour</span>
                         </p>
                         <div className="mt-14">
-                            <Button onClick={() => handleBookingPageRedirect("9087nb6876v")} className="rounded-none text-2xl">Book now</Button>
+                            <Button onClick={() => handleBookingPageRedirect(singleFacility?.data?._id)} className="rounded-none text-2xl">Book now</Button>
                         </div>
                     </div>
                 </div>
                 <div className="mt-10">
                     <p className="text-xl md:text-2xl">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam quia iure possimus commodi tempora magni harum soluta cupiditate dolorem eligendi?
+                        {singleFacility?.data?.description}
                     </p>
                 </div>
                 <div className="mt-44">
                     <h1 className="text-xl md:text-2xl lg:text-3xl font-bold mb-10 ">Some of others facilities</h1>
-                    <div className="w-full grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 md:gap-5">
+                    <div className="w-full grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 md:gap-5">
                         {
-                            [1, 2, 3, 4, 5]?.map(() => <FacilityCars styles="bg-[#2B2C2D] text-white" />)
+                            allFacilities?.data?.map((facility: any) => <FacilityCars key={facility?._id} facility={facility} styles="bg-[#2B2C2D] text-white" />)
                         }
                     </div>
                 </div>

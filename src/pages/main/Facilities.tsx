@@ -10,9 +10,11 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
+import { useGetAllFacilitiesQuery } from "@/redux/features/facilities/facilityApi";
 import { useState } from "react";
 
 const Facilities = () => {
+    const { data: allFacilities } = useGetAllFacilitiesQuery(undefined);
     const [price, setPrice] = useState<string | undefined>(undefined);
     const [searchFacility, setSearchFacility] = useState<string | undefined>(undefined);
 
@@ -79,8 +81,8 @@ const Facilities = () => {
                     <div className="col-span-3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                         {
                             // paginatedFacilites?.length > 0 ? (
-                            [1, 2, 3, 4, 5, 6, 7, 2, 1, 2, 3, 4, 5, 6, 7, 2, 1, 2, 3, 4, 5, 6, 7, 2, 1, 2, 3, 4, 5, 6, 7, 2, 3, 4, 5, 6, 7, 8]?.map((facility: any) => (
-                                <FacilityCars key={facility + Math.random()} styles="bg-[#1F1F1F] text-white" />
+                            allFacilities?.data?.map((facility: any) => (
+                                <FacilityCars key={facility?._id} styles="bg-[#1F1F1F] text-white" facility={facility} />
                             ))
                             // ) : (
                             //     <p className=" text-lg col-span-full">No facility found.</p>
