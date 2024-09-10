@@ -9,53 +9,80 @@ import {
     TableRow,
 } from "@/components/ui/table"
 
-const invoices = [
+import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu"
+import { Button } from "@/components/ui/button"
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuGroup,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuShortcut,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { useState } from "react"
+import { Pencil, Trash } from "lucide-react"
+
+type Checked = DropdownMenuCheckboxItemProps["checked"]
+
+const facilities = [
     {
-        invoice: "INV001",
-        paymentStatus: "Paid",
-        totalAmount: "$250.00",
-        paymentMethod: "Credit Card",
+        "name": "Product A",
+        "location": "Warehouse 1",
+        "price": 19.99
     },
     {
-        invoice: "INV002",
-        paymentStatus: "Pending",
-        totalAmount: "$150.00",
-        paymentMethod: "PayPal",
+        "name": "Product B",
+        "location": "Warehouse 2",
+        "price": 24.95
     },
     {
-        invoice: "INV003",
-        paymentStatus: "Unpaid",
-        totalAmount: "$350.00",
-        paymentMethod: "Bank Transfer",
+        "name": "Product C",
+        "location": "Store A",
+        "price": 15.99
     },
     {
-        invoice: "INV004",
-        paymentStatus: "Paid",
-        totalAmount: "$450.00",
-        paymentMethod: "Credit Card",
+        "name": "Product D",
+        "location": "Store B",
+        "price": 29.99
     },
     {
-        invoice: "INV005",
-        paymentStatus: "Paid",
-        totalAmount: "$550.00",
-        paymentMethod: "PayPal",
+        "name": "Product E",
+        "location": "Online Store",
+        "price": 17.99
     },
     {
-        invoice: "INV006",
-        paymentStatus: "Pending",
-        totalAmount: "$200.00",
-        paymentMethod: "Bank Transfer",
+        "name": "Product F",
+        "location": "Warehouse 1",
+        "price": 22.95
     },
     {
-        invoice: "INV007",
-        paymentStatus: "Unpaid",
-        totalAmount: "$300.00",
-        paymentMethod: "Credit Card",
+        "name": "Product G",
+        "location": "Store A",
+        "price": 18.99
     },
+    {
+        "name": "Product H",
+        "location": "Store B",
+        "price": 27.99
+    },
+    {
+        "name": "Product I",
+        "location": "Online Store",
+        "price": 20.99
+    },
+    {
+        "name": "Product J",
+        "location": "Warehouse 2",
+        "price": 25.95
+    }
 ]
 
 
 const ManageFacilities = () => {
+
+
     return (
         <div className="py-10">
             <h1 className="gap-8 text-3xl md:text-4xl lg:text-5xl xl:text-7xl font-extrabold">
@@ -66,28 +93,48 @@ const ManageFacilities = () => {
                     <TableCaption>A list of your recent invoices.</TableCaption>
                     <TableHeader>
                         <TableRow>
-                            <TableHead className="w-[100px]">Invoice</TableHead>
-                            <TableHead>Status</TableHead>
-                            <TableHead>Method</TableHead>
-                            <TableHead className="text-right">Amount</TableHead>
+                            <TableHead className="w-[100px]">No.</TableHead>
+                            <TableHead>Name</TableHead>
+                            <TableHead>Location</TableHead>
+                            <TableHead>Price</TableHead>
+                            <TableHead className="text-right">Appearance</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {invoices?.map((invoice) => (
-                            <TableRow key={invoice.invoice}>
-                                <TableCell className="font-medium">{invoice.invoice}</TableCell>
-                                <TableCell>{invoice.paymentStatus}</TableCell>
-                                <TableCell>{invoice.paymentMethod}</TableCell>
-                                <TableCell className="text-right">{invoice.totalAmount}</TableCell>
+                        {facilities?.map(({ name, location, price }, index) => (
+                            <TableRow key={price + Math.random()}>
+                                <TableCell className="font-medium">{index + 1}</TableCell>
+                                <TableCell>{name}</TableCell>
+                                <TableCell>{location}</TableCell>
+                                <TableCell>{price}</TableCell>
+                                <TableCell className="text-right">
+                                    <DropdownMenu>
+                                        <DropdownMenuTrigger asChild>
+                                            <Button>Options</Button>
+                                        </DropdownMenuTrigger>
+                                        <DropdownMenuContent align="end" className="w-56">
+                                            <DropdownMenuLabel className="font-bold">Appearance</DropdownMenuLabel>
+                                            <DropdownMenuSeparator />
+
+                                            <DropdownMenuGroup>
+                                                <DropdownMenuItem className="font-bold">
+                                                    <Pencil className="mr-2 h-4 w-4" />
+                                                    <span>Update</span>
+                                                    <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+                                                </DropdownMenuItem>
+                                                <DropdownMenuItem className="font-bold">
+                                                    <Trash className="mr-2 h-4 w-4" />
+                                                    <span>Delete</span>
+                                                    <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+                                                </DropdownMenuItem>
+                                            </DropdownMenuGroup>
+
+                                        </DropdownMenuContent>
+                                    </DropdownMenu>
+                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
-                    <TableFooter>
-                        <TableRow>
-                            <TableCell colSpan={3}>Total</TableCell>
-                            <TableCell className="text-right">$2,500.00</TableCell>
-                        </TableRow>
-                    </TableFooter>
                 </Table>
             </section>
         </div>
