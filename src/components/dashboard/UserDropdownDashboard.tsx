@@ -16,8 +16,20 @@ import {
 import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
 import { AvatarFallback } from "@/components/ui/avatar";
 import { NavLink } from "react-router-dom";
+import { logout } from "@/redux/features/auth/authSlice";
+import { useAppDispatch } from "@/redux/hooks";
+import { toast } from "sonner";
 
 const UserDropdownDashboard = () => {
+    const dispatch = useAppDispatch();
+
+    const handleLogout = () => {
+        const proceed = window.confirm("logout?")
+        if (proceed) {
+            dispatch(logout());
+            toast.success("logout successfully");
+        }
+    };
 
     return (
         <DropdownMenu>
@@ -39,7 +51,7 @@ const UserDropdownDashboard = () => {
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
                 <NavLink to="/">
-                    <DropdownMenuItem >
+                    <DropdownMenuItem onClick={handleLogout} >
                         <LogOut className="mr-2 h-4 w-4" />
                         <span>Log out</span>
                         <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>

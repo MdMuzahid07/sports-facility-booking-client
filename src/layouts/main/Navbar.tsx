@@ -9,8 +9,6 @@ import { useAppSelector } from "@/redux/hooks";
 const Navbar = () => {
     const [isMobileNavOpen, setIsMobileAppOpen] = useState(false);
     const user = useAppSelector((state) => state.auth);
-    console.log(user, "getting by useAPPReducer ")
-    // const user = false;
 
     const handleMobileNav = () => setIsMobileAppOpen(!isMobileNavOpen);
 
