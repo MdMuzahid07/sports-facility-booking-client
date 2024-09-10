@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { useState } from "react"
 import { Pencil, Trash } from "lucide-react"
+import { toast } from "sonner"
 
 type Checked = DropdownMenuCheckboxItemProps["checked"]
 
@@ -82,6 +83,13 @@ const facilities = [
 
 const ManageFacilities = () => {
 
+    const handleDelete = () => {
+        const proceed = window.confirm("Delete facility");
+        if (proceed) {
+            toast.success("Facility deleted successfully");
+        }
+    };
+
 
     return (
         <div className="py-10">
@@ -122,7 +130,7 @@ const ManageFacilities = () => {
                                                     <span>Update</span>
                                                     <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
                                                 </DropdownMenuItem>
-                                                <DropdownMenuItem className="font-bold">
+                                                <DropdownMenuItem onClick={() => handleDelete()} className="font-bold">
                                                     <Trash className="mr-2 h-4 w-4" />
                                                     <span>Delete</span>
                                                     <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
