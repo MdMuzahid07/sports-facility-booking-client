@@ -17,6 +17,7 @@ const Login = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
+    console.log(data?.data, "login data")
 
     if (isLoading) {
         return toast.loading("Please wait", { id: "loginUser" })
@@ -30,6 +31,7 @@ const Login = () => {
             user: data?.data?._id,
             userEmail: data?.data?.email,
             role: data?.data?.role,
+            token: data?.token,
         }))
         navigate("/");
     };
