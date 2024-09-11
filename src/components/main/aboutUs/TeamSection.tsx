@@ -6,7 +6,7 @@ const TeamSection = () => {
             <h3 className="text-3xl md:text-5xl font-extrabold mb-5">Our Team</h3>
             <div className="grid lg:grid-cols-2 gap-8 mt-10">
                 {
-                    [1, 2, 3, 4, 5, 6]?.map(() => <TeamCard />)
+                    [1, 2, 3, 4, 5, 6]?.map((index) => <TeamCard key={index} />)
                 }
             </div>
         </section>

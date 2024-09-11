@@ -10,6 +10,7 @@ import { useCreateUserMutation } from "@/redux/features/auth/authApi";
 import { toast } from "sonner";
 import { setUser } from "@/redux/features/auth/authSlice";
 import { useAppDispatch } from "@/redux/hooks";
+import verifyJwtToken from "@/utils/verifyJwtToken";
 
 const SignUp = () => {
     const [createUser, { data, error, isLoading }] = useCreateUserMutation();
@@ -22,18 +23,11 @@ const SignUp = () => {
         return toast.loading("Please wait", { id: "signUpUser" })
     };
     if (error) {
-        toast.error("Account creation failed, please try again!", { id: "signUpUser" });
+        toast.error(`${error?.data?.message ? error?.data?.message : "Account creation failed, please try again!"}`, { id: "signUpUser" });
     };
     if (!error && data?.success) {
-        toast.success(`Welcome ${data?.data?.name}, your account created successfully`, { id: "signUpUser" });
-        dispatch(setUser({
-            user: data?.data?._id,
-            userEmail: data?.data?.email,
-            role: data?.data?.role,
-        }))
-        navigate("/");
-    };
-
+        toast.success(`Welcome ${data?.data?.name}, account created successfully`, { id: "signUpUser" });
+    }
 
     const onSubmit = async (data: any) => {
         const signUpData = await {
@@ -41,7 +35,17 @@ const SignUp = () => {
             role: "user",
             address: " "
         };
-        createUser(signUpData);
+        const res = await createUser(signUpData).unwrap();
+        const user = verifyJwtToken(res?.token);
+        if (res && user) {
+            dispatch(setUser({
+                user: { ...user, id: res?.data?._id },
+                token: res?.token,
+            }));
+        }
+        if (res.success) {
+            navigate("/dashboard/home")
+        }
     };
 
     return (

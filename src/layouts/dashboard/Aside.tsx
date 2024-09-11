@@ -8,14 +8,12 @@ import { NavLink } from "react-router-dom";
 
 const Aside = ({ isSidebarOpen, setIsSidebarOpen }: any) => {
     const [userRole, setUserRole] = useState(" ");
-    const user = useAppSelector((state) => state.auth);
+    const user = useAppSelector((state) => state?.auth?.user);
 
 
     useEffect(() => {
         setUserRole(user?.role as string);
     }, [user]);
-
-    console.log(userRole)
 
     return (
         <aside className={

@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import { useLoginUserMutation } from "@/redux/features/auth/authApi";
 import { setUser } from "@/redux/features/auth/authSlice";
 import { useAppDispatch } from "@/redux/hooks";
+import verifyJwtToken from "@/utils/verifyJwtToken";
 
 const Login = () => {
     const [loginUser, { data, error, isLoading }] = useLoginUserMutation();
@@ -17,30 +18,32 @@ const Login = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
-    console.log(data?.data, "login data")
 
     if (isLoading) {
         return toast.loading("Please wait", { id: "loginUser" })
     };
     if (error) {
-        toast.error("Login failed, please try again!", { id: "loginUser" });
+        toast.error(`${error?.data?.message}`, { id: "loginUser" });
     };
     if (!error && data?.success) {
-        toast.success(`Welcome back ${data?.data?.name}, login successfully`, { id: "loginUser" });
-        dispatch(setUser({
-            user: data?.data?._id,
-            userEmail: data?.data?.email,
-            role: data?.data?.role,
-            token: data?.token,
-        }))
-        navigate("/");
-    };
+        toast.success(`Welcome back ${data?.data?.name ? data?.data?.name : "Login failed, please try again!"}, login successfully`, { id: "loginUser" });
+    }
 
     const onSubmit = async (data: any) => {
-        const login = await {
+        const login = {
             ...data,
         };
-        loginUser(login);
+        const res = await loginUser(login).unwrap();
+        const user = verifyJwtToken(res?.token);
+        if (res && user) {
+            dispatch(setUser({
+                user: { ...user, id: res?.data?._id },
+                token: res?.token,
+            }));
+        }
+        if (res.success) {
+            navigate("/dashboard/home")
+        }
     };
 
     return (

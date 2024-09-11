@@ -9,8 +9,9 @@ const HistoryAndTimeline = () => {
             <div className="mt-10">
                 <VerticalTimeline layout={"1-column-left"}>
                     {
-                        [1, 2, 3, 4, 5, 6, 7]?.map(() => (
+                        [1, 2, 3, 4, 5, 6, 7]?.map((index) => (
                             <VerticalTimelineElement
+                                key={index}
                                 className="vertical-timeline-element--work"
                                 contentStyle={{ background: '#F1F5F9', color: '#2C2D2D' }}
                                 contentArrowStyle={{ borderRight: '7px solid  #F1F5F9' }}

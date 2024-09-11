@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useGetAllFacilitiesQuery } from "@/redux/features/facilities/facilityApi";
-import FacilityCars from "./FacilityCars";
+import FacilityCard from "./FacilityCard";
 
 const FeaturedFacilities = () => {
     const { data: allFacilities } = useGetAllFacilitiesQuery(undefined);
@@ -13,7 +13,7 @@ const FeaturedFacilities = () => {
 
                 <div className="mt-20 grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                     {
-                        allFacilities?.data?.map((facility: any) => <FacilityCars
+                        allFacilities?.data?.map((facility: any) => <FacilityCard
                             key={facility?._id} facility={facility} styles="border-slate-200" />)
                     }
                 </div>

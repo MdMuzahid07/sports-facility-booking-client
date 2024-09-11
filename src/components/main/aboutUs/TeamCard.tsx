@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Facebook, Linkedin, Twitter } from "lucide-react";
+import { memo } from "react";
 
 const TeamCard = () => {
     return (
@@ -33,4 +34,4 @@ const TeamCard = () => {
     );
 };
 
-export default TeamCard;
+export default memo(TeamCard);

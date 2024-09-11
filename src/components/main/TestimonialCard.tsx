@@ -1,5 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { Quote } from "lucide-react";
+import { memo } from "react";
 
 const TestimonialCard = () => {
     return (
@@ -24,4 +25,4 @@ const TestimonialCard = () => {
     )
 };
 
-export default TestimonialCard;
+export default memo(TestimonialCard);

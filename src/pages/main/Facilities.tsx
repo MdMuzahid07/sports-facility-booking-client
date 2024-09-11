@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import FacilityCars from "@/components/main/FacilityCars";
+import FacilityCard from "@/components/main/FacilityCard";
 import { Input } from "@/components/ui/input";
 import {
     Select,
@@ -11,6 +11,7 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import { useGetAllFacilitiesQuery } from "@/redux/features/facilities/facilityApi";
+import PageTopByDefault from "@/utils/PageTopByDefault";
 import { useState } from "react";
 
 const Facilities = () => {
@@ -35,6 +36,7 @@ const Facilities = () => {
     //     currentPage * facilityPerPage
     // );
 
+    PageTopByDefault();
 
     return (
         <section className="bg-slate-200">
@@ -82,7 +84,7 @@ const Facilities = () => {
                         {
                             // paginatedFacilites?.length > 0 ? (
                             allFacilities?.data?.map((facility: any) => (
-                                <FacilityCars key={facility?._id} styles="bg-[#1F1F1F] text-white" facility={facility} />
+                                <FacilityCard key={facility?._id} styles="bg-[#1F1F1F] text-white" facility={facility} />
                             ))
                             // ) : (
                             //     <p className=" text-lg col-span-full">No facility found.</p>

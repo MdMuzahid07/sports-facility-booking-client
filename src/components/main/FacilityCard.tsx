@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useRef } from "react";
+import { memo, useRef } from "react";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../ui/card";
 import { motion, useInView } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
 
-const FacilityCars = ({ facility, styles }: any) => {
+const FacilityCard = ({ facility, styles }: any) => {
     const ref = useRef(null);
     const isInView = useInView(ref);
     const navigate = useNavigate();
@@ -14,6 +14,7 @@ const FacilityCars = ({ facility, styles }: any) => {
 
     const handleRedirectToDetails = (id: string) => {
         navigate(`/facility-details/${id}`);
+        window.scrollTo({ top: 0, behavior: "smooth" });
     };
 
 
@@ -41,4 +42,4 @@ const FacilityCars = ({ facility, styles }: any) => {
     );
 };
 
-export default FacilityCars;
+export default memo(FacilityCard);

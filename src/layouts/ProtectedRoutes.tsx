@@ -1,27 +1,28 @@
 import { useAppSelector } from "@/redux/hooks";
-import { ReactNode } from "react";
+import { memo, ReactNode, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { useEffect } from "react";
+
+// using memoization (memo) to prevent unnecessary re-render when props not change
 
 const ProtectedRoutes = ({ children }: { children: ReactNode }) => {
-    const user = useAppSelector((state) => state.auth);
+    const user = useAppSelector((state) => state.auth.user);
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!user || (!user.userEmail && !user.role)) {
-            toast.error("Please login!", { id: "unauthorizedDetected" });
+        if (!user?.email && !user?.role) {
             navigate("/login");
+            toast.error("Please login!", { id: "protectedRoutesError" });
         }
     }, [user, navigate]);
 
-    if (user && user.userEmail && user.role) {
-        return <>
-            {children}
-        </>;
+    if (!user?.email && !user?.role) {
+        return null;
     };
 
-    return null;
+    return <>
+        {children}
+    </>;
 };
 
-export default ProtectedRoutes;
+export default memo(ProtectedRoutes);

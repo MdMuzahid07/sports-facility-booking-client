@@ -4,9 +4,9 @@ import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
 import { DollarSign, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import FacilityCars from '@/components/main/FacilityCars';
 import { useGetAllFacilitiesQuery, useGetASingleFacilityQuery } from '@/redux/features/facilities/facilityApi';
 import PageTopByDefault from '@/utils/PageTopByDefault';
+import FacilityCard from '@/components/main/FacilityCard';
 
 const FacilityDetails = () => {
     const { facilityId } = useParams();
@@ -62,7 +62,7 @@ const FacilityDetails = () => {
                     <h1 className="text-xl md:text-2xl lg:text-3xl font-bold mb-10 ">Some of others facilities</h1>
                     <div className="w-full grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 md:gap-5">
                         {
-                            allFacilities?.data?.map((facility: any) => <FacilityCars key={facility?._id} facility={facility} styles="bg-[#2B2C2D] text-white" />)
+                            allFacilities?.data?.map((facility: any) => <FacilityCard key={facility?._id} facility={facility} styles="bg-[#2B2C2D] text-white" />)
                         }
                     </div>
                 </div>
