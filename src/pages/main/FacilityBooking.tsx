@@ -65,10 +65,10 @@ const FacilityBooking = () => {
             console.log(res, "response of create booking")
             if (res.success) {
                 toast.success("Booking Successfully", { id: "createBookingByUser" });
+                window.location.href = res?.data?.paymentSession?.payment_url;
             }
         } catch (error) {
-            toast.error("Something went wrong!", { id: "createBookingByUser" });
-            console.log(error);
+            toast.error(error.data.message, { id: "createBookingByUser" });
         }
     };
 
@@ -154,7 +154,7 @@ const FacilityBooking = () => {
                                 </section>
                                 <section className="space-y-4 max-h-[400px] overflow-y-auto">
                                     {availableSlots?.data?.map((slots: any, index: number) => (
-                                        <div key={slots?._id} className="flex items-center justify-between">
+                                        <div key={slots?._id + Math.random()} className="flex items-center justify-between">
                                             {/* Start Time Selection */}
                                             <div className="flex items-center space-x-2">
                                                 <input

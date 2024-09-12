@@ -11,12 +11,10 @@ const FacilityCard = ({ facility, styles }: any) => {
     const isInView = useInView(ref);
     const navigate = useNavigate();
 
-
     const handleRedirectToDetails = (id: string) => {
         navigate(`/facility-details/${id}`);
         window.scrollTo({ top: 0, behavior: "smooth" });
     };
-
 
     return (
         <div ref={ref}>
@@ -31,6 +29,7 @@ const FacilityCard = ({ facility, styles }: any) => {
                     </CardHeader>
                     <CardContent>
                         <CardTitle>{facility?.name}</CardTitle>
+                        <CardTitle className="mt-2 text-md">${facility?.pricePerHour} hour</CardTitle>
                         <CardDescription className="mt-2">{facility?.description}</CardDescription>
                     </CardContent>
                     <CardFooter className="absolute bottom-0 right-0">
