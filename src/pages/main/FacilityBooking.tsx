@@ -16,15 +16,15 @@ import {
 } from "@/components/ui/popover"
 import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
-import { Checkbox } from "@/components/ui/checkbox";
 import { useCheckAvailabilityQuery } from "@/redux/features/bookings/bookingsApi";
 import { useGetASingleFacilityQuery } from "@/redux/features/facilities/facilityApi";
-const img = "https://res.cloudinary.com/dymo0iyee/image/upload/v1725689329/1752_x3nrjw.jpg"
 
 
 const FacilityBooking = () => {
     const { bookById } = useParams();
     const [date, setDate] = useState<Date>();
+    const [selectedStartTime, setSelectedStartTime] = useState('');
+    const [selectedEndTime, setSelectedEndTime] = useState('');
     const [formattedDate, setFormattedDate] = useState();
     const { data: availableSlots } = useCheckAvailabilityQuery(
         { date: formattedDate, id: bookById },
@@ -41,12 +41,25 @@ const FacilityBooking = () => {
         }
     };
 
+    const handleStartTimeSelect = (event: React.MouseEvent<HTMLInputElement>) => {
+        const target = event.target as HTMLInputElement;
+        setSelectedStartTime(target.value);
+    };
+
+    const handleEndTimeSelect = (event: React.MouseEvent<HTMLInputElement>) => {
+        const target = event.target as HTMLInputElement;
+        setSelectedEndTime(target.value);
+    };
+
+
+    console.log({ startTime: selectedStartTime, endTime: selectedEndTime })
+
 
     return (
         <div className="bg-slate-200 py-32">
             <section className="max-w-7xl mx-auto px-4 xl:px-0">
                 <h3 className="text-3xl md:text-5xl font-extrabold mb-5">Booking</h3>
-                <div className="grid grid-cols-1 lg:grid-cols-5 w-full min-h-[500px] bg-slate-100">
+                <section className="grid grid-cols-1 lg:grid-cols-5 w-full min-h-[500px] bg-slate-100">
                     <div className="col-span-3 bg-white">
                         <div className="col-span-3 flex justify-center items-center">
                             <div className="w-full">
@@ -78,10 +91,10 @@ const FacilityBooking = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="col-span-2 p-10">
+                    <section className="col-span-2 p-10">
                         <h3 className="text-xl md:text-2xl font-extrabold mb-2">Check Availability</h3>
                         <div className="mt-5">
-                            <div>
+                            <section>
                                 <label className="text-xl" htmlFor="">Select Date</label>
                                 <br />
                                 <Popover>
@@ -107,61 +120,78 @@ const FacilityBooking = () => {
                                         />
                                     </PopoverContent>
                                 </Popover>
-                            </div>
-                            <div className="mt-10">
+                            </section>
+                            <section className="mt-10">
                                 <h1 className="text-xl mb-3">Available Slots ({availableSlots?.data?.length})</h1>
                                 <div className="flex items-center justify-between">
                                     <Badge className="max-w-44 w-full rounded-none py-1.5 text-lg">Start Time</Badge>
                                     <MoveRight />
                                     <Badge className="max-w-44 w-full rounded-none py-1.5 text-lg">End Time</Badge>
                                 </div>
-                            </div>
+                            </section>
                             <hr className="my-5 border-t border-black" />
-                            <div>
-                                <div className="flex items-center justify-between mb-5">
+                            <section>
+                                <section className="flex items-center justify-between mb-5">
                                     <p className="text-xl">Start Time</p>
                                     <p className="text-xl">End Time</p>
-                                </div>
-                                <div className="space-y-4 max-h-[400px] overflow-y-auto">
-                                    {
-                                        availableSlots?.data?.map((slots: any) => (
-                                            <div key={slots?._id} className="flex items-center justify-between">
-                                                <div className="flex items-center space-x-2">
-                                                    <Checkbox id="terms" />
-                                                    <label
-                                                        htmlFor="terms"
-                                                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                                                    >
-                                                        {slots?.startTime}
-                                                    </label>
-                                                </div>
-                                                <MoveRight />
-                                                <div className="flex items-center space-x-2">
-                                                    <Checkbox id="terms" />
-                                                    <label
-                                                        htmlFor="terms"
-                                                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                                                    >
-                                                        {slots?.endTime}
-                                                    </label>
-                                                </div>
+                                </section>
+                                <section className="space-y-4 max-h-[400px] overflow-y-auto">
+                                    {availableSlots?.data?.map((slots: any, index) => (
+                                        <div key={slots?._id} className="flex items-center justify-between">
+                                            {/* Start Time Selection */}
+                                            <div className="flex items-center space-x-2">
+                                                <input
+                                                    type="radio"
+                                                    name="startTime"
+                                                    onClick={handleStartTimeSelect}
+                                                    value={slots?.startTime}
+                                                    checked={selectedStartTime === slots?.startTime} // Allow only one start time selection
+                                                    className="radio"
+                                                    id={`startTime-${index}`}
+                                                />
+                                                <label
+                                                    htmlFor={`startTime-${index}`}
+                                                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                                >
+                                                    {slots?.startTime}
+                                                </label>
                                             </div>
-                                        ))
-                                    }
-                                </div>
+                                            <MoveRight />
+                                            {/* End Time Selection */}
+                                            <div className="flex items-center space-x-2">
+                                                <input
+                                                    type="radio"
+                                                    name="endTime"
+                                                    onClick={handleEndTimeSelect}
+                                                    value={slots?.endTime}
+                                                    checked={selectedEndTime === slots?.endTime} // Allow only one end time selection
+                                                    className="radio"
+                                                    id={`endTime-${index}`}
+                                                />
+                                                <label
+                                                    htmlFor={`endTime-${index}`}
+                                                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                                >
+                                                    {slots?.endTime}
+                                                </label>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </section>
 
-                                <div className="flex justify-end">
+
+                                <section className="flex justify-end">
                                     <Button className="mt-10 rounded-none text-lg space-x-2">
                                         <span>
-                                            Proceed to Pay
+                                            Confirm Booking
                                         </span>
                                         <ArrowRight />
                                     </Button>
-                                </div>
-                            </div>
+                                </section>
+                            </section>
                         </div>
-                    </div>
-                </div>
+                    </section>
+                </section>
             </section>
         </div>
     )
