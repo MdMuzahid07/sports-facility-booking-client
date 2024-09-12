@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
     Table,
     TableBody,
@@ -19,70 +20,31 @@ import {
     DropdownMenuShortcut,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Pencil, Trash } from "lucide-react"
+import { Pencil, Settings, Trash } from "lucide-react"
 import { toast } from "sonner"
-
-
-const facilities = [
-    {
-        "name": "Product A",
-        "location": "Warehouse 1",
-        "price": 19.99
-    },
-    {
-        "name": "Product B",
-        "location": "Warehouse 2",
-        "price": 24.95
-    },
-    {
-        "name": "Product C",
-        "location": "Store A",
-        "price": 15.99
-    },
-    {
-        "name": "Product D",
-        "location": "Store B",
-        "price": 29.99
-    },
-    {
-        "name": "Product E",
-        "location": "Online Store",
-        "price": 17.99
-    },
-    {
-        "name": "Product F",
-        "location": "Warehouse 1",
-        "price": 22.95
-    },
-    {
-        "name": "Product G",
-        "location": "Store A",
-        "price": 18.99
-    },
-    {
-        "name": "Product H",
-        "location": "Store B",
-        "price": 27.99
-    },
-    {
-        "name": "Product I",
-        "location": "Online Store",
-        "price": 20.99
-    },
-    {
-        "name": "Product J",
-        "location": "Warehouse 2",
-        "price": 25.95
-    }
-]
+import { useDeleteAFacilityMutation, useGetAllFacilitiesQuery } from "@/redux/features/facilities/facilityApi"
 
 
 const ManageFacilities = () => {
+    const { data: allFacilities } = useGetAllFacilitiesQuery(undefined);
+    const [deleteAFacility, { error }] = useDeleteAFacilityMutation();
 
-    const handleDelete = () => {
+
+    const handleDelete = async (id: string) => {
         const proceed = window.confirm("Delete facility");
         if (proceed) {
-            toast.success("Facility deleted successfully");
+            try {
+                toast.loading("Loading...", { id: "deleteId" });
+                const res = await deleteAFacility(id).unwrap();
+                if (res?.success) {
+                    toast.success("Facility deleted successfully", { id: "deleteId" });
+                }
+                else {
+                    toast.error(`${error?.data?.message}`, { id: "deleteId" });
+                }
+            } catch (error) {
+                toast.error(`${error?.data?.message}`, { id: "deleteId" });
+            }
         }
     };
 
@@ -94,10 +56,11 @@ const ManageFacilities = () => {
             </h1>
             <section className="mt-14">
                 <Table className="bg-white rounded-lg">
-                    <TableCaption>A list of your recent invoices.</TableCaption>
+                    <TableCaption>A list of facilities</TableCaption>
                     <TableHeader>
                         <TableRow>
                             <TableHead className="w-[100px]">No.</TableHead>
+                            <TableHead>Image</TableHead>
                             <TableHead>Name</TableHead>
                             <TableHead>Location</TableHead>
                             <TableHead>Price</TableHead>
@@ -105,19 +68,31 @@ const ManageFacilities = () => {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {facilities?.map(({ name, location, price }, index) => (
-                            <TableRow key={price + Math.random()}>
+                        {allFacilities?.data?.map((facility: any, index: any) => (
+                            <TableRow key={facility?._id}>
                                 <TableCell className="font-medium">{index + 1}</TableCell>
-                                <TableCell>{name}</TableCell>
-                                <TableCell>{location}</TableCell>
-                                <TableCell>{price}</TableCell>
+                                <TableCell>
+                                    <img className="w-32 h-20 rounded-lg object-cover" src={facility?.image} alt="" />
+                                </TableCell>
+                                <TableCell>{facility?.name}</TableCell>
+                                <TableCell>{facility?.location}</TableCell>
+                                <TableCell>${facility?.pricePerHour} hour</TableCell>
                                 <TableCell className="text-right">
                                     <DropdownMenu>
                                         <DropdownMenuTrigger asChild>
-                                            <Button>Options</Button>
+                                            <Button className="flex items-center gap-2">
+                                                <span>
+                                                    <Settings size={15} />
+                                                </span>
+                                                <span>
+                                                    Options
+                                                </span>
+                                            </Button>
                                         </DropdownMenuTrigger>
                                         <DropdownMenuContent align="end" className="w-56">
-                                            <DropdownMenuLabel className="font-bold">Appearance</DropdownMenuLabel>
+                                            <DropdownMenuLabel className="font-bold">
+                                                Appearance
+                                            </DropdownMenuLabel>
                                             <DropdownMenuSeparator />
 
                                             <DropdownMenuGroup>
@@ -126,7 +101,7 @@ const ManageFacilities = () => {
                                                     <span>Update</span>
                                                     <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
                                                 </DropdownMenuItem>
-                                                <DropdownMenuItem onClick={() => handleDelete()} className="font-bold">
+                                                <DropdownMenuItem onClick={() => handleDelete(facility?._id)} className="font-bold">
                                                     <Trash className="mr-2 h-4 w-4" />
                                                     <span>Delete</span>
                                                     <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
