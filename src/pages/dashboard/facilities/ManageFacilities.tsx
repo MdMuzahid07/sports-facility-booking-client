@@ -23,12 +23,13 @@ import {
 import { Pencil, Settings, Trash } from "lucide-react"
 import { toast } from "sonner"
 import { useDeleteAFacilityMutation, useGetAllFacilitiesQuery } from "@/redux/features/facilities/facilityApi"
+import { useNavigate } from "react-router-dom"
 
 
 const ManageFacilities = () => {
     const { data: allFacilities } = useGetAllFacilitiesQuery(undefined);
     const [deleteAFacility, { error }] = useDeleteAFacilityMutation();
-
+    const navigate = useNavigate();
 
     const handleDelete = async (id: string) => {
         const proceed = window.confirm("Delete facility");
@@ -46,6 +47,11 @@ const ManageFacilities = () => {
                 toast.error(`${error?.data?.message}`, { id: "deleteId" });
             }
         }
+    };
+
+
+    const handleUpdateFacility = (id: string) => {
+        navigate(`/dashboard/update-facility/${id}`);
     };
 
 
@@ -96,7 +102,9 @@ const ManageFacilities = () => {
                                             <DropdownMenuSeparator />
 
                                             <DropdownMenuGroup>
-                                                <DropdownMenuItem className="font-bold">
+                                                <DropdownMenuItem
+                                                    onClick={() => handleUpdateFacility(facility?._id)}
+                                                    className="font-bold">
                                                     <Pencil className="mr-2 h-4 w-4" />
                                                     <span>Update</span>
                                                     <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>

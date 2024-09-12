@@ -11,6 +11,14 @@ const facilityApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ["facility"]
         }),
+        updateAFacility: builder.mutation({
+            query: ({ id, data }) => ({
+                url: `/facility/${id}`,
+                method: "PATCH",
+                body: data
+            }),
+            invalidatesTags: ["facility"]
+        }),
         getAllFacilities: builder.query({
             query: () => ({
                 url: "/facility",
@@ -40,5 +48,6 @@ export const {
     useGetAllFacilitiesQuery,
     useCreateFacilityMutation,
     useGetASingleFacilityQuery,
-    useDeleteAFacilityMutation
+    useDeleteAFacilityMutation,
+    useUpdateAFacilityMutation
 } = facilityApi;

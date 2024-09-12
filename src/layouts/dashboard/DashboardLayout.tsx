@@ -27,7 +27,7 @@ const DashboardLayout = () => {
                             <div
                                 className={
                                     `${isSidebarOpen
-                                        ? "col-span-12 md:col-span-8 lg:col-span-10"
+                                        ? "col-span-12 lg:col-span-8 xl:col-span-10"
                                         : "col-span-12"
                                     }`
                                 }

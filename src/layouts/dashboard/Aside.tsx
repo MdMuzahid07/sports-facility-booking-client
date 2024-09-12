@@ -18,7 +18,7 @@ const Aside = ({ isSidebarOpen, setIsSidebarOpen }: any) => {
     return (
         <aside className={
             `${isSidebarOpen ? "flex" : "hidden"
-            } col-span-12 md:col-span-4 lg:col-span-2 text-[18px] sm:text-[25px] bg-slate-200 text-black min-h-screen sm:max-h-screen h-full w-full sticky top-0 border-r z-50
+            } col-span-12 lg:col-span-4 xl:col-span-2 text-[18px] sm:text-[25px] bg-slate-200 text-black min-h-screen sm:max-h-screen h-full w-full sticky top-0 border-r z-50
             `
         }>
             <div
@@ -28,7 +28,7 @@ const Aside = ({ isSidebarOpen, setIsSidebarOpen }: any) => {
 
                 <button
                     onClick={() => setIsSidebarOpen(false)}
-                    className="fixed right-10 top-10 border rounded-full w-10 h-10 flex justify-center items-center md:hidden bg-black text-white"
+                    className="fixed right-10 top-10 border rounded-full w-10 h-10 flex justify-center items-center lg:hidden bg-black text-white"
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
