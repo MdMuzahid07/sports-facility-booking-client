@@ -29,7 +29,6 @@ const UpdateFacility = () => {
     if (data && data.success) {
         toast.success("Faculty update successfully!", { id: "updateFacilityToastID" });
     }
-    // console.log({ data, error });
 
 
     const onSubmit = async (updatedData: any) => {

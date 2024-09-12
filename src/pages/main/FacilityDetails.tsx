@@ -14,8 +14,6 @@ const FacilityDetails = () => {
     const { data: singleFacility } = useGetASingleFacilityQuery(facilityId);
     const navigate = useNavigate();
 
-    const img = "https://res.cloudinary.com/dymo0iyee/image/upload/v1725689329/1752_x3nrjw.jpg"
-
 
     const handleBookingPageRedirect = (id: string) => {
         navigate(`/facility-booking/${id}`);
@@ -31,7 +29,7 @@ const FacilityDetails = () => {
                         <div className="w-full">
                             <Zoom>
                                 <img
-                                    src={img}
+                                    src={singleFacility?.data?.image}
                                     alt="image"
                                     className="w-full h-auto max-h-[500px] object-cover shadow-lg"
                                 />
@@ -46,7 +44,7 @@ const FacilityDetails = () => {
                         </p>
                         <p className="text-xl md:text-2xl mb-5 flex items-center gap-2">
                             <span><DollarSign /></span>
-                            <span>{singleFacility?.data?.price} hour</span>
+                            <span>{singleFacility?.data?.pricePerHour} hour</span>
                         </p>
                         <div className="mt-14">
                             <Button onClick={() => handleBookingPageRedirect(singleFacility?.data?._id)} className="rounded-none text-2xl">Book now</Button>

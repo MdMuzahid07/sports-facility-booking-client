@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import FacilityCard from "@/components/main/FacilityCard";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
     Select,
@@ -12,39 +13,53 @@ import {
 } from "@/components/ui/select"
 import { useGetAllFacilitiesQuery } from "@/redux/features/facilities/facilityApi";
 import PageTopByDefault from "@/utils/PageTopByDefault";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 const Facilities = () => {
     const { data: allFacilities } = useGetAllFacilitiesQuery(undefined);
-    const [price, setPrice] = useState<string | undefined>(undefined);
-    const [searchFacility, setSearchFacility] = useState<string | undefined>(undefined);
-
-    const handleFilterChange = (value: string) => {
-        setPrice(value);
-    };
+    const [searchQuery, setSearchQuery] = useState("");
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 6;
 
     const handleSearch = (e: any) => {
-        setSearchFacility(e.target.value)
+        setSearchQuery(e.target.value);
     };
 
-    // const totalFacilities = filteredFacilities?.length;
-    // const facilityPerPage = 9
+    const filteredFacilities = useMemo(() => {
+        if (!searchQuery.trim()) {
+            return allFacilities?.data || [];
+        }
 
-    // const totalPages = Math?.ceil(totalFacilities / facilityPerPage);
-    // const paginatedFacilites = filteredFacilities?.slice(
-    //     (currentPage - 1) * facilityPerPage,
-    //     currentPage * facilityPerPage
-    // );
+        return allFacilities?.data?.filter((facility: any) => {
+            return (
+                facility?.name.toLowerCase().includes(searchQuery.trim()) || facility?.location.toLowerCase().includes(searchQuery.trim())
+            )
+        });
+
+    }, [searchQuery, allFacilities]);
+
+
+    // pagination
+    const totalPages = Math.ceil(filteredFacilities.length / itemsPerPage);
+    const currentItems = useMemo(() => {
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        return filteredFacilities.slice(startIndex, endIndex);
+    }, [currentPage, filteredFacilities]);
+
+    const handleChangePage = (page: number) => {
+        setCurrentPage(page);
+    };
 
     PageTopByDefault();
 
     return (
         <section className="bg-slate-200">
-            <div className="h-[300px] w-screen relative">
+            <section className="h-[300px] w-screen relative">
                 <img className="h-full w-full object-cover" src="https://res.cloudinary.com/dymo0iyee/image/upload/v1725805321/Untitled_design_xi0qdl.png" alt="" />
-            </div>
+            </section>
             <div className="max-w-7xl mx-auto px-4 xl:px-0 py-32">
-                <div className="grid grid-cols-1 lg:grid-cols-4 lg:gap-10">
+                <section className="grid grid-cols-1 lg:grid-cols-4 lg:gap-10">
                     {/* Search and Filter Section */}
                     <aside className="col-span-1 max-h-[700px] sticky top-24 bg-slate-100 p-6 w-full mb-10 lg:mb-0">
                         <h2 className="text-2xl font-extrabold  mb-10">Filter Facility</h2>
@@ -52,17 +67,17 @@ const Facilities = () => {
                         <div className="mb-8">
                             <label className="block font-semibold mb-2">Search Facility</label>
                             <Input
+                                value={searchQuery}
+                                onChange={handleSearch}
                                 type="text"
                                 className="rounded-none"
                                 placeholder="write here..."
-                                value={searchFacility}
-                                onChange={handleSearch}
                             />
                         </div>
 
                         <div>
                             <label className="block font-semibold mb-2">Filter by price</label>
-                            <Select value={price} onValueChange={handleFilterChange}>
+                            <Select>
                                 <SelectTrigger className="w-full rounded-none">
                                     <SelectValue placeholder="Select a fruit" />
                                 </SelectTrigger>
@@ -82,27 +97,27 @@ const Facilities = () => {
 
                     <div className="col-span-3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                         {
-                            // paginatedFacilites?.length > 0 ? (
-                            allFacilities?.data?.map((facility: any) => (
+                            currentItems?.map((facility: any) => (
                                 <FacilityCard key={facility?._id} styles="bg-[#1F1F1F] text-white" facility={facility} />
                             ))
-                            // ) : (
-                            //     <p className=" text-lg col-span-full">No facility found.</p>
-                            // )
                         }
                     </div>
-                </div>
-                {/* <div className="flex justify-end mt-8">
-                    <nav>
-                        <ul className="flex items-center space-x-2">
-                            {Array?.from({ length: totalPages }, (_, index) => (
-                                <li key={index}>
-                                    <button onClick={() => handlePageChange(index + 1)} className="w-7 h-7 flex justify-center items-center  border border-green-900 hover:bg-green-900 hover:text-white">{index + 1}</button>
-                                </li>
-                            ))}
-                        </ul>
-                    </nav>
-                </div> */}
+
+                </section>
+                <section className="flex w-full items-center gap-6 justify-end mt-14">
+                    {/* Array.form  This creates an array of a specific length (totalPages in this case) */}
+                    {Array.from({ length: totalPages }, (_, index) => (
+                        <Button
+                            className="rounded-none"
+                            key={index}
+                            onClick={() => handleChangePage(index + 1)}
+                            //  disables the button for the currently active page, so user can't re select the page they are already on.
+                            disabled={currentPage === index + 1}
+                        >
+                            {index + 1}
+                        </Button>
+                    ))}
+                </section>
             </div>
         </section>
     )

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
     Table,
@@ -24,7 +25,11 @@ import { Pencil, Settings, Trash } from "lucide-react"
 import { toast } from "sonner"
 import { useDeleteAFacilityMutation, useGetAllFacilitiesQuery } from "@/redux/features/facilities/facilityApi"
 import { useNavigate } from "react-router-dom"
+import { FetchBaseQueryError } from "@reduxjs/toolkit/query"
 
+type TError = {
+    message?: string;
+}
 
 const ManageFacilities = () => {
     const { data: allFacilities } = useGetAllFacilitiesQuery(undefined);
@@ -41,10 +46,16 @@ const ManageFacilities = () => {
                     toast.success("Facility deleted successfully", { id: "deleteId" });
                 }
                 else {
-                    toast.error(`${error?.data?.message}`, { id: "deleteId" });
+                    if (error) {
+                        if ("data" in error && (error as FetchBaseQueryError).data) {
+                            toast.error(`${((error as FetchBaseQueryError).data as TError)?.message || "Something went wrong!"}`, { id: "deleteId" });
+                        } else {
+                            toast.error(`Something went wrong!`, { id: "deleteId" });
+                        }
+                    };
                 }
             } catch (error) {
-                toast.error(`${error?.data?.message}`, { id: "deleteId" });
+                toast.error(`Something went wrong!`, { id: "deleteId" });
             }
         }
     };

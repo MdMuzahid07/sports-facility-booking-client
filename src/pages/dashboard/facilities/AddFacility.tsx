@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 
 const AddFacility = () => {
-    const { img, getEvent, loaded } = useImgBBUpload();
+    const { img, getEvent } = useImgBBUpload();
     const { register, handleSubmit, reset } = useForm();
     const [AddFacility, { error, data, isLoading }] = useCreateFacilityMutation();
 
