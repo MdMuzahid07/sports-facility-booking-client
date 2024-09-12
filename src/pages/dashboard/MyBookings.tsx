@@ -42,7 +42,7 @@ const MyBookings = () => {
                     <TableHeader>
                         <TableRow>
                             <TableHead className="w-[100px]">No.</TableHead>
-                            <TableHead>Invoice</TableHead>
+                            <TableHead>Image</TableHead>
                             <TableHead>Payment Status</TableHead>
                             <TableHead>Name</TableHead>
                             <TableHead>Price</TableHead>
@@ -55,14 +55,21 @@ const MyBookings = () => {
                         {bookings?.data?.map((booking: any, index: any) => (
                             <TableRow key={booking?._id}>
                                 <TableCell className="font-medium">{index + 1}</TableCell>
-                                <TableCell>{"invoice"}</TableCell>
+                                <TableCell>
+                                    <img className="w-32 h-20 rounded-lg object-cover" src={booking?.facility?.image} alt="" />
+                                </TableCell>
                                 <TableCell>Pending</TableCell>
                                 <TableCell>{booking?.facility?.name}</TableCell>
                                 <TableCell>${booking?.payableAmount}</TableCell>
-                                <TableCell>{booking?.isBooked}</TableCell>
-                                <TableCell>{booking?.user?.name}</TableCell>
+                                <TableCell>
+                                    {booking?.isBooked}
+                                </TableCell>
+                                <TableCell><span className="capitalize">{booking?.user?.name}</span></TableCell>
                                 <TableCell className="text-right">
-                                    <Button disabled={!(booking?.isBooked === "confirmed")} onClick={() => handleCancel(booking?._id)}>Cancel</Button>
+                                    <Button className="w-24" disabled={!(booking?.isBooked === "confirmed")} onClick={() => handleCancel(booking?._id)}>
+
+                                        {booking?.isBooked === "confirmed" ? "Cancel" : "canceled"}
+                                    </Button>
                                 </TableCell>
                             </TableRow>
                         ))}
