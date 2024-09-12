@@ -16,16 +16,17 @@ import {
 } from "@/components/ui/popover"
 import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
-import { useCheckAvailabilityQuery } from "@/redux/features/bookings/bookingsApi";
+import { useCheckAvailabilityQuery, useCreateBookingMutation } from "@/redux/features/bookings/bookingsApi";
 import { useGetASingleFacilityQuery } from "@/redux/features/facilities/facilityApi";
-
+import { toast } from "sonner";
 
 const FacilityBooking = () => {
     const { bookById } = useParams();
     const [date, setDate] = useState<Date>();
-    const [selectedStartTime, setSelectedStartTime] = useState('');
-    const [selectedEndTime, setSelectedEndTime] = useState('');
+    const [selectedStartTime, setSelectedStartTime] = useState(" ");
+    const [selectedEndTime, setSelectedEndTime] = useState(" ");
     const [formattedDate, setFormattedDate] = useState();
+    const [createBooking] = useCreateBookingMutation();
     const { data: availableSlots } = useCheckAvailabilityQuery(
         { date: formattedDate, id: bookById },
         { skip: !formattedDate && !bookById }
@@ -51,9 +52,25 @@ const FacilityBooking = () => {
         setSelectedEndTime(target.value);
     };
 
-
-    console.log({ startTime: selectedStartTime, endTime: selectedEndTime })
-
+    const handleBooking = async () => {
+        const bookingData = {
+            facility: bookById,
+            date: formattedDate,
+            startTime: selectedStartTime,
+            endTime: selectedEndTime
+        }
+        try {
+            toast.loading("Loading...", { id: "createBookingByUser" });
+            const res = await createBooking(bookingData).unwrap();
+            console.log(res, "response of create booking")
+            if (res.success) {
+                toast.success("Booking Successfully", { id: "createBookingByUser" });
+            }
+        } catch (error) {
+            toast.error("Something went wrong!", { id: "createBookingByUser" });
+            console.log(error);
+        }
+    };
 
     return (
         <div className="bg-slate-200 py-32">
@@ -136,7 +153,7 @@ const FacilityBooking = () => {
                                     <p className="text-xl">End Time</p>
                                 </section>
                                 <section className="space-y-4 max-h-[400px] overflow-y-auto">
-                                    {availableSlots?.data?.map((slots: any, index) => (
+                                    {availableSlots?.data?.map((slots: any, index: number) => (
                                         <div key={slots?._id} className="flex items-center justify-between">
                                             {/* Start Time Selection */}
                                             <div className="flex items-center space-x-2">
@@ -181,7 +198,7 @@ const FacilityBooking = () => {
 
 
                                 <section className="flex justify-end">
-                                    <Button className="mt-10 rounded-none text-lg space-x-2">
+                                    <Button onClick={handleBooking} className="mt-10 rounded-none text-lg space-x-2">
                                         <span>
                                             Confirm Booking
                                         </span>
