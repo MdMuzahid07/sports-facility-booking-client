@@ -3,7 +3,7 @@ import { Label } from "@radix-ui/react-label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../ui/card";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { Key, Mail, Phone, User } from "lucide-react";
+import { Key, Mail, Notebook, Phone, User } from "lucide-react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useCreateUserMutation } from "@/redux/features/auth/authApi";
@@ -11,6 +11,7 @@ import { toast } from "sonner";
 import { setUser } from "@/redux/features/auth/authSlice";
 import { useAppDispatch } from "@/redux/hooks";
 import verifyJwtToken from "@/utils/verifyJwtToken";
+import { Textarea } from "../ui/textarea";
 
 const SignUp = () => {
     const [createUser, { data, error, isLoading }] = useCreateUserMutation();
@@ -33,7 +34,6 @@ const SignUp = () => {
         const signUpData = await {
             ...data,
             role: "user",
-            address: " "
         };
         const res = await createUser(signUpData).unwrap();
         const user = verifyJwtToken(res?.token);
@@ -103,6 +103,15 @@ const SignUp = () => {
                                         </Label>
                                         <Input {...register("password", { required: true })} type="password" className="rounded-none" id="pass" placeholder="Add a strong password"
                                             aria-invalid={errors.password ? "true" : "false"}
+                                        />
+                                    </div>
+                                    <div className="flex flex-col space-y-1.5">
+                                        <Label className=" flex items-center gap-2" htmlFor="pass">
+                                            <span><Notebook /></span>
+                                            <span>Address</span>
+                                        </Label>
+                                        <Textarea {...register("address", { required: true })} className="rounded-none" id="pass" placeholder="Add a strong password"
+                                            aria-invalid={errors.address ? "true" : "false"}
                                         />
                                     </div>
                                 </div>

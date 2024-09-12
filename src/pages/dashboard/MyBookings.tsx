@@ -5,7 +5,6 @@ import {
     TableBody,
     TableCaption,
     TableCell,
-    TableFooter,
     TableHead,
     TableHeader,
     TableRow,
@@ -13,78 +12,6 @@ import {
 import { useGetAllBookingsUserQuery } from "@/redux/features/bookings/bookingsApi";
 import { toast } from "sonner";
 
-// const bookings = [
-//     {
-//         invoice: "INV-011",
-//         paymentStatus: "Refunded",
-//         name: "Alice Johnson",
-//         price: 399.99,
-//         userId: 98765,
-//     },
-//     {
-//         invoice: "INV-012",
-//         paymentStatus: "Pending",
-//         name: "Bob Smith",
-//         price: 149.99,
-//         userId: 54321,
-//     },
-//     {
-//         invoice: "INV-013",
-//         paymentStatus: "Paid",
-//         name: "Charlie Brown",
-//         price: 299.99,
-//         userId: 78901,
-//     },
-//     {
-//         invoice: "INV-014",
-//         paymentStatus: "Overdue",
-//         name: "David Lee",
-//         price: 179.99,
-//         userId: 32109,
-//     },
-//     {
-//         invoice: "INV-015",
-//         paymentStatus: "Paid",
-//         name: "Emily Wilson",
-//         price: 229.99,
-//         userId: 87654,
-//     },
-//     {
-//         invoice: "INV-016",
-//         paymentStatus: "Pending",
-//         name: "Frank Taylor",
-//         price: 199.99,
-//         userId: 43210,
-//     },
-//     {
-//         invoice: "INV-017",
-//         paymentStatus: "Refunded",
-//         name: "Grace Williams",
-//         price: 349.99,
-//         userId: 90123,
-//     },
-//     {
-//         invoice: "INV-018",
-//         paymentStatus: "Paid",
-//         name: "Henry Baker",
-//         price: 279.99,
-//         userId: 65432,
-//     },
-//     {
-//         invoice: "INV-019",
-//         paymentStatus: "Pending",
-//         name: "Isabella Clark",
-//         price: 159.99,
-//         userId: 12345,
-//     },
-//     {
-//         invoice: "INV-020",
-//         paymentStatus: "Overdue",
-//         name: "Jack Carter",
-//         price: 219.99,
-//         userId: 78901,
-//     }
-// ];
 
 const MyBookings = () => {
     const { data: bookings } = useGetAllBookingsUserQuery(undefined);
