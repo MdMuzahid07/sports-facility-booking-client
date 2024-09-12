@@ -19,32 +19,41 @@ const Facilities = () => {
     const { data: allFacilities } = useGetAllFacilitiesQuery(undefined);
     const [searchQuery, setSearchQuery] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
+    const [priceRange, setPriceRange] = useState([0, 200]);
     const itemsPerPage = 6;
+
+    const handleFilterByPriceChange = (value: any) => {
+        const [minPrice, maxPrice] = value.split('-').map(Number);
+        setPriceRange([minPrice, maxPrice]);
+    };
+
 
     const handleSearch = (e: any) => {
         setSearchQuery(e.target.value);
     };
 
     const filteredFacilities = useMemo(() => {
-        if (!searchQuery.trim()) {
+        if (!searchQuery.trim() && !priceRange) {
             return allFacilities?.data || [];
         }
-
         return allFacilities?.data?.filter((facility: any) => {
-            return (
-                facility?.name.toLowerCase().includes(searchQuery.trim()) || facility?.location.toLowerCase().includes(searchQuery.trim())
-            )
+
+            const isNameOrLocationMatching = facility?.name.toLowerCase().includes(searchQuery.trim()) || facility?.location.toLowerCase().includes(searchQuery.trim());
+
+            const filterByPrice = facility?.pricePerHour >= priceRange[0] && facility?.pricePerHour <= priceRange[1];
+
+            return isNameOrLocationMatching && filterByPrice;
         });
 
-    }, [searchQuery, allFacilities]);
+    }, [searchQuery, allFacilities, priceRange]);
 
 
     // pagination
-    const totalPages = Math.ceil(filteredFacilities.length / itemsPerPage);
+    const totalPages = Math.ceil(filteredFacilities?.length / itemsPerPage);
     const currentItems = useMemo(() => {
         const startIndex = (currentPage - 1) * itemsPerPage;
         const endIndex = startIndex + itemsPerPage;
-        return filteredFacilities.slice(startIndex, endIndex);
+        return filteredFacilities?.slice(startIndex, endIndex);
     }, [currentPage, filteredFacilities]);
 
     const handleChangePage = (page: number) => {
@@ -64,7 +73,7 @@ const Facilities = () => {
                     <aside className="col-span-1 max-h-[700px] sticky top-24 bg-slate-100 p-6 w-full mb-10 lg:mb-0">
                         <h2 className="text-2xl font-extrabold  mb-10">Filter Facility</h2>
                         {/* Search Input */}
-                        <div className="mb-8">
+                        <section className="mb-8">
                             <label className="block font-semibold mb-2">Search Facility</label>
                             <Input
                                 value={searchQuery}
@@ -73,26 +82,26 @@ const Facilities = () => {
                                 className="rounded-none"
                                 placeholder="write here..."
                             />
-                        </div>
+                        </section>
 
-                        <div>
+                        <section>
                             <label className="block font-semibold mb-2">Filter by price</label>
-                            <Select>
+                            <Select onValueChange={(value) => handleFilterByPriceChange(value)}>
                                 <SelectTrigger className="w-full rounded-none">
-                                    <SelectValue placeholder="Select a fruit" />
+                                    <SelectValue placeholder="Select price range" />
                                 </SelectTrigger>
                                 <SelectContent className="rounded-none">
                                     <SelectGroup>
-                                        <SelectLabel>Fruits</SelectLabel>
-                                        <SelectItem value="apple">Apple</SelectItem>
-                                        <SelectItem value="banana">Banana</SelectItem>
-                                        <SelectItem value="blueberry">Blueberry</SelectItem>
-                                        <SelectItem value="grapes">Grapes</SelectItem>
-                                        <SelectItem value="pineapple">Pineapple</SelectItem>
+                                        <SelectItem value="0-200">All</SelectItem>
+                                        <SelectItem value="10-30">10 - 30</SelectItem>
+                                        <SelectItem value="30-60">30 - 60</SelectItem>
+                                        <SelectItem value="60-90">60 - 90</SelectItem>
+                                        <SelectItem value="90-120">90 - 120</SelectItem>
+                                        <SelectItem value="120-150">120 - 150</SelectItem>
                                     </SelectGroup>
                                 </SelectContent>
                             </Select>
-                        </div>
+                        </section>
                     </aside>
 
                     <div className="col-span-3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
