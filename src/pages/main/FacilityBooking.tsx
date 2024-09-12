@@ -18,6 +18,7 @@ import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useCheckAvailabilityQuery } from "@/redux/features/bookings/bookingsApi";
+import { useGetASingleFacilityQuery } from "@/redux/features/facilities/facilityApi";
 const img = "https://res.cloudinary.com/dymo0iyee/image/upload/v1725689329/1752_x3nrjw.jpg"
 
 
@@ -29,7 +30,7 @@ const FacilityBooking = () => {
         { date: formattedDate, id: bookById },
         { skip: !formattedDate && !bookById }
     );
-
+    const { data: facilityData } = useGetASingleFacilityQuery(bookById);
 
     const handleDateSelect = (selectedDate: any) => {
         if (selectedDate) {
@@ -51,7 +52,7 @@ const FacilityBooking = () => {
                             <div className="w-full">
                                 <Zoom>
                                     <img
-                                        src={img}
+                                        src={facilityData?.data?.image}
                                         alt="image"
                                         className="w-full h-auto max-h-[500px] object-cover shadow-lg"
                                     />
@@ -59,20 +60,20 @@ const FacilityBooking = () => {
                             </div>
                         </div>
                         <div className="p-6">
-                            <h3 className="text-xl md:text-2xl font-extrabold mb-2">Basketball</h3>
+                            <h3 className="text-xl md:text-2xl font-extrabold mb-2">{facilityData?.data?.name}</h3>
                             <div className="flex items-center gap-2">
                                 <p className="text-xl flex items-center gap-2">
                                     <span><MapPin size={20} /></span>
-                                    <span>Dhaka</span>
+                                    <span>{facilityData?.data?.location}</span>
                                 </p>
                                 <p className="text-xl flex items-center gap-2">
                                     <span><DollarSign size={20} /></span>
-                                    <span>30 hour</span>
+                                    <span>{facilityData?.data?.pricePerHour} hour</span>
                                 </p>
                             </div>
                             <div className="mt-3">
                                 <p className="text-xl">
-                                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam quia iure possimus commodi tempora magni harum soluta cupiditate dolorem eligendi?
+                                    {facilityData?.data?.description}
                                 </p>
                             </div>
                         </div>

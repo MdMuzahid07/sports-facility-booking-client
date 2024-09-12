@@ -9,18 +9,25 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-import { useGetAllBookingsUserQuery } from "@/redux/features/bookings/bookingsApi";
+import { useCancelBookingMutation, useGetAllBookingsUserQuery } from "@/redux/features/bookings/bookingsApi";
 import { toast } from "sonner";
-
 
 const MyBookings = () => {
     const { data: bookings } = useGetAllBookingsUserQuery(undefined);
-    console.log(bookings)
+    const [cancelBooking] = useCancelBookingMutation();
 
-    const handleCancel = () => {
+    const handleCancel = async (id: string) => {
+        console.log(id, "booking id")
         const isProceed = window.confirm("Cancel Order");
-        if (isProceed) {
-            toast.success("Order cancelled successfully")
+        try {
+            if (isProceed) {
+                const res = await cancelBooking(id).unwrap();
+                if (res?.success) {
+                    toast.success("Booking cancelled successfully!");
+                }
+            }
+        } catch (error) {
+            console.log({ errorFromCatch: error });
         }
     }
 
@@ -55,7 +62,7 @@ const MyBookings = () => {
                                 <TableCell>{booking?.isBooked}</TableCell>
                                 <TableCell>{booking?.user?.name}</TableCell>
                                 <TableCell className="text-right">
-                                    <Button onClick={() => handleCancel()}>Cancel</Button>
+                                    <Button disabled={!(booking?.isBooked === "confirmed")} onClick={() => handleCancel(booking?._id)}>Cancel</Button>
                                 </TableCell>
                             </TableRow>
                         ))}
