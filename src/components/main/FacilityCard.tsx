@@ -25,15 +25,15 @@ const FacilityCard = ({ facility, styles }: any) => {
                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
                 transition={{ duration: 0.5, ease: "easeOut" }}
             >
-                <Card className={`w-full rounded-none border-none bg-slate-200 ${styles}`}>
-                    <CardHeader className="p-0 mb-3">
-                        <img className="w-full h-full object-contain object-center" src="https://res.cloudinary.com/dymo0iyee/image/upload/v1725689329/1752_x3nrjw.jpg" alt="" />
+                <Card className={`w-full  min-h-[400px] relative rounded-none border-none bg-slate-200 ${styles}`}>
+                    <CardHeader className="p-0 mb-3 ">
+                        <img className="w-full h-[200px] object-cover object-center" src={facility?.image ? facility?.image : "https://res.cloudinary.com/dymo0iyee/image/upload/v1725689329/1752_x3nrjw.jpg"} alt="" />
                     </CardHeader>
                     <CardContent>
                         <CardTitle>{facility?.name}</CardTitle>
                         <CardDescription className="mt-2">{facility?.description}</CardDescription>
                     </CardContent>
-                    <CardFooter className="flex justify-end">
+                    <CardFooter className="absolute bottom-0 right-0">
                         <Button onClick={() => handleRedirectToDetails(facility?._id)} className="rounded-none">Details</Button>
                     </CardFooter>
                 </Card>

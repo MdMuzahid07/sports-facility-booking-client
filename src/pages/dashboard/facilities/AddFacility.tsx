@@ -10,14 +10,14 @@ import { toast } from "sonner"
 
 const AddFacility = () => {
     const { img, getEvent, loaded } = useImgBBUpload();
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, reset } = useForm();
     const [AddFacility, { error, data, isLoading }] = useCreateFacilityMutation();
 
     if (isLoading) {
         return toast.loading("Please wait", { id: "createFacility" })
     };
     if (error) {
-        toast.error("Creating New facility failed!, try again!", { id: "createFacility" });
+        toast.error(`${error?.data?.message}`, { id: "createFacility" });
     };
     if (data && data.success) {
         toast.success("Faculty created successfully!", { id: "createFacility" });
@@ -25,15 +25,15 @@ const AddFacility = () => {
     // console.log({ data, error });
 
 
-    const onSubmit = (data: any) => {
+    const onSubmit = async (data: any) => {
         const facilityData = {
             ...data,
-            image: img
+            image: img,
+            pricePerHour: Number(data?.pricePerHour)
         }
 
-        if (img && loaded) {
-            AddFacility(facilityData);
-        }
+        await AddFacility(facilityData).unwrap();
+        reset();
     };
 
     return (
