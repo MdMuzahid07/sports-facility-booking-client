@@ -17,10 +17,12 @@ import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
 import { AvatarFallback } from "@/components/ui/avatar";
 import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { useAppDispatch } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { logout } from "@/redux/features/auth/authSlice";
 
 const UserDropdown = () => {
+    const user = useAppSelector((state) => state.auth.user);
+
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
@@ -42,7 +44,11 @@ const UserDropdown = () => {
                 </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-56 rounded-none border-2 border-[#171717] bg-slate-100 bg-opacity-45 backdrop-blur-sm py-4">
-                <DropdownMenuLabel className="text-xl">Hello, John</DropdownMenuLabel>
+                <DropdownMenuLabel>
+                    <span className="text-xl">Hello, </span>
+                    <br />
+                    <span className="text-xs">{user?.email}</span>
+                </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
                     <NavLink to="/dashboard/home" >

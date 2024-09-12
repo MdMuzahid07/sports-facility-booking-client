@@ -48,7 +48,11 @@ const routes = createBrowserRouter([
             },
             {
                 path: "/facility-booking/:bookById",
-                element: <FacilityBooking />
+                element: (
+                    <ProtectedRoutes>
+                        <FacilityBooking />
+                    </ProtectedRoutes>
+                )
             }
         ]
     },

@@ -7,7 +7,6 @@ import {
     SelectContent,
     SelectGroup,
     SelectItem,
-    SelectLabel,
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
@@ -19,14 +18,13 @@ const Facilities = () => {
     const { data: allFacilities } = useGetAllFacilitiesQuery(undefined);
     const [searchQuery, setSearchQuery] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
-    const [priceRange, setPriceRange] = useState([0, 200]);
+    const [priceRange, setPriceRange] = useState([0, 1000]);
     const itemsPerPage = 6;
 
     const handleFilterByPriceChange = (value: any) => {
         const [minPrice, maxPrice] = value.split('-').map(Number);
         setPriceRange([minPrice, maxPrice]);
     };
-
 
     const handleSearch = (e: any) => {
         setSearchQuery(e.target.value);

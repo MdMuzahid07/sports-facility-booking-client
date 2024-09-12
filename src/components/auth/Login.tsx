@@ -42,7 +42,7 @@ const Login = () => {
             }));
         }
         if (res.success) {
-            navigate("/dashboard/home")
+            navigate("/")
         }
     };
 

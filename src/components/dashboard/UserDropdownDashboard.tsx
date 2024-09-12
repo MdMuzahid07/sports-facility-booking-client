@@ -18,10 +18,11 @@ import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
 import { AvatarFallback } from "@/components/ui/avatar";
 import { NavLink, useNavigate } from "react-router-dom";
 import { logout } from "@/redux/features/auth/authSlice";
-import { useAppDispatch } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { toast } from "sonner";
 
 const UserDropdownDashboard = () => {
+    const user = useAppSelector((state) => state.auth.user);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
@@ -43,7 +44,11 @@ const UserDropdownDashboard = () => {
                 </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-56 rounded-lg bg-white bg-opacity-45 backdrop-blur-sm py-4">
-                <DropdownMenuLabel className="text-xl">Hello, John</DropdownMenuLabel>
+                <DropdownMenuLabel>
+                    <span className="text-xl">Hello, </span>
+                    <br />
+                    <span className="text-xs">{user?.email}</span>
+                </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
                     <NavLink to="/">

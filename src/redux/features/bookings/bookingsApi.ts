@@ -21,7 +21,13 @@ const bookingsApi = baseApi.injectEndpoints({
                 url: "/bookings",
                 method: "GET",
             })
-        })
+        }),
+        checkAvailability: builder.query({
+            query: ({ date, id }) => ({
+                url: `/check-availability?date=${date}&facility=${id}`,
+                method: "GET",
+            })
+        }),
     })
 });
 
@@ -29,5 +35,6 @@ const bookingsApi = baseApi.injectEndpoints({
 export const {
     useGetAllBookingsAdminQuery,
     useGetAllBookingsUserQuery,
-    useCreateBookingMutation
+    useCreateBookingMutation,
+    useCheckAvailabilityQuery
 } = bookingsApi;

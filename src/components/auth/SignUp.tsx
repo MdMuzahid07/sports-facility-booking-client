@@ -44,7 +44,7 @@ const SignUp = () => {
             }));
         }
         if (res.success) {
-            navigate("/dashboard/home")
+            navigate("/")
         }
     };
 

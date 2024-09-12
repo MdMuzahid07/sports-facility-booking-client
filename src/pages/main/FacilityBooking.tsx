@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useParams } from "react-router-dom"
 import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
@@ -16,14 +17,29 @@ import {
 import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
+import { useCheckAvailabilityQuery } from "@/redux/features/bookings/bookingsApi";
+const img = "https://res.cloudinary.com/dymo0iyee/image/upload/v1725689329/1752_x3nrjw.jpg"
+
 
 const FacilityBooking = () => {
     const { bookById } = useParams();
     const [date, setDate] = useState<Date>();
-    console.log(date)
+    const [formattedDate, setFormattedDate] = useState();
+    const { data: availableSlots } = useCheckAvailabilityQuery(
+        { date: formattedDate, id: bookById },
+        { skip: !formattedDate && !bookById }
+    );
 
-    console.log(bookById);
-    const img = "https://res.cloudinary.com/dymo0iyee/image/upload/v1725689329/1752_x3nrjw.jpg"
+
+    const handleDateSelect = (selectedDate: any) => {
+        if (selectedDate) {
+            // Format the date to YYYY-MM-DD
+            const formatted = selectedDate.toISOString().split("T")[0];
+            setFormattedDate(formatted);
+            setDate(selectedDate);
+        }
+    };
+
 
     return (
         <div className="bg-slate-200 py-32">
@@ -85,18 +101,18 @@ const FacilityBooking = () => {
                                             className="rounded-none]"
                                             mode="single"
                                             selected={date}
-                                            onSelect={setDate}
+                                            onSelect={handleDateSelect}
                                             initialFocus
                                         />
                                     </PopoverContent>
                                 </Popover>
                             </div>
                             <div className="mt-10">
-                                <h1 className="text-xl mb-3">Available Slots</h1>
+                                <h1 className="text-xl mb-3">Available Slots ({availableSlots?.data?.length})</h1>
                                 <div className="flex items-center justify-between">
-                                    <Badge className="max-w-44 w-full rounded-none py-1.5 text-lg">Badge</Badge>
+                                    <Badge className="max-w-44 w-full rounded-none py-1.5 text-lg">Start Time</Badge>
                                     <MoveRight />
-                                    <Badge className="max-w-44 w-full rounded-none py-1.5 text-lg">Badge</Badge>
+                                    <Badge className="max-w-44 w-full rounded-none py-1.5 text-lg">End Time</Badge>
                                 </div>
                             </div>
                             <hr className="my-5 border-t border-black" />
@@ -105,17 +121,17 @@ const FacilityBooking = () => {
                                     <p className="text-xl">Start Time</p>
                                     <p className="text-xl">End Time</p>
                                 </div>
-                                <div className="space-y-4">
+                                <div className="space-y-4 max-h-[400px] overflow-y-auto">
                                     {
-                                        [1, 2, 3, 4, 5]?.map(() => (
-                                            <div className="flex items-center justify-between">
+                                        availableSlots?.data?.map((slots: any) => (
+                                            <div key={slots?._id} className="flex items-center justify-between">
                                                 <div className="flex items-center space-x-2">
                                                     <Checkbox id="terms" />
                                                     <label
                                                         htmlFor="terms"
                                                         className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                                                     >
-                                                        Accept
+                                                        {slots?.startTime}
                                                     </label>
                                                 </div>
                                                 <MoveRight />
@@ -125,7 +141,7 @@ const FacilityBooking = () => {
                                                         htmlFor="terms"
                                                         className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                                                     >
-                                                        Accept
+                                                        {slots?.endTime}
                                                     </label>
                                                 </div>
                                             </div>
