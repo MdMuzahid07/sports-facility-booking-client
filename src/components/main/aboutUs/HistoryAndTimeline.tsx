@@ -4,7 +4,7 @@ import 'react-vertical-timeline-component/style.min.css';
 
 const HistoryAndTimeline = () => {
     return (
-        <section className="py-32 max-w-7xl mx-auto px-4 xl:px-0">
+        <section className="py-32 max-w-7xl mx-auto px-4 xl:px-0 border-b border-primary">
             <h3 className="text-3xl md:text-5xl font-extrabold mb-5">History and Timeline</h3>
             <div className="mt-10">
                 <VerticalTimeline layout={"1-column-left"}>

@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import FacilityCard from "@/components/main/FacilityCard";
+import ScrollToTop from "@/components/ScrollToTop";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -126,6 +127,8 @@ const Facilities = () => {
                     ))}
                 </section>
             </div>
+
+            <ScrollToTop />
         </section>
     )
 };

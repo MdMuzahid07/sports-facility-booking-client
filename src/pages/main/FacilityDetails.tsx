@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { useGetAllFacilitiesQuery, useGetASingleFacilityQuery } from '@/redux/features/facilities/facilityApi';
 import PageTopByDefault from '@/utils/PageTopByDefault';
 import FacilityCard from '@/components/main/FacilityCard';
+import ScrollToTop from '@/components/ScrollToTop';
 
 const FacilityDetails = () => {
     const { facilityId } = useParams();
@@ -22,7 +23,7 @@ const FacilityDetails = () => {
     PageTopByDefault();
 
     return (
-        <div className="bg-slate-200 py-32 px-4 xl:px-0">
+        <section className="bg-slate-200 py-32 px-4 xl:px-0">
             <div className="max-w-7xl mx-auto">
                 <div className="grid grid-cols-1 lg:grid-cols-5 gap-10">
                     <div className="col-span-3 flex justify-center items-center">
@@ -65,7 +66,9 @@ const FacilityDetails = () => {
                     </div>
                 </div>
             </div>
-        </div>
+
+            <ScrollToTop />
+        </section>
     )
 };
 

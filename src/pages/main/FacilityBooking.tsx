@@ -19,6 +19,7 @@ import { Badge } from "@/components/ui/badge";
 import { useCheckAvailabilityQuery, useCreateBookingMutation } from "@/redux/features/bookings/bookingsApi";
 import { useGetASingleFacilityQuery } from "@/redux/features/facilities/facilityApi";
 import { toast } from "sonner";
+import ScrollToTop from "@/components/ScrollToTop";
 
 const FacilityBooking = () => {
     const { bookById } = useParams();
@@ -73,7 +74,7 @@ const FacilityBooking = () => {
     };
 
     return (
-        <div className="bg-slate-200 py-32">
+        <section className="bg-slate-200 py-32">
             <section className="max-w-7xl mx-auto px-4 xl:px-0">
                 <h3 className="text-3xl md:text-5xl font-extrabold mb-5">Booking</h3>
                 <section className="grid grid-cols-1 lg:grid-cols-5 w-full min-h-[500px] bg-slate-100">
@@ -210,7 +211,9 @@ const FacilityBooking = () => {
                     </section>
                 </section>
             </section>
-        </div>
+
+            <ScrollToTop />
+        </section>
     )
 };
 
