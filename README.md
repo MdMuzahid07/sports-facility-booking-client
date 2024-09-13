@@ -40,13 +40,13 @@ The **Sports Facility Booking Platform** allows users to book sports facilities 
 
 1. **Clone the repository**:
    ```bash
-git clone  https://github.com/MdMuzahid07/sports-facility-booking-client.git
+   git clone  https://github.com/MdMuzahid07/sports-facility-booking-client.git
    cd sports-facility-booking-client
    ```
 
 2. **Install dependencies**:
    ```bash
-   pnpm install
+     pnpm install
    ```
 
 3. **Run the development server**:
