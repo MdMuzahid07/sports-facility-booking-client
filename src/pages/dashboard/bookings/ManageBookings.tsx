@@ -32,7 +32,7 @@ const ManageBookings = () => {
                     <TableHeader>
                         <TableRow>
                             <TableHead className="w-[100px]">No.</TableHead>
-                            <TableHead>Invoice</TableHead>
+                            <TableHead>Image</TableHead>
                             <TableHead>Payment Status</TableHead>
                             <TableHead>Name</TableHead>
                             <TableHead>Price</TableHead>
@@ -45,7 +45,9 @@ const ManageBookings = () => {
                         {bookings?.data?.map((booking: any, index: any) => (
                             <TableRow key={booking?._id}>
                                 <TableCell className="font-medium">{index + 1}</TableCell>
-                                <TableCell>{"invoice"}</TableCell>
+                                <TableCell>
+                                    <img className="w-32 h-20 rounded-lg object-cover" src={booking?.facility?.image} alt="" />
+                                </TableCell>
                                 <TableCell>Pending</TableCell>
                                 <TableCell>{booking?.facility?.name}</TableCell>
                                 <TableCell>${booking?.payableAmount}</TableCell>
