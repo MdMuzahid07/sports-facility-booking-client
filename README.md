@@ -1,51 +1,82 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Sports Facility Booking Platform
 
-Currently, two official plugins are available:
+The **Sports Facility Booking Platform** allows users to book sports facilities easily and provides administrators with tools to manage bookings, users, and facilities. This project is an integrated full-stack MERN (MongoDB, Express, React, Node.js) application with a user-friendly interface.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- **Landing Page**: 
+  - Hero section with a "Book Now" button.
+  - Featured facilities and customer testimonials.
+  - Clear explanation of the booking process.
+- **User Dashboard**:
+  - Manage bookings with options to view and cancel.
+- **Admin Dashboard**:
+  - Manage sports facilities (CRUD operations).
+  - View and manage all bookings.
+  - Add and manage admin users.
+- **Facility Listing**: 
+  - Filter, search, and view details of facilities.
+- **Booking System**: 
+  - Check availability and book facilities with secure payment.
+- **Login & Registration**:
+  - User registration and login forms with validation.
+  - Admin and user roles.
+- **Responsive UI**:
+  - Mobile, tablet, and desktop views.
+- **Additional Features**:
+  - Error handling with custom 404 pages.
+  - Scroll-to-top button, pagination for facilities.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Installation
 
-- Configure the top-level `parserOptions` property like this:
+### Requirements
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+- **Node.js** (version 18.x or later)
+- **MongoDB** (local or cloud)
+- **pnpm** (version 8.x or later)
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### Steps
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+1. **Clone the repository**:
+   ```bash
+git clone  https://github.com/MdMuzahid07/sports-facility-booking-client.git
+   cd sports-facility-booking-client
+   ```
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
-# sports-facility-booking-client
+2. **Install dependencies**:
+   ```bash
+   pnpm install
+   ```
+
+3. **Run the development server**:
+   ```bash
+   pnpm dev
+   ```
+
+4. **Build for production**:
+   ```bash
+   pnpm build
+   ```
+
+5. **Preview production build**:
+   ```bash
+   pnpm preview
+   ```
+
+## Scripts
+
+- `pnpm dev`: Starts the development server.
+- `pnpm build`: Builds the project for production.
+- `pnpm preview`: Previews the production build.
+- `pnpm lint`: Runs ESLint for code quality checks.
+
+## Tech Stack
+
+- **Frontend**: React, TailwindCSS, React Router, React Hook Form, Framer Motion
+- **Backend**: Node.js, Express, MongoDB, JWT authentication
+- **State Management**: Redux Toolkit, React-Redux
+- **Database**: MongoDB
+- **Payment Integration**: SSL Commerz/AmarPay
+- **Deployment**: Vercel/Netlify (for frontend), Heroku (for backend)
+
