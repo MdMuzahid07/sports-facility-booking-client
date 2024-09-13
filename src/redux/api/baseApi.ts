@@ -31,9 +31,41 @@ const baseQuery = fetchBaseQuery({
 // const baseQueryWithRefreshToken = async (args, api, extraOptions) => {
 //     // we can call our baseQuery here with this three arguments received in custom base query
 //     const result = baseQuery(args, api, extraOptions);
-//     console.log(result)
-// };
 
+//     console.log(result, "baseQueryWithRefreshToken");
+
+//     // if (result?.error?.status === 404) {
+//     //     toast.error(result?.error?.data.message);
+//     // }
+
+//     // if (result?.error?.status === 401) {
+
+//     //     //* refresh token
+//     //     const res = await fetch("http://localhost:5000/api/refresh-token", {
+//     //         method: "POST",
+//     //         credentials: "include"
+//     //     });
+//     //     const data = await res.json();
+
+//     //     console.log(data)
+
+//     //     // if (data?.data?.accessToken) {
+//     //     //     const user = (api.getState() as RootState).auth.user;
+
+
+//     //     //     api.dispatch(setUser({
+//     //     //         user: { ...user, id: res?.data?._id },
+//     //     //         token: res?.token,
+//     //     //     }));
+
+//     //     result = await baseQuery(args, api, extraOptions);
+//     // } else {
+//     //     // if refresh token is invalid then user will logout
+//     //     api.dispatch(logout());
+//     // }
+
+//     return result;
+// };
 
 
 export const baseApi = createApi({
