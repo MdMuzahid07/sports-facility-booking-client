@@ -71,12 +71,3 @@ The **Sports Facility Booking Platform** allows users to book sports facilities 
 - `pnpm preview`: Previews the production build.
 - `pnpm lint`: Runs ESLint for code quality checks.
 
-## Tech Stack
-
-- **Frontend**: React, TailwindCSS, React Router, React Hook Form, Framer Motion
-- **Backend**: Node.js, Express, MongoDB, JWT authentication
-- **State Management**: Redux Toolkit, React-Redux
-- **Database**: MongoDB
-- **Payment Integration**: SSL Commerz/AmarPay
-- **Deployment**: Vercel/Netlify (for frontend), Heroku (for backend)
-
