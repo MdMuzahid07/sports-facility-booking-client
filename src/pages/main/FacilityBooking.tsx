@@ -60,11 +60,11 @@ const FacilityBooking = () => {
             startTime: selectedStartTime,
             endTime: selectedEndTime
         }
+        console.log(bookingData)
         try {
             toast.loading("Loading...", { id: "createBookingByUser" });
             const res = await createBooking(bookingData).unwrap();
-            console.log(res, "response of create booking")
-            if (res.success) {
+            if (res?.success) {
                 toast.success("Booking Successfully", { id: "createBookingByUser" });
                 window.location.href = res?.data?.paymentSession?.payment_url;
             }

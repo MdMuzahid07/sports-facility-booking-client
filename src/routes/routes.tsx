@@ -10,6 +10,7 @@ import DashboardWelcome from "@/pages/dashboard/DashboardWelcome";
 import AddFacility from "@/pages/dashboard/facilities/AddFacility";
 import ManageFacilities from "@/pages/dashboard/facilities/ManageFacilities";
 import UpdateFacility from "@/pages/dashboard/facilities/UpdateFacility";
+import MyBookingDetails from "@/pages/dashboard/MyBookingDetails";
 import MyBookings from "@/pages/dashboard/MyBookings";
 import AboutUs from "@/pages/main/AboutUs";
 import ContactUs from "@/pages/main/ContactUs";
@@ -75,6 +76,10 @@ const routes = createBrowserRouter([
             {
                 path: "my-bookings",
                 element: <MyBookings />
+            },
+            {
+                path: "my-booking-details/:myBookingId",
+                element: <MyBookingDetails />
             },
             {
                 path: "manage-bookings",

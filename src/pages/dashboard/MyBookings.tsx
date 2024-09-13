@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button } from "@/components/ui/button";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import {
     Table,
     TableBody,
@@ -10,11 +11,14 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { useCancelBookingMutation, useGetAllBookingsUserQuery } from "@/redux/features/bookings/bookingsApi";
+import { CircleOff, Settings, SquareArrowUpRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 const MyBookings = () => {
     const { data: bookings } = useGetAllBookingsUserQuery(undefined);
     const [cancelBooking] = useCancelBookingMutation();
+    const navigate = useNavigate();
 
     const handleCancel = async (id: string) => {
         console.log(id, "booking id")
@@ -29,7 +33,12 @@ const MyBookings = () => {
         } catch (error) {
             console.log({ errorFromCatch: error });
         }
-    }
+    };
+
+
+    const handleViewBookingDetails = (id: string) => {
+        navigate(`/dashboard/my-booking-details/${id}`)
+    };
 
     return (
         <div className="py-10">
@@ -66,10 +75,51 @@ const MyBookings = () => {
                                 </TableCell>
                                 <TableCell><span className="capitalize">{booking?.user?.name}</span></TableCell>
                                 <TableCell className="text-right">
-                                    <Button className="w-24" disabled={!(booking?.isBooked === "confirmed")} onClick={() => handleCancel(booking?._id)}>
+                                    <TableCell className="text-right">
+                                        <DropdownMenu>
+                                            <DropdownMenuTrigger asChild>
+                                                <Button className="flex items-center gap-2">
+                                                    <span>
+                                                        <Settings size={15} />
+                                                    </span>
+                                                    <span>
+                                                        Options
+                                                    </span>
+                                                </Button>
+                                            </DropdownMenuTrigger>
+                                            <DropdownMenuContent align="end" className="w-56">
+                                                <DropdownMenuLabel className="font-bold">
+                                                    Appearance
+                                                </DropdownMenuLabel>
+                                                <DropdownMenuSeparator />
 
-                                        {booking?.isBooked === "confirmed" ? "Cancel" : "canceled"}
-                                    </Button>
+                                                <DropdownMenuGroup>
+                                                    <DropdownMenuItem
+                                                        onClick={() => handleViewBookingDetails(booking?._id)}
+                                                        className="font-bold"
+                                                        disabled={!(booking?.isBooked === "confirmed")}
+                                                    >
+                                                        <SquareArrowUpRight className="mr-2 h-4 w-4" />
+                                                        <span>View Details</span>
+                                                        <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+                                                    </DropdownMenuItem>
+                                                    <DropdownMenuItem
+                                                        disabled={!(booking?.isBooked === "confirmed")}
+                                                        onClick={() => handleCancel(booking?._id)}
+                                                        className="font-bold"
+                                                    >
+                                                        <CircleOff className="mr-2 h-4 w-4" />
+                                                        <span>{
+                                                            booking?.isBooked === "confirmed"
+                                                                ? "Cancel Booking" : "Booking Canceled"
+                                                        }</span>
+                                                        <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+                                                    </DropdownMenuItem>
+                                                </DropdownMenuGroup>
+
+                                            </DropdownMenuContent>
+                                        </DropdownMenu>
+                                    </TableCell>
                                 </TableCell>
                             </TableRow>
                         ))}
