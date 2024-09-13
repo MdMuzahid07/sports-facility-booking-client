@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { RootState } from '../store';
+import { logout, setUser } from '../features/auth/authSlice';
 
 const baseQuery = fetchBaseQuery({
     baseUrl: "http://localhost:5000/api/",
@@ -28,44 +30,41 @@ const baseQuery = fetchBaseQuery({
 // we have to take tree arguments(args, api, and extraOptions) to create custom base query 
 
 
-// const baseQueryWithRefreshToken = async (args, api, extraOptions) => {
-//     // we can call our baseQuery here with this three arguments received in custom base query
-//     const result = baseQuery(args, api, extraOptions);
+const baseQueryWithRefreshToken = async (args: any, api: any, extraOptions: any) => {
+    // we can call our baseQuery here with this three arguments received in custom base query
+    let result = await baseQuery(args, api, extraOptions);
 
-//     console.log(result, "baseQueryWithRefreshToken");
+    if (result?.error?.status === 401) {
 
-//     // if (result?.error?.status === 404) {
-//     //     toast.error(result?.error?.data.message);
-//     // }
-
-//     // if (result?.error?.status === 401) {
-
-//     //     //* refresh token
-//     //     const res = await fetch("http://localhost:5000/api/refresh-token", {
-//     //         method: "POST",
-//     //         credentials: "include"
-//     //     });
-//     //     const data = await res.json();
-
-//     //     console.log(data)
-
-//     //     // if (data?.data?.accessToken) {
-//     //     //     const user = (api.getState() as RootState).auth.user;
+        const res = await fetch("http://localhost:5000/api/refresh-token", {
+            method: "POST",
+            credentials: "include"
+        });
 
 
-//     //     //     api.dispatch(setUser({
-//     //     //         user: { ...user, id: res?.data?._id },
-//     //     //         token: res?.token,
-//     //     //     }));
+        const data = await res.json();
 
-//     //     result = await baseQuery(args, api, extraOptions);
-//     // } else {
-//     //     // if refresh token is invalid then user will logout
-//     //     api.dispatch(logout());
-//     // }
+        if (data?.data?.accessToken) {
+            const user = (api.getState() as RootState).auth.user;
 
-//     return result;
-// };
+
+            await api.dispatch(
+                setUser({
+                    user,
+                    token: data?.data?.accessToken
+                })
+            )
+
+            result = await baseQuery(args, api, extraOptions);
+        } else {
+            // if refresh token is invalid then user will logout
+            api.dispatch(logout());
+        }
+        return result;
+    }
+
+    return result;
+};
 
 
 export const baseApi = createApi({
@@ -77,7 +76,7 @@ export const baseApi = createApi({
     // cleaner syntax => just storing in a variable and using here 
     // we calling baseQuery in our custom base query, thats why it will call from there
     // because we called our baseQuery in our custom base query thats why we need to set here the custom one
-    baseQuery: baseQuery,
+    baseQuery: baseQueryWithRefreshToken,
     tagTypes: ["facility", "bookings"],
     endpoints: () => ({})
 });

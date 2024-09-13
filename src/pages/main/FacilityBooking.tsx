@@ -69,7 +69,7 @@ const FacilityBooking = () => {
                 window.location.href = res?.data?.paymentSession?.payment_url;
             }
         } catch (error) {
-            toast.error(error.data.message, { id: "createBookingByUser" });
+            toast.error(`${error.data.message}`, { id: "createBookingByUser" });
         }
     };
 
