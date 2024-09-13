@@ -20,7 +20,6 @@ import { useCheckAvailabilityQuery, useCreateBookingMutation } from "@/redux/fea
 import { useGetASingleFacilityQuery } from "@/redux/features/facilities/facilityApi";
 import { toast } from "sonner";
 import ScrollToTop from "@/components/ScrollToTop";
-import { isFetchBaseQueryError, isSerializedError } from "@/types";
 
 const FacilityBooking = () => {
     const { bookById } = useParams();
@@ -70,13 +69,7 @@ const FacilityBooking = () => {
                 window.location.href = res?.data?.paymentSession?.payment_url;
             }
         } catch (error) {
-            if (isFetchBaseQueryError(error)) {
-                toast.error(`${error.data?.messages}`, { id: "createBookingByUser" });
-            } else if (isSerializedError(error)) {
-                toast.error(`${error.message} `, { id: "createBookingByUser" });
-            } else {
-                toast.error("Something went wrong!", { id: "createBookingByUser" });
-            }
+            toast.error(`${(error as any).data?.messages}`, { id: "createBookingByUser" });
         }
     };
 

@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import LoadingSpinner from "@/components/LoadingSpinner";
 import FacilityCard from "@/components/main/FacilityCard";
 import ScrollToTop from "@/components/ScrollToTop";
 import { Button } from "@/components/ui/button";
@@ -16,7 +17,7 @@ import PageTopByDefault from "@/utils/PageTopByDefault";
 import { useMemo, useState } from "react";
 
 const Facilities = () => {
-    const { data: allFacilities } = useGetAllFacilitiesQuery(undefined);
+    const { data: allFacilities, isLoading } = useGetAllFacilitiesQuery(undefined);
     const [searchQuery, setSearchQuery] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
     const [priceRange, setPriceRange] = useState([0, 1000]);
@@ -105,9 +106,10 @@ const Facilities = () => {
 
                     <div className="col-span-3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                         {
-                            currentItems?.map((facility: any) => (
-                                <FacilityCard key={facility?._id} styles="bg-[#1F1F1F] text-white" facility={facility} />
-                            ))
+                            isLoading ? <LoadingSpinner /> :
+                                currentItems?.map((facility: any) => (
+                                    <FacilityCard key={facility?._id} styles="bg-[#1F1F1F] text-white" facility={facility} />
+                                ))
                         }
                     </div>
 

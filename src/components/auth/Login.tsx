@@ -11,7 +11,6 @@ import { useLoginUserMutation } from "@/redux/features/auth/authApi";
 import { setUser } from "@/redux/features/auth/authSlice";
 import { useAppDispatch } from "@/redux/hooks";
 import verifyJwtToken from "@/utils/verifyJwtToken";
-import { isFetchBaseQueryError, isSerializedError } from "@/types";
 
 const Login = () => {
     const [loginUser, { data, error, isLoading }] = useLoginUserMutation();
@@ -23,10 +22,8 @@ const Login = () => {
     if (isLoading) {
         return toast.loading("Please wait", { id: "loginUser" })
     };
-    if (isFetchBaseQueryError(error)) {
-        toast.error(`${error.data?.messages}`, { id: "loginUser" });
-    } else if (isSerializedError(error)) {
-        toast.error(`${error.message} `, { id: "loginUser" });
+    if (error) {
+        toast.error(`${(error as any).data?.messages}`, { id: "loginUser" });
     }
     if (!error && data?.success) {
         toast.success(`Welcome back ${data?.data?.name ? data?.data?.name : "Login failed, please try again!"}, login successfully`, { id: "loginUser" });

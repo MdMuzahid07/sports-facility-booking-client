@@ -5,7 +5,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useCreateUserMutation } from "@/redux/features/auth/authApi";
-import { isFetchBaseQueryError, isSerializedError } from "@/types";
 import { Key, Mail, Notebook, Phone, User } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -17,10 +16,8 @@ const AddAdmin = () => {
     if (isLoading) {
         return toast.loading("Please wait", { id: "addNewAdmin" })
     };
-    if (isFetchBaseQueryError(error)) {
-        toast.error(`${error.data?.messages}`, { id: "addNewAdmin" });
-    } else if (isSerializedError(error)) {
-        toast.error(`${error.message} `, { id: "addNewAdmin" });
+    if (error) {
+        toast.error(`${(error as any).data?.messages}`, { id: "addNewAdmin" });
     }
     if (!error && data?.success) {
         toast.success(`Admin ${data?.data?.name}, account created successfully`, { id: "addNewAdmin" });
