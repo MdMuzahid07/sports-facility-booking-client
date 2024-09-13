@@ -64,11 +64,13 @@ const FacilityBooking = () => {
         try {
             toast.loading("Loading...", { id: "createBookingByUser" });
             const res = await createBooking(bookingData).unwrap();
+            console.log(res)
             if (res?.success) {
                 toast.success("Booking Successfully", { id: "createBookingByUser" });
                 window.location.href = res?.data?.paymentSession?.payment_url;
             }
         } catch (error) {
+            console.log(error)
             toast.error(`${(error as any).data?.messages}`, { id: "createBookingByUser" });
         }
     };
