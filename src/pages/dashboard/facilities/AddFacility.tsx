@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import useImgBBUpload from "@/hooks/useImgBBUpload"
 import { useCreateFacilityMutation } from "@/redux/features/facilities/facilityApi"
+import { isFetchBaseQueryError, isSerializedError } from "@/types"
 import { Label } from "@radix-ui/react-label"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
@@ -16,9 +17,11 @@ const AddFacility = () => {
     if (isLoading) {
         return toast.loading("Please wait", { id: "createFacility" })
     };
-    if (error) {
-        toast.error(`${error?.data?.message}`, { id: "createFacility" });
-    };
+    if (isFetchBaseQueryError(error)) {
+        toast.error(`${error.data?.messages}`, { id: "createFacility" });
+    } else if (isSerializedError(error)) {
+        toast.error(`${error.message} `, { id: "createFacility" });
+    }
     if (data && data.success) {
         toast.success("Faculty created successfully!", { id: "createFacility" });
     }

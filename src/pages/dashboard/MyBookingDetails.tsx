@@ -72,7 +72,7 @@ const MyBookingDetails = () => {
                                 <strong>Payable Amount:</strong> ${payableAmount ? payableAmount : "payableAmount"}
                             </p>
                             <p className={`text-lg font-semibold mt-4 ${isBooked === "canceled" ? "text-red-500" : "text-green-500"}`}>
-                                Status: {isBooked?.charAt(0)?.toUpperCase() + isBooked?.slice(1)}
+                                <span className="text-primary font-bold"> Status:</span> {isBooked}
                             </p>
                         </div>
                     </div>

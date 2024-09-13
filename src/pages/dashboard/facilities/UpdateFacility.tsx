@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import useImgBBUpload from "@/hooks/useImgBBUpload"
 import { useGetASingleFacilityQuery, useUpdateAFacilityMutation } from "@/redux/features/facilities/facilityApi"
+import { isFetchBaseQueryError, isSerializedError } from "@/types"
 import { Label } from "@radix-ui/react-label"
 import { memo } from "react"
 import { useForm } from "react-hook-form"
@@ -23,9 +24,11 @@ const UpdateFacility = () => {
     if (isLoading) {
         return toast.loading("Please wait", { id: "updateFacilityToastID" })
     };
-    if (error) {
-        toast.error(`${error?.data?.message}`, { id: "updateFacilityToastID" });
-    };
+    if (isFetchBaseQueryError(error)) {
+        toast.error(`${error.data?.messages}`, { id: "updateFacilityToastID" });
+    } else if (isSerializedError(error)) {
+        toast.error(`${error.message} `, { id: "updateFacilityToastID" });
+    }
     if (data && data.success) {
         toast.success("Faculty update successfully!", { id: "updateFacilityToastID" });
     }

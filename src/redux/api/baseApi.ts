@@ -4,7 +4,7 @@ import { RootState } from '../store';
 import { logout, setUser } from '../features/auth/authSlice';
 
 const baseQuery = fetchBaseQuery({
-    baseUrl: "http://localhost:5000/api/",
+    baseUrl: "https://sports-facility-booking-platform-ten.vercel.app/api/",
     credentials: "include",
     // extra added with fetchBaseQuery
     // in prepareHeaders we get two parameters (header,api), we get the getState() from the api
@@ -36,7 +36,7 @@ const baseQueryWithRefreshToken = async (args: any, api: any, extraOptions: any)
 
     if (result?.error?.status === 401) {
 
-        const res = await fetch("http://localhost:5000/api/refresh-token", {
+        const res = await fetch("https://sports-facility-booking-platform-ten.vercel.app/api/refresh-token", {
             method: "POST",
             credentials: "include"
         });

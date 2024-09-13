@@ -12,6 +12,7 @@ import { setUser } from "@/redux/features/auth/authSlice";
 import { useAppDispatch } from "@/redux/hooks";
 import verifyJwtToken from "@/utils/verifyJwtToken";
 import { Textarea } from "../ui/textarea";
+import { isFetchBaseQueryError, isSerializedError } from "@/types";
 
 const SignUp = () => {
     const [createUser, { data, error, isLoading }] = useCreateUserMutation();
@@ -23,9 +24,11 @@ const SignUp = () => {
     if (isLoading) {
         return toast.loading("Please wait", { id: "signUpUser" })
     };
-    if (error) {
-        toast.error(`${error?.data?.message ? error?.data?.message : "Account creation failed, please try again!"}`, { id: "signUpUser" });
-    };
+    if (isFetchBaseQueryError(error)) {
+        toast.error(`${error.data?.messages}`, { id: "signUpUser" });
+    } else if (isSerializedError(error)) {
+        toast.error(`${error.message} `, { id: "signUpUser" });
+    }
     if (!error && data?.success) {
         toast.success(`Welcome ${data?.data?.name}, account created successfully`, { id: "signUpUser" });
     }
