@@ -1,6 +1,6 @@
 
 # Sports Facility Booking Platform
- 
+  
 The **Sports Facility Booking Platform** allows users to book sports facilities easily and provides administrators with tools to manage bookings, users, and facilities. This project is an integrated full-stack MERN (MongoDB, Express, React, Node.js) application with a user-friendly interface.
 
 ## Features
