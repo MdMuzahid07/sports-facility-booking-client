@@ -1,19 +1,18 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button } from '@/components/ui/button';
+import { useGetAllProductsQuery, useGetASingleProductQuery } from '@/redux/features/products/productApi';
 import { useLayoutEffect } from 'react';
 import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
 import { useParams } from 'react-router-dom';
+import ProductCard from './ProductCard';
 
 
 
 const ProductDetails = () => {
     const { productId } = useParams();
-    const product = {
-        data: {
-            stock: 10
-        }
-    }
-
+    const { data: product } = useGetASingleProductQuery(productId);
+    const { data: allProducts } = useGetAllProductsQuery(undefined);
 
 
     useLayoutEffect(() => {
@@ -23,7 +22,7 @@ const ProductDetails = () => {
     return (
         <div className="bg-slate-200 min-h-screen">
             <div className="h-[40vh] w-full hidden lg:block">
-                <img className="h-full w-full object-cover object-bottom" src="https://res.cloudinary.com/dymo0iyee/image/upload/v1725689329/1752_x3nrjw.jpg" alt="" />
+                <img className="h-full w-full object-cover object-bottom" src={product?.data?.imageUrl} alt="" />
             </div>
             <div className="max-w-7xl mx-auto py-12 lg:py-32 px-4 xl:px-0">
                 <h1 className="mb-10 text-3xl md:text-4xl font-bold ">Product Details</h1>
@@ -33,26 +32,27 @@ const ProductDetails = () => {
                             <div className="w-full">
                                 <Zoom>
                                     <img
-                                        src="https://res.cloudinary.com/dymo0iyee/image/upload/v1725689329/1752_x3nrjw.jpg"
+                                        title="click to zoom"
+                                        src={product?.data?.imageUrl}
                                         alt=""
-                                        className="w-full h-auto max-h-[500px] object-cover shadow-lg"
+                                        className="w-full h-auto  hover:cursor-pointer max-h-[500px] object-cover shadow-lg"
                                     />
                                 </Zoom>
                             </div>
                         </div>
                         <div className="col-span-2 flex flex-col justify-between">
                             <div>
-                                <h1 className="text-3xl font-bold  mb-2">title</h1>
-                                <p className=" text-lg">Category: name</p>
-                                <p className=" text-lg">Minimum Buy: Quantity</p>
+                                <h1 className="text-3xl font-bold  mb-2">{product?.data?.title}</h1>
+                                <p className=" text-lg">Category: Sports Equipment</p>
+                                <p className=" text-lg">Minimum Buy: {product?.data?.quantity}</p>
                             </div>
                             <div className="mb-4">
-                                <p className="text-4xl font-semibold  mb-2">$price</p>
-                                <p className="text-yellow-500 text-lg">Rating: 4.5</p>
+                                <p className="text-4xl font-semibold  mb-2">${product?.data?.price}</p>
+                                {/* <p className="text-yellow-500 text-lg">Rating: 4.5</p> */}
                             </div>
                             <div className="mb-4">
                                 {product?.data?.stock > 0 ? (
-                                    <p className=" text-lg">In Stock stock available)</p>
+                                    <p className=" text-lg">In Stock stock available({product?.data?.stock})</p>
                                 ) : (
                                     <p className="text-red-500 text-lg">Out of Stock</p>
                                 )}
@@ -70,7 +70,7 @@ const ProductDetails = () => {
 
                     <div className="mt-10">
                         <h2 className="text-xl font-semibold  mb-2">Product Description</h2>
-                        <p className="">description</p>
+                        <p className="">{product?.data?.description}</p>
                     </div>
 
 
@@ -78,11 +78,11 @@ const ProductDetails = () => {
 
                 {/* Related Products Section */}
                 <div className="mt-44">
-                    <h1 className="text-xl md:text-2xl lg:text-3xl font-bold mb-10 ">Related category</h1>
-                    <div className="w-full grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 md:gap-5">
-                        {/* {filterProductCategoryWise?.slice(0, 5)?.map((product: any) => (
+                    <h1 className="text-xl md:text-2xl lg:text-3xl font-bold mb-10 ">Other Products</h1>
+                    <div className="w-full grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        {allProducts?.data?.filter((product: any) => product?._id !== productId).slice(0, 4)?.map((product: any) => (
                             <ProductCard key={product?._id} product={product} />
-                        ))} */}
+                        ))}
                     </div>
                 </div>
             </div>
@@ -90,4 +90,4 @@ const ProductDetails = () => {
     );
 }
 
-export default ProductDetails
+export default ProductDetails;
