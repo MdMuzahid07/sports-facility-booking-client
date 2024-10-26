@@ -14,14 +14,18 @@ import verifyJwtToken from "@/utils/verifyJwtToken";
 
 const Login = () => {
     const [loginUser, { data, error, isLoading }] = useLoginUserMutation();
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm();
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
+    // Pre-set credentials
+    const adminCredentials = { email: "mdmuzahid.dev@gmail.com", password: "admin123" };
+    const userCredentials = { email: "user@example.com", password: "user123" };
+
 
     if (isLoading) {
-        return toast.loading("Please wait", { id: "loginUser" })
-    };
+        toast.loading("Please wait", { id: "loginUser" });
+    }
     if (error) {
         toast.error(`${(error as any).data?.messages}`, { id: "loginUser" });
     }
@@ -29,10 +33,8 @@ const Login = () => {
         toast.success(`Welcome back ${data?.data?.name ? data?.data?.name : "Login failed, please try again!"}, login successfully`, { id: "loginUser" });
     }
 
-    const onSubmit = async (data: any) => {
-        const login = {
-            ...data,
-        };
+    const onSubmit = async (formData: any) => {
+        const login = { ...formData };
         const res = await loginUser(login).unwrap();
         const user = verifyJwtToken(res?.token);
         if (res && user) {
@@ -42,8 +44,15 @@ const Login = () => {
             }));
         }
         if (res.success) {
-            navigate("/")
+            navigate("/");
         }
+    };
+
+    //! for test purpose
+    const handleSetCredentials = (role: "admin" | "user") => {
+        const credentials = role === "admin" ? adminCredentials : userCredentials;
+        setValue("email", credentials.email);
+        setValue("password", credentials.password);
     };
 
     return (
@@ -55,27 +64,31 @@ const Login = () => {
                         <CardDescription>Enter your username and password</CardDescription>
                     </CardHeader>
                     <CardContent>
+
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <div className="grid w-full items-center gap-4">
                                 <div className="flex flex-col space-y-1.5">
-                                    <Label className=" flex items-center gap-2" htmlFor="email">
+                                    <Label className="flex items-center gap-2" htmlFor="email">
                                         <span><User /></span>
                                         <span>Email</span>
                                     </Label>
                                     <Input
                                         {...register("email", { required: true })}
-                                        id="email" placeholder="your account email address"
+                                        id="email"
+                                        placeholder="Your account email address"
                                         aria-invalid={errors.name ? "true" : "false"}
                                     />
                                 </div>
                                 <div className="flex flex-col space-y-1.5">
-                                    <Label className=" flex items-center gap-2" htmlFor="password">
+                                    <Label className="flex items-center gap-2" htmlFor="password">
                                         <span><Key /></span>
                                         <span>Password</span>
                                     </Label>
                                     <Input
                                         {...register("password", { required: true })}
-                                        type="password" id="password" placeholder="Name of your project"
+                                        type="password"
+                                        id="password"
+                                        placeholder="Your password"
                                         aria-invalid={errors.password ? "true" : "false"}
                                     />
                                 </div>
@@ -87,11 +100,18 @@ const Login = () => {
                                 <Button type="submit" className="rounded-none">Login</Button>
                             </CardFooter>
                         </form>
+                        <section className="border-t">
+                            <h1 className="text-xl mb-2 ">For test purpose</h1>
+                            <div className="flex justify-between">
+                                <Button onClick={() => handleSetCredentials("admin")} className="rounded-none">Login as Admin</Button>
+                                <Button onClick={() => handleSetCredentials("user")} className="rounded-none">Login as User</Button>
+                            </div>
+                        </section>
                     </CardContent>
                 </Card>
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default Login;
