@@ -13,6 +13,9 @@ import ManageFacilities from "@/pages/dashboard/facilities/ManageFacilities";
 import UpdateFacility from "@/pages/dashboard/facilities/UpdateFacility";
 import MyBookingDetails from "@/pages/dashboard/MyBookingDetails";
 import MyBookings from "@/pages/dashboard/MyBookings";
+import AddProduct from "@/pages/dashboard/products/AddProduct";
+import ManageOrders from "@/pages/dashboard/products/ManageOrders";
+import ManageProducts from "@/pages/dashboard/products/ManageProducts";
 import AboutUs from "@/pages/main/AboutUs";
 import ContactUs from "@/pages/main/ContactUs";
 import Facilities from "@/pages/main/Facilities";
@@ -93,6 +96,18 @@ const routes = createBrowserRouter([
             {
                 path: "add-facilities",
                 element: <AddFacility />
+            },
+            {
+                path: "manage-products",
+                element: <ManageProducts />
+            },
+            {
+                path: "manage-orders",
+                element: <ManageOrders />
+            },
+            {
+                path: "add-products",
+                element: <AddProduct />
             },
             {
                 path: "update-facility/:facilityId",

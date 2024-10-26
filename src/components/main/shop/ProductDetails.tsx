@@ -1,11 +1,24 @@
 import { Button } from '@/components/ui/button';
+import { useLayoutEffect } from 'react';
 import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
+import { useParams } from 'react-router-dom';
 
 
 
 const ProductDetails = () => {
+    const { productId } = useParams();
+    const product = {
+        data: {
+            stock: 10
+        }
+    }
 
+
+
+    useLayoutEffect(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }, [productId]);
 
     return (
         <div className="bg-slate-200 min-h-screen">
@@ -38,11 +51,11 @@ const ProductDetails = () => {
                                 <p className="text-yellow-500 text-lg">Rating: 4.5</p>
                             </div>
                             <div className="mb-4">
-                                {/* {product?.data?.stock > 0 ? (
+                                {product?.data?.stock > 0 ? (
                                     <p className=" text-lg">In Stock stock available)</p>
                                 ) : (
                                     <p className="text-red-500 text-lg">Out of Stock</p>
-                                )} */}
+                                )}
                             </div>
                             <div>
                                 <Button

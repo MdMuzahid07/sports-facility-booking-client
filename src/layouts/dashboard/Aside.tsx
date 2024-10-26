@@ -93,6 +93,28 @@ const Aside = ({ isSidebarOpen, setIsSidebarOpen }: any) => {
                                             </NavLink>
                                         </AccordionContent>
                                     </AccordionItem>
+
+                                    <AccordionItem className="mb-7" value="item-4">
+                                        <AccordionTrigger className="text-lg bg-white rounded-lg w-full px-4 py-2">Product Management</AccordionTrigger>
+                                        <AccordionContent className="bg-white rounded-lg p-4 mt-3">
+                                            <NavLink to="/dashboard/add-products">
+                                                <button className="px-4 font-semibold py-2 text-lg bg-slate-200 text-left rounded-lg text-[#000000] w-full mb-7">Add Products</button>
+                                            </NavLink>
+                                            <hr />
+                                            <NavLink to="/dashboard/manage-products">
+                                                <button className="px-4 font-semibold py-2 text-lg bg-slate-200 text-left rounded-lg text-[#000000] w-full">Manage Products</button>
+                                            </NavLink>
+                                        </AccordionContent>
+                                    </AccordionItem>
+
+                                    <AccordionItem className="mb-7" value="item-5">
+                                        <AccordionTrigger className="text-lg bg-white rounded-lg w-full px-4 py-2">Orders Management</AccordionTrigger>
+                                        <AccordionContent className="bg-white rounded-lg p-4 mt-3">
+                                            <NavLink to="/dashboard/manage-orders">
+                                                <button className="px-4 font-semibold py-2 text-lg bg-slate-200 text-left rounded-lg text-[#000000] w-full">All Orders</button>
+                                            </NavLink>
+                                        </AccordionContent>
+                                    </AccordionItem>
                                 </>
                             )
                         }

@@ -1,14 +1,16 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button } from "@/components/ui/button";
 import ProductCard from "./ProductCard";
 import { MoveRight } from "lucide-react";
 import { useState } from "react";
+import { useGetAllProductsQuery } from "@/redux/features/products/productApi";
 
-
-const products = [1, 3, 4, 5, 65, 6, 6, 7, 1, 2, 4, 5, 6, 7, 8, 6];
 
 const ShopSection = () => {
     const [loadMore, setLoadMore] = useState(8);
     const [isLoading, setIsLoading] = useState(false);
+    const { data: allProducts } = useGetAllProductsQuery(undefined);
+
 
     const handleLoadMore = () => {
         setIsLoading(true);
@@ -26,14 +28,14 @@ const ShopSection = () => {
 
                 <section className="mt-20 grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                     {
-                        products?.slice(0, loadMore)?.map((product, index) => (
-                            <ProductCard product={product} key={index + 1} />
+                        allProducts?.data?.slice(0, loadMore)?.map((product: any) => (
+                            <ProductCard product={product} key={product?._id} />
                         ))
                     }
                 </section>
                 <section className="mt-14 flex justify-end">
                     {
-                        products?.length > loadMore ? <Button onClick={handleLoadMore} className="rounded-none text-2xl font-bold py-1"> {isLoading ? "Loading..." : "Load More"} <MoveRight className="ml-3" /></Button> : <p className="text-2xl"> Available equipments Loaded</p>
+                        allProducts?.data?.length > loadMore ? <Button onClick={handleLoadMore} className="rounded-none text-2xl font-bold py-1"> {isLoading ? "Loading..." : "Load More"} <MoveRight className="ml-3" /></Button> : <p className="text-2xl"> Available equipments Loaded</p>
                     }
                 </section>
             </section>
