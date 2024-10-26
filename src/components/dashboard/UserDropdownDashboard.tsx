@@ -1,7 +1,6 @@
 import {
     Home,
     LogOut,
-    User,
 } from "lucide-react";
 
 import {
