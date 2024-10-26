@@ -16,6 +16,7 @@ import MyBookings from "@/pages/dashboard/MyBookings";
 import AddProduct from "@/pages/dashboard/products/AddProduct";
 import ManageOrders from "@/pages/dashboard/products/ManageOrders";
 import ManageProducts from "@/pages/dashboard/products/ManageProducts";
+import UpdateProduct from "@/pages/dashboard/products/UpdateProduct";
 import AboutUs from "@/pages/main/AboutUs";
 import ContactUs from "@/pages/main/ContactUs";
 import Facilities from "@/pages/main/Facilities";
@@ -112,6 +113,10 @@ const routes = createBrowserRouter([
             {
                 path: "update-facility/:facilityId",
                 element: <UpdateFacility />
+            },
+            {
+                path: "update-product/:productId",
+                element: <UpdateProduct />
             },
             {
                 path: "manage-facilities",

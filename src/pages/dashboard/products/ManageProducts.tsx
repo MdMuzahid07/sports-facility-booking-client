@@ -42,8 +42,8 @@ const ManageProducts = () => {
     };
 
 
-    const handleUpdateProduct = (id: string) => {
-        navigate(`/dashboard/update-product/${id}`);
+    const handleUpdateProduct = (productId: string) => {
+        navigate(`/dashboard/update-product/${productId}`);
     };
 
     if (isLoading) {
