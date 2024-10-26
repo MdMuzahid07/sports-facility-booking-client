@@ -45,6 +45,10 @@ const Testimonial = () => {
     return (
         <div className="bg-slate-200">
             <div className="max-w-[1312px] mx-auto py-28">
+                <div className="pl-4">
+                    <h3 className="text-3xl md:text-5xl font-extrabold mb-5">Testimonials </h3>
+                    <p className="text-xl md:text-2xl lg:text-3xl">What our client says</p>
+                </div>
                 <div className="flex items-center justify-end mb-5 mr-4">
                     <div className="flex items-center space-x-6">
                         <Button onClick={() => sliderRef.current?.slickPrev()} className="rounded-none">

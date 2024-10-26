@@ -6,7 +6,7 @@ const FeaturedFacilities = () => {
                 <h2 className="text-4xl font-bold text-center mb-16 text-white">Our Featured Facilities</h2>
                 <div className="space-y-12">
                     {/* Featured Item 1 */}
-                    <div className="flex flex-col sm:flex-row items-center bg-[#141313] rounded-lg overflow-hidden">
+                    <div className="flex flex-col sm:flex-row items-center bg-[#141313] overflow-hidden">
                         <img
                             src="https://res.cloudinary.com/dymo0iyee/image/upload/v1725725369/2150465472_h8vplw.jpg"
                             alt="State-of-the-Art Gym"
@@ -21,7 +21,7 @@ const FeaturedFacilities = () => {
                     </div>
 
                     {/* Featured Item 2 */}
-                    <div className="flex flex-col sm:flex-row-reverse items-center bg-[#141313] rounded-lg overflow-hidden">
+                    <div className="flex flex-col sm:flex-row-reverse items-center bg-[#141313] overflow-hidden">
                         <img
                             src="https://res.cloudinary.com/dymo0iyee/image/upload/v1725689329/1752_x3nrjw.jpg"
                             alt="Multi-purpose Courts"

@@ -1,6 +1,7 @@
 import App from "@/App";
 import Login from "@/components/auth/Login";
 import SignUp from "@/components/auth/SignUp";
+import ProductDetails from "@/components/main/shop/ProductDetails";
 import DashboardLayout from "@/layouts/dashboard/DashboardLayout";
 import MainLayout from "@/layouts/main/MainLayout";
 import ProtectedRoutes from "@/layouts/ProtectedRoutes";
@@ -46,6 +47,10 @@ const routes = createBrowserRouter([
             {
                 path: "/facility-details/:facilityId",
                 element: <FacilityDetails />
+            },
+            {
+                path: "/product-details/:productId",
+                element: <ProductDetails />
             },
             {
                 path: "/facility-booking/:bookById",

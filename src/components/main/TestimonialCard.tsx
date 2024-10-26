@@ -4,7 +4,7 @@ import { memo } from "react";
 
 const TestimonialCard = () => {
     return (
-        <div className="mx-4 h-[200px] overflow-hidden border-2 border-[#2B2C2D] relative p-4">
+        <div className="mx-4 h-[200px] overflow-hidden border-2 border-[#2B2C2D] relative p-4 bg-slate-200">
             <p className="flex gap-2 text-md">
                 <span><Quote /></span>
                 The customer service I received was exceptional. The support team went above and beyond to address my concerns.</p>

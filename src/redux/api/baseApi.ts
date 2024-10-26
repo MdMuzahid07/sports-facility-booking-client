@@ -4,7 +4,8 @@ import { RootState } from '../store';
 import { logout, setUser } from '../features/auth/authSlice';
 
 const baseQuery = fetchBaseQuery({
-    baseUrl: "https://sports-facility-booking-platform-ten.vercel.app/api/",
+    // baseUrl: "https://sports-facility-booking-platform-ten.vercel.app/api/",
+    baseUrl: "http://localhost:5000/api/",
     credentials: "include",
     // extra added with fetchBaseQuery
     // in prepareHeaders we get two parameters (header,api), we get the getState() from the api
