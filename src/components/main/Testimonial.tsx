@@ -1,11 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useRef } from "react";
 import Slider from "react-slick";
 import { Button } from "../ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import TestimonialCard from "./TestimonialCard";
+import { useGetAllTestimonialsQuery } from "@/redux/features/testimonial/testimonialApi";
 
 const Testimonial = () => {
     const sliderRef = useRef<Slider>(null);
+    const { data: testimonials } = useGetAllTestimonialsQuery(null);
 
     const settings = {
         dots: false,
@@ -62,8 +65,8 @@ const Testimonial = () => {
                 <div className="slider-container">
                     <Slider ref={sliderRef} arrows={false} {...settings}>
                         {
-                            [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]?.map((index) => (
-                                <TestimonialCard key={index + Math.random()} />
+                            testimonials?.data?.map((testimonial: any) => (
+                                <TestimonialCard testimonial={testimonial} key={testimonial?._id} />
                             ))
                         }
                     </Slider>

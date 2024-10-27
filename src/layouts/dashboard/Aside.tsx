@@ -53,12 +53,27 @@ const Aside = ({ isSidebarOpen, setIsSidebarOpen }: any) => {
                                 Dashboard
                             </button>
                         </NavLink>
+                        <NavLink to="/dashboard/my-profile">
+                            <button className="px-4 font-semibold py-2 text-lg bg-white text-left rounded-lg text-[#000000] w-full mb-7">
+                                My Profile
+                            </button>
+                        </NavLink>
                         {
                             (user && (userRole === "user")) && (
                                 <>
                                     <NavLink to="/dashboard/my-bookings">
                                         <button className="px-4 font-semibold py-2 text-lg bg-white text-left rounded-lg text-[rgb(0,0,0)] w-full mb-7">
                                             My Bookings
+                                        </button>
+                                    </NavLink>
+                                    <NavLink to="/dashboard/my-orders">
+                                        <button className="px-4 font-semibold py-2 text-lg bg-white text-left rounded-lg text-[rgb(0,0,0)] w-full mb-7">
+                                            My Orders
+                                        </button>
+                                    </NavLink>
+                                    <NavLink to="/dashboard/my-testimonial">
+                                        <button className="px-4 font-semibold py-2 text-lg bg-white text-left rounded-lg text-[rgb(0,0,0)] w-full mb-7">
+                                            Testimonial
                                         </button>
                                     </NavLink>
                                 </>

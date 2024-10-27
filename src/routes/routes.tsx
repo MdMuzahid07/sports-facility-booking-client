@@ -13,9 +13,12 @@ import ManageFacilities from "@/pages/dashboard/facilities/ManageFacilities";
 import UpdateFacility from "@/pages/dashboard/facilities/UpdateFacility";
 import MyBookingDetails from "@/pages/dashboard/MyBookingDetails";
 import MyBookings from "@/pages/dashboard/MyBookings";
+import MyProfile from "@/pages/dashboard/MyProfile";
+import MyTestimonial from "@/pages/dashboard/MyTestimonial";
 import AddProduct from "@/pages/dashboard/products/AddProduct";
 import ManageOrders from "@/pages/dashboard/products/ManageOrders";
 import ManageProducts from "@/pages/dashboard/products/ManageProducts";
+import MyOrders from "@/pages/dashboard/products/MyOrders";
 import UpdateProduct from "@/pages/dashboard/products/UpdateProduct";
 import AboutUs from "@/pages/main/AboutUs";
 import ContactUs from "@/pages/main/ContactUs";
@@ -105,6 +108,18 @@ const routes = createBrowserRouter([
             {
                 path: "manage-orders",
                 element: <ManageOrders />
+            },
+            {
+                path: "my-profile",
+                element: <MyProfile />
+            },
+            {
+                path: "my-orders",
+                element: <MyOrders />
+            },
+            {
+                path: "my-testimonial",
+                element: <MyTestimonial />
             },
             {
                 path: "add-products",
