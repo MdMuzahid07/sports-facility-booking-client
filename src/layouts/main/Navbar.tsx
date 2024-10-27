@@ -5,9 +5,12 @@ import { Link, NavLink } from "react-router-dom"
 import { Menu, X } from "lucide-react";
 import UserDropdown from "./UserDropdown";
 import { useAppSelector } from "@/redux/hooks";
+import CartDropdown from "@/cart/CartDropdown";
 
 const Navbar = () => {
     const [isMobileNavOpen, setIsMobileAppOpen] = useState(false);
+    const [cartDrop, setCartDrop] = useState(false);
+
     const user = useAppSelector((state) => state.auth.user);
 
     const handleMobileNav = () => setIsMobileAppOpen(!isMobileNavOpen);
@@ -31,6 +34,7 @@ const Navbar = () => {
                             navLinks?.map((nav) => <li className="font-bold uppercase text-lg" key={nav?.title}><NavLink to={nav?.path}>{nav?.title}</NavLink></li>)
                         }
                     </ul>
+                    <CartDropdown cartDrop={cartDrop} setCartDrop={setCartDrop} />
                     {
                         user?.role ? <UserDropdown /> : <NavLink to="/login">
                             <Button className="hidden md:flex rounded-none md:text-xl">

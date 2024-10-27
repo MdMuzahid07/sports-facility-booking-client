@@ -16,6 +16,7 @@ import MyBookings from "@/pages/dashboard/MyBookings";
 import MyProfile from "@/pages/dashboard/MyProfile";
 import MyTestimonial from "@/pages/dashboard/MyTestimonial";
 import AddProduct from "@/pages/dashboard/products/AddProduct";
+import CartPage from "@/pages/dashboard/products/CartPage";
 import ManageOrders from "@/pages/dashboard/products/ManageOrders";
 import ManageProducts from "@/pages/dashboard/products/ManageProducts";
 import MyOrders from "@/pages/dashboard/products/MyOrders";
@@ -50,6 +51,10 @@ const routes = createBrowserRouter([
             {
                 path: "/facilities",
                 element: <Facilities />
+            },
+            {
+                path: "/checkout-cart",
+                element: <CartPage />
             },
             {
                 path: "/facility-details/:facilityId",

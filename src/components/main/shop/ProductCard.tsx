@@ -1,23 +1,24 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { addCart } from "@/redux/features/cart/CartSlice";
+import { useAppDispatch } from "@/redux/hooks";
 
 
 import { useNavigate } from "react-router-dom";
-import { toast } from "sonner";
 
 
 const ProductCard = ({ product }: any) => {
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
 
     const handleDetails = (id: string) => {
         navigate(`/product-details/${id}`);
     };
 
-    const handleAddCart = (id: string) => {
-        toast.error(id);
+    const handleAddCart = (product: any) => {
+        dispatch(addCart(product));
     };
-
 
     return (
         <Card className="w-full border-2 transition-all duration-200 delay-100 hover:shadow-xl bg-slate-100 hover:shadow-[#2E2E2E] hover:-translate-y-2 hover:scale-105 rounded-none border-slate-100 hover:border-[#2E2E2E]">
@@ -44,7 +45,7 @@ const ProductCard = ({ product }: any) => {
                 {/* </div> */}
             </CardContent>
             <CardFooter className="p-4 flex justify-between">
-                <Button onClick={() => handleAddCart(product?._id)} variant="outline" className="w-full rounded-none text-xl hover:bg-[#2E2E2E] hover:text-white">Add to Cart</Button>
+                <Button onClick={() => handleAddCart(product)} variant="outline" className="w-full rounded-none text-xl hover:bg-[#2E2E2E] hover:text-white">Add to Cart</Button>
             </CardFooter>
         </Card>
     );
