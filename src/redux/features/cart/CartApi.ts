@@ -8,7 +8,6 @@ const cartApi = baseApi.injectEndpoints({
                 url: "/cart",
                 method: "GET"
             }),
-            providesTags: ["Review"]
         }),
 
         getASingleCart: builder.query({
@@ -24,7 +23,6 @@ const cartApi = baseApi.injectEndpoints({
                 method: "POST",
                 body: data
             }),
-            invalidatesTags: ["Review"]
         }),
 
         deleteACart: builder.mutation({
@@ -32,7 +30,6 @@ const cartApi = baseApi.injectEndpoints({
                 url: `/cart/${id}`,
                 method: "DELETE"
             }),
-            invalidatesTags: ["Review"]
         }),
 
         updateACart: builder.mutation({
@@ -41,7 +38,6 @@ const cartApi = baseApi.injectEndpoints({
                 method: "PATCH",
                 body: data
             }),
-            invalidatesTags: ["Review"]
         }),
 
     })

@@ -8,7 +8,6 @@ const orderApi = baseApi.injectEndpoints({
                 url: "/orders",
                 method: "GET"
             }),
-            providesTags: ["Review"]
         }),
 
         getASingleOrder: builder.query({
@@ -24,7 +23,6 @@ const orderApi = baseApi.injectEndpoints({
                 method: "POST",
                 body: data
             }),
-            invalidatesTags: ["Review"]
         }),
 
         deleteAOrder: builder.mutation({
@@ -32,7 +30,6 @@ const orderApi = baseApi.injectEndpoints({
                 url: `/orders/${id}`,
                 method: "DELETE"
             }),
-            invalidatesTags: ["Review"]
         }),
 
         updateAOrder: builder.mutation({
@@ -41,7 +38,6 @@ const orderApi = baseApi.injectEndpoints({
                 method: "PATCH",
                 body: data
             }),
-            invalidatesTags: ["Review"]
         }),
 
     })
