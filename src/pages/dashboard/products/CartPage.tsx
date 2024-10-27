@@ -82,7 +82,7 @@ const CartPage = () => {
     }, []);
 
     return (
-        <div className="bg-[#E2E6E0] w-full h-full">
+        <div className="bg-slate-200 w-full h-full">
             <div className="h-56 w-full">
                 <img className="h-full w-full object-cover" src="https://res.cloudinary.com/dymo0iyee/image/upload/v1725689329/1752_x3nrjw.jpg" alt="" />
             </div>
