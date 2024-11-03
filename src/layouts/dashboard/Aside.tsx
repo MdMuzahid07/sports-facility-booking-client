@@ -19,7 +19,7 @@ const Aside = ({ isSidebarOpen, setIsSidebarOpen }: any) => {
     return (
         <aside className={
             `${isSidebarOpen ? "flex" : "hidden"
-            } col-span-12 lg:col-span-4 xl:col-span-2 text-[18px] sm:text-[25px] bg-primary text-black min-h-screen sm:max-h-screen h-full w-full sticky top-0 border-r z-50
+            } col-span-12 lg:col-span-4 xl:col-span-2 text-[18px] sm:text-[25px] bg-primary text-black min-h-screen sm:max-h-screen h-full w-full sticky top-0 z-50
             `
         }>
             <div
@@ -50,31 +50,31 @@ const Aside = ({ isSidebarOpen, setIsSidebarOpen }: any) => {
                 <div className="mt-6 sm:mt-14 md:mt-16">
                     <Accordion type="single" collapsible className="w-full">
                         <NavLink to="/dashboard/home">
-                            <button className=" font-semibold py-2 text-lg bg-primary text-left rounded-lg text-slate-200 w-full mb-5 flex items-center gap-2">
-                                <LayoutDashboard size={20} />   Dashboard
+                            <button className=" font-semibold py-2 text-xs 2xl:text-sm bg-primary text-left rounded-lg text-slate-200 w-full mb-5 flex items-center gap-2">
+                                <LayoutDashboard size={15} />   Dashboard
                             </button>
                         </NavLink>
-                        <NavLink to="/dashboard/my-profile">
-                            <button className=" font-semibold py-2 text-lg bg-primary text-left rounded-lg text-slate-200 w-full mb-5 flex items-center gap-2">
-                                <User size={20} /> My Profile
+                        {/* <NavLink to="/dashboard/my-profile">
+                            <button className=" font-semibold py-2 text-xs 2xl:text-sm bg-primary text-left rounded-lg text-slate-200 w-full mb-5 flex items-center gap-2">
+                                <User size={15} /> My Profile
                             </button>
-                        </NavLink>
+                        </NavLink> */}
                         {
                             (user && (userRole === "user")) && (
                                 <>
                                     <NavLink to="/dashboard/my-bookings">
-                                        <button className=" font-semibold py-2 text-lg bg-primary text-left rounded-lg text-slate-200 w-full mb-5  flex items-center gap-2">
-                                            <BookCheck size={20} />  My Bookings
+                                        <button className=" font-semibold py-2 text-xs 2xl:text-sm bg-primary text-left rounded-lg text-slate-200 w-full mb-5  flex items-center gap-2">
+                                            <BookCheck size={15} />  My Bookings
                                         </button>
                                     </NavLink>
                                     <NavLink to="/dashboard/my-orders">
-                                        <button className=" font-semibold py-2 text-lg bg-primary text-left rounded-lg text-slate-200 w-full mb-5  flex items-center gap-2">
-                                            <BaggageClaim size={20} /> My Orders
+                                        <button className=" font-semibold py-2 text-xs 2xl:text-sm bg-primary text-left rounded-lg text-slate-200 w-full mb-5  flex items-center gap-2">
+                                            <BaggageClaim size={15} /> My Orders
                                         </button>
                                     </NavLink>
                                     <NavLink to="/dashboard/my-testimonial">
-                                        <button className=" font-semibold py-2 text-lg bg-primary text-left rounded-lg text-slate-200 w-full mb-5  flex items-center gap-2">
-                                            <MessageSquareQuote size={20} />  Testimonial
+                                        <button className=" font-semibold py-2 text-xs 2xl:text-sm bg-primary text-left rounded-lg text-slate-200 w-full mb-5  flex items-center gap-2">
+                                            <MessageSquareQuote size={15} />  Testimonial
                                         </button>
                                     </NavLink>
                                 </>
@@ -85,69 +85,69 @@ const Aside = ({ isSidebarOpen, setIsSidebarOpen }: any) => {
                             (user && (userRole === "admin")) && (
                                 <>
                                     <NavLink to="/dashboard/add-admin">
-                                        <button className=" font-semibold py-2 text-lg bg-primary text-left rounded-lg text-slate-200 w-full mb-5  flex items-center gap-2">
-                                            <ShieldPlus size={20} />
+                                        <button className=" font-semibold py-2 text-xs 2xl:text-sm bg-primary text-left rounded-lg text-slate-200 w-full mb-5  flex items-center gap-2">
+                                            <ShieldPlus size={15} />
                                             Add Admin</button>
                                     </NavLink>
 
                                     <AccordionItem className="mb-5" value="item-1">
-                                        <AccordionTrigger className="text-lg bg-primary rounded-lg w-full  py-2 text-slate-200">
+                                        <AccordionTrigger className="text-xs 2xl:text-sm bg-primary rounded-lg w-full  py-2 text-slate-200">
                                             <div className="flex items-center gap-2">
-                                                <Trophy size={20} /> Facility Management
+                                                <Trophy size={15} /> Facility Management
                                             </div>
                                         </AccordionTrigger>
                                         <AccordionContent className="bg-primary rounded-lg px-4 ">
                                             <NavLink to="/dashboard/add-facilities">
-                                                <button className=" font-semibold py-2 text-lg bg-primary text-left rounded-lg text-slate-200 w-full flex items-center gap-2"> <ListPlus size={20} /> Add Facility</button>
+                                                <button className=" font-semibold py-2 text-xs 2xl:text-sm bg-primary text-left rounded-lg text-slate-200 w-full flex items-center gap-2"> <ListPlus size={15} /> Add Facility</button>
                                             </NavLink>
                                             <hr />
                                             <NavLink to="/dashboard/manage-facilities">
-                                                <button className=" font-semibold py-2 text-lg bg-primary text-left rounded-lg text-slate-200 w-full flex items-center gap-2"> <Settings2 size={20} />Manage Facilities</button>
+                                                <button className=" font-semibold py-2 text-xs 2xl:text-sm bg-primary text-left rounded-lg text-slate-200 w-full flex items-center gap-2"> <Settings2 size={15} />Manage Facilities</button>
                                             </NavLink>
                                         </AccordionContent>
                                     </AccordionItem>
 
                                     <AccordionItem className="mb-5" value="item-3">
-                                        <AccordionTrigger className="text-lg bg-primary rounded-lg w-full  py-2 text-slate-200">
+                                        <AccordionTrigger className="text-xs 2xl:text-sm bg-primary rounded-lg w-full  py-2 text-slate-200">
                                             <div className="flex items-center gap-2">
-                                                <NotebookPen size={20} />  Booking Management
+                                                <NotebookPen size={15} />  Booking Management
                                             </div>
                                         </AccordionTrigger>
                                         <AccordionContent className="bg-primary rounded-lg px-4 ">
                                             <NavLink to="/dashboard/manage-bookings">
-                                                <button className=" font-semibold py-2 text-lg bg-primary text-left rounded-lg text-slate-200 w-full flex items-center gap-2"><ListCheck size={20} /> All Bookings</button>
+                                                <button className=" font-semibold py-2 text-xs 2xl:text-sm bg-primary text-left rounded-lg text-slate-200 w-full flex items-center gap-2"><ListCheck size={15} /> All Bookings</button>
                                             </NavLink>
                                         </AccordionContent>
                                     </AccordionItem>
 
                                     <AccordionItem className="mb-5" value="item-4">
-                                        <AccordionTrigger className="text-lg bg-primary rounded-lg w-full  py-2 text-slate-200">
+                                        <AccordionTrigger className="text-xs 2xl:text-sm bg-primary rounded-lg w-full  py-2 text-slate-200">
                                             <div className="flex items-center gap-2">
-                                                <ShoppingBasket size={20} />
+                                                <ShoppingBasket size={15} />
                                                 Product Management
                                             </div>
                                         </AccordionTrigger>
                                         <AccordionContent className="bg-primary rounded-lg px-4 ">
                                             <NavLink to="/dashboard/add-products">
-                                                <button className=" font-semibold py-2 text-lg bg-primary text-left rounded-lg text-slate-200 w-full flex items-center gap-2"> <Plus size={20} /> Add Products</button>
+                                                <button className=" font-semibold py-2 text-xs 2xl:text-sm bg-primary text-left rounded-lg text-slate-200 w-full flex items-center gap-2"> <Plus size={15} /> Add Products</button>
                                             </NavLink>
                                             <hr />
                                             <NavLink to="/dashboard/manage-products">
-                                                <button className=" font-semibold py-2 text-lg bg-primary text-left rounded-lg text-slate-200 w-full flex items-center gap-2"> <Settings2 size={20} /> Manage Products</button>
+                                                <button className=" font-semibold py-2 text-xs 2xl:text-sm bg-primary text-left rounded-lg text-slate-200 w-full flex items-center gap-2"> <Settings2 size={15} /> Manage Products</button>
                                             </NavLink>
                                         </AccordionContent>
                                     </AccordionItem>
 
                                     <AccordionItem className="mb-5" value="item-5">
-                                        <AccordionTrigger className="text-lg bg-primary rounded-lg w-full  py-2 text-slate-200">
+                                        <AccordionTrigger className="text-xs 2xl:text-sm bg-primary rounded-lg w-full  py-2 text-slate-200">
                                             <div className="flex items-center gap-2">
-                                                <BaggageClaim size={20} />
+                                                <BaggageClaim size={15} />
                                                 Orders Management
                                             </div>
                                         </AccordionTrigger>
                                         <AccordionContent className="bg-primary px-4">
                                             <NavLink to="/dashboard/manage-orders">
-                                                <button className=" font-semibold py-2 text-lg bg-primary text-left text-slate-200 w-full flex items-center gap-2"> <ListCheck size={20} /> All Orders</button>
+                                                <button className=" font-semibold py-2 text-xs 2xl:text-sm bg-primary text-left text-slate-200 w-full flex items-center gap-2"> <ListCheck size={15} /> All Orders</button>
                                             </NavLink>
                                         </AccordionContent>
                                     </AccordionItem>

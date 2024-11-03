@@ -36,7 +36,7 @@ const DashboardLayout = () => {
                                     setIsSidebarOpen={setIsSidebarOpen}
                                     isSidebarOpen={isSidebarOpen}
                                 />
-                                <div className="bg-slate-100">
+                                <div className="bg-slate-200">
                                     <div
                                         className={`sm:px-16 px-6 ${isSidebarOpen ? "max-w-7xl" : "max-w-screen-2xl"
                                             } min-h-screen w-full mx-auto `}
