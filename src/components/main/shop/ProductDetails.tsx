@@ -6,6 +6,8 @@ import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
 import { useParams } from 'react-router-dom';
 import ProductCard from './ProductCard';
+import { addCart } from '@/redux/features/cart/CartSlice';
+import { useAppDispatch } from '@/redux/hooks';
 
 
 
@@ -13,6 +15,13 @@ const ProductDetails = () => {
     const { productId } = useParams();
     const { data: product } = useGetASingleProductQuery(productId);
     const { data: allProducts } = useGetAllProductsQuery(undefined);
+    const dispatch = useAppDispatch();
+
+
+
+    const handleAddCart = (product: any) => {
+        dispatch(addCart(product));
+    };
 
 
     useLayoutEffect(() => {
@@ -22,7 +31,7 @@ const ProductDetails = () => {
     return (
         <div className="bg-slate-200 min-h-screen">
             <div className="h-[40vh] w-full hidden lg:block">
-                <img className="h-full w-full object-cover object-bottom" src={product?.data?.imageUrl} alt="" />
+                <img className="h-full w-full object-cover object-center" src={product?.data?.imageUrl} alt="" />
             </div>
             <div className="max-w-7xl mx-auto py-12 lg:py-32 px-4 xl:px-0">
                 <h1 className="mb-10 text-3xl md:text-4xl font-bold ">Product Details</h1>
@@ -59,8 +68,9 @@ const ProductDetails = () => {
                             </div>
                             <div>
                                 <Button
+                                    onClick={() => handleAddCart(product?.data)}
                                     className="text-2xl rounded-none py-1"
-                                // disabled={product?.data?.stock === 0}
+                                    disabled={product?.data?.stock === 0}
                                 >
                                     Add to Cart
                                 </Button>

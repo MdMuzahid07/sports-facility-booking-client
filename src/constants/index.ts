@@ -10,6 +10,10 @@ export const navLinks = [
         path: "/facilities"
     },
     {
+        title: "Sports Equipments",
+        path: "/store"
+    },
+    {
         title: "About Us",
         path: "/about-us"
     },

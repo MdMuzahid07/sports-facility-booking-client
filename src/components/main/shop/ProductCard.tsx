@@ -22,14 +22,14 @@ const ProductCard = ({ product }: any) => {
 
     return (
         <Card className="w-full border-2 transition-all duration-200 delay-100 hover:shadow-xl bg-slate-100 hover:shadow-[#2E2E2E] hover:-translate-y-2 hover:scale-105 rounded-none border-slate-100 hover:border-[#2E2E2E]">
-            <CardHeader onClick={() => handleDetails(product?._id)} className="p-0 cursor-pointer">
+            <CardHeader title="click to view details" onClick={() => handleDetails(product?._id)} className="p-0 cursor-pointer">
                 <img
                     src={product?.imageUrl}
                     alt="Product Image"
                     className="w-full h-65 md:h-48 object-cover"
                 />
             </CardHeader>
-            <CardContent onClick={() => handleDetails(product?._id)} className="p-4">
+            <CardContent title="click to view details" onClick={() => handleDetails(product?._id)} className="p-4">
                 <CardTitle className="text-lg font-semibold cursor-pointer">{product?.title}</CardTitle>
                 <div className="text-gray-700 mt-2 text-sm">
                     <p className="font-semibold">Price: $29.99</p>
@@ -45,7 +45,7 @@ const ProductCard = ({ product }: any) => {
                 {/* </div> */}
             </CardContent>
             <CardFooter className="p-4 flex justify-between">
-                <Button onClick={() => handleAddCart(product)} variant="outline" className="w-full rounded-none text-xl hover:bg-[#2E2E2E] hover:text-white">Add to Cart</Button>
+                <Button title="click for add to cart" onClick={() => handleAddCart(product)} variant="outline" className="w-full rounded-none text-xl hover:bg-[#2E2E2E] hover:text-white">Add to Cart</Button>
             </CardFooter>
         </Card>
     );

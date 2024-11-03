@@ -46,7 +46,7 @@ const Testimonial = () => {
     };
 
     return (
-        <div className="bg-slate-200">
+        <div className="bg-slate-200 border-t border-primary">
             <div className="max-w-[1312px] mx-auto py-28">
                 <div className="pl-4">
                     <h3 className="text-3xl md:text-5xl font-extrabold mb-5">Testimonials </h3>

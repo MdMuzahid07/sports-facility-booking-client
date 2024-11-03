@@ -6,7 +6,7 @@ import { memo } from "react";
 const TestimonialCard = ({ testimonial }: any) => {
 
     return (
-        <div className="mx-4 h-[200px] overflow-hidden border-2 border-[#2B2C2D] relative p-4 bg-slate-200">
+        <section className="mx-4 h-[170px] overflow-hidden border-2 border-[#2B2C2D] relative p-4 bg-slate-200">
             <p className="flex gap-2 text-md">
                 <span><Quote /></span>
                 {testimonial?.testimonialText}</p>
@@ -23,7 +23,7 @@ const TestimonialCard = ({ testimonial }: any) => {
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     )
 };
 

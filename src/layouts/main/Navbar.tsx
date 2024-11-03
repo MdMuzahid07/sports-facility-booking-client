@@ -29,7 +29,7 @@ const Navbar = () => {
                 </div>
                 {/* // desktop menu starts =================>>>>>>>>>>>>>>>>> */}
                 <div className="flex items-center gap-6">
-                    <ul className="hidden md:flex space-x-8">
+                    <ul className="hidden lg:flex space-x-8">
                         {
                             navLinks?.map((nav) => <li className="font-bold uppercase text-lg" key={nav?.title}><NavLink to={nav?.path}>{nav?.title}</NavLink></li>)
                         }
@@ -44,7 +44,7 @@ const Navbar = () => {
                     }
                     <Button
                         onClick={handleMobileNav}
-                        className="flex md:hidden rounded-none md:text-xl"
+                        className="flex lg:hidden rounded-none md:text-xl"
                     >
                         {
                             isMobileNavOpen
@@ -59,11 +59,22 @@ const Navbar = () => {
 
                 {/* // mobile menu starts =================>>>>>>>>>>>>>>>>> */}
                 {
-                    isMobileNavOpen && <div className="flex md:hidden w-full sm:w-[350px] h-screen p-8 top-20 bg-[#171717] text-white absolute right-0">
+                    isMobileNavOpen && <div className="flex lg:hidden w-full sm:w-[350px] h-screen p-8 top-20 bg-[#171717] text-white absolute right-0">
                         <ul className="space-y-8 mt-10">
                             {
                                 navLinks?.map((nav) => <li onClick={() => setIsMobileAppOpen(false)} className="font-bold uppercase text-lg w-full" key={nav?.title}><NavLink to={nav?.path}>{nav?.title}</NavLink></li>)
                             }
+
+
+                            <section className="mt-10">
+                                {
+                                    user?.role ? <UserDropdown /> : <NavLink to="/login">
+                                        <Button className="md:hidden flex rounded-none bg-slate-100 text-primary text-xl">
+                                            Login
+                                        </Button>
+                                    </NavLink>
+                                }
+                            </section>
                         </ul>
                     </div>
                 }

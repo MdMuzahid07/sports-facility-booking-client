@@ -26,6 +26,7 @@ import ContactUs from "@/pages/main/ContactUs";
 import Facilities from "@/pages/main/Facilities";
 import FacilityBooking from "@/pages/main/FacilityBooking";
 import FacilityDetails from "@/pages/main/FacilityDetails";
+import SportsEquipments from "@/pages/main/SportsEquipments";
 import PageNotFound from "@/pages/PageNotFound";
 import {
     createBrowserRouter,
@@ -51,6 +52,10 @@ const routes = createBrowserRouter([
             {
                 path: "/facilities",
                 element: <Facilities />
+            },
+            {
+                path: "/store",
+                element: <SportsEquipments />
             },
             {
                 path: "/checkout-cart",

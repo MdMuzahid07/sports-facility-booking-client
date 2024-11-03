@@ -6,8 +6,8 @@ const Hero = () => {
 
 
     return (
-        <section className="h-[75vh] max-h-[800px] w-ful bg-cover bg-center bg-no-repeat bg-[url('https://res.cloudinary.com/dymo0iyee/image/upload/v1725689329/1752_x3nrjw.jpg')]">
-            <div className="bg-black bg-opacity-50 w-full h-[75vh] max-h-[800px] text-slate-200">
+        <section className="h-[100vh] max-h-[800px] 2xl:max-h-[850px] w-full bg-cover bg-center bg-no-repeat bg-[url('https://res.cloudinary.com/dymo0iyee/image/upload/v1725689329/1752_x3nrjw.jpg')]">
+            <div className="bg-black bg-opacity-50 w-full h-[100vh] max-h-[800px] 2xl:max-h-[850px] text-slate-200">
                 <div className="max-w-7xl mx-auto px-4 xl:px-0 flex items-center h-full">
                     <div>
                         <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-7xl font-extrabold  bg-[#171717] px-4 inline">PlayTime Pro</h1>
