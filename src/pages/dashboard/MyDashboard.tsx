@@ -1,48 +1,35 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { useGetAllBookingsUserQuery } from '@/redux/features/bookings/bookingsApi';
+import { useGetAllOrderQuery } from '@/redux/features/order/orderApi';
+import { useGetAllTestimonialsQuery } from '@/redux/features/testimonial/testimonialApi';
+import { useAppSelector } from '@/redux/hooks';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 const MyDashboard = () => {
-    const bookings = [
-        { facility: 'Gym', date: '2024-11-06', startTime: '10:00 AM', endTime: '11:00 AM', payableAmount: 20, isBooked: 'confirmed' },
-        { facility: 'Pool', date: '2024-11-07', startTime: '1:00 PM', endTime: '2:00 PM', payableAmount: 30, isBooked: 'confirmed' },
-        { facility: 'Pool', date: '2024-11-07', startTime: '1:00 PM', endTime: '2:00 PM', payableAmount: 30, isBooked: 'confirmed' },
-        { facility: 'Pool', date: '2024-11-07', startTime: '1:00 PM', endTime: '2:00 PM', payableAmount: 30, isBooked: 'confirmed' },
-        { facility: 'Pool', date: '2024-11-07', startTime: '1:00 PM', endTime: '2:00 PM', payableAmount: 30, isBooked: 'confirmed' },
-        { facility: 'Pool', date: '2024-11-07', startTime: '1:00 PM', endTime: '2:00 PM', payableAmount: 30, isBooked: 'confirmed' },
-        { facility: 'Gym', date: '2024-11-08', startTime: '11:00 AM', endTime: '12:00 PM', payableAmount: 25, isBooked: 'confirmed' },
-        { facility: 'Gym', date: '2024-11-08', startTime: '11:00 AM', endTime: '12:00 PM', payableAmount: 25, isBooked: 'confirmed' },
-        { facility: 'Gym', date: '2024-11-08', startTime: '11:00 AM', endTime: '12:00 PM', payableAmount: 25, isBooked: 'confirmed' },
-        { facility: 'Gym', date: '2024-11-08', startTime: '11:00 AM', endTime: '12:00 PM', payableAmount: 25, isBooked: 'confirmed' },
-        { facility: 'Gym', date: '2024-11-08', startTime: '11:00 AM', endTime: '12:00 PM', payableAmount: 25, isBooked: 'confirmed' },
-        { facility: 'Gym', date: '2024-11-08', startTime: '11:00 AM', endTime: '12:00 PM', payableAmount: 25, isBooked: 'confirmed' },
-        { facility: 'Gym', date: '2024-11-08', startTime: '11:00 AM', endTime: '12:00 PM', payableAmount: 25, isBooked: 'confirmed' },
-        { facility: 'Gym', date: '2024-11-08', startTime: '11:00 AM', endTime: '12:00 PM', payableAmount: 25, isBooked: 'confirmed' },
-        { facility: 'Gym', date: '2024-11-08', startTime: '11:00 AM', endTime: '12:00 PM', payableAmount: 25, isBooked: 'confirmed' },
-        { facility: 'Gym', date: '2024-11-08', startTime: '11:00 AM', endTime: '12:00 PM', payableAmount: 25, isBooked: 'confirmed' },
-        { facility: 'Gym', date: '2024-11-08', startTime: '11:00 AM', endTime: '12:00 PM', payableAmount: 25, isBooked: 'confirmed' },
-        // Additional bookings...
-    ];
-    const orders = [
-        { cartId: '12345', paymentMethod: 'Stripe', paymentStatus: 'Paid', orderStatus: 'Completed', customerDetails: { name: 'John Doe' } },
-        { cartId: '67890', paymentMethod: 'COD', paymentStatus: 'Pending', orderStatus: 'Processing', customerDetails: { name: 'Jane Smith' } },
-        // Additional orders...
-    ];
-    const testimonials = [
-        { name: 'Jane Doe', occupation: 'Software Developer', testimonialText: 'Great service!', image: '/path/to/image.jpg', publish: true },
-        { name: 'John Smith', occupation: 'Graphic Designer', testimonialText: 'Amazing experience!', image: '/path/to/image.jpg', publish: true },
-        // Additional testimonials...
-    ];
+    const { data: myBookings } = useGetAllBookingsUserQuery(undefined);
+    const { data: myOrders } = useGetAllOrderQuery(undefined);
+    const { data: myTestimonial } = useGetAllTestimonialsQuery(undefined);
+    const user = useAppSelector((state) => state.auth.user);
+    console.log(user)
+
+    const bookings = myBookings?.data;
+
+    const orders = myOrders?.data;
+
+    const testimonials = myTestimonial?.data?.filter((testimonial: any) => testimonial?.email === user?.email);
 
     // Calculate total payable amounts by facility
-    const bookingData = bookings.reduce((acc: any, booking: any) => {
-        const existing = acc.find((item: any) => item.facility === booking.facility);
+    const bookingData = bookings?.reduce((acc: any, booking: any) => {
+        const existing = acc?.find((item: any) => item?.facility === booking?.facility?.name);
         if (existing) {
             existing.totalAmount += booking.payableAmount;
         } else {
-            acc.push({ facility: (booking).facility, totalAmount: booking.payableAmount });
+            acc.push({ facility: booking.facility.name, totalAmount: booking.payableAmount });
         }
         return acc;
     }, []);
+
+
 
     return (
         <div className="py-10">
@@ -78,14 +65,14 @@ const MyDashboard = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {bookings.map((booking, index) => (
-                                <tr key={index} className="border-t">
-                                    <td className="px-4 py-2">{booking.facility}</td>
-                                    <td className="px-4 py-2">{booking.date}</td>
-                                    <td className="px-4 py-2">{booking.startTime} - {booking.endTime}</td>
-                                    <td className="px-4 py-2">${booking.payableAmount}</td>
-                                    <td className={`px-4 py-2 ${booking.isBooked === 'confirmed' ? 'text-green-600' : 'text-red-600'}`}>
-                                        {booking.isBooked}
+                            {bookings?.map((booking: any) => (
+                                <tr key={booking?._id} className="border-t">
+                                    <td className="px-4 py-2">{booking?.facility?.name}</td>
+                                    <td className="px-4 py-2">{booking?.date}</td>
+                                    <td className="px-4 py-2">{booking?.startTime} - {booking?.endTime}</td>
+                                    <td className="px-4 py-2">${booking?.payableAmount}</td>
+                                    <td className={`px-4 py-2 ${booking?.isBooked === 'confirmed' ? 'text-green-600' : 'text-red-600'}`}>
+                                        {booking?.isBooked}
                                     </td>
                                 </tr>
                             ))}
@@ -109,16 +96,16 @@ const MyDashboard = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {orders.map((order, index) => (
-                                <tr key={index} className="border-t">
-                                    <td className="px-4 py-2">{order.cartId}</td>
-                                    <td className="px-4 py-2">{order.customerDetails.name}</td>
-                                    <td className="px-4 py-2">{order.paymentMethod}</td>
-                                    <td className={`px-4 py-2 ${order.paymentStatus === 'Paid' ? 'text-green-600' : 'text-yellow-600'}`}>
-                                        {order.paymentStatus}
+                            {orders?.map((order: any,) => (
+                                <tr key={order?._id} className="border-t">
+                                    <td className="px-4 py-2">{order?.cartId}</td>
+                                    <td className="px-4 py-2">{order?.customerDetails.name}</td>
+                                    <td className="px-4 py-2">{order?.paymentMethod}</td>
+                                    <td className={`px-4 py-2 ${order?.paymentStatus === 'Paid' ? 'text-green-600' : 'text-yellow-600'}`}>
+                                        {order?.paymentStatus}
                                     </td>
-                                    <td className={`px-4 py-2 ${order.orderStatus === 'Completed' ? 'text-green-600' : 'text-yellow-600'}`}>
-                                        {order.orderStatus}
+                                    <td className={`px-4 py-2 ${order?.orderStatus === 'Completed' ? 'text-green-600' : 'text-yellow-600'}`}>
+                                        {order?.orderStatus}
                                     </td>
                                 </tr>
                             ))}
@@ -141,14 +128,14 @@ const MyDashboard = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {testimonials.map((testimonial, index) => (
-                                <tr key={index} className="border-t">
+                            {testimonials?.map((testimonial: any) => (
+                                <tr key={testimonial?._id} className="border-t">
                                     <td className="px-4 py-2">
-                                        <img src={testimonial.image} alt={testimonial.name} className="w-10 h-10 rounded-full" />
+                                        <img src={testimonial.image} alt={testimonial?.name} className="w-10 h-10 rounded-full" />
                                     </td>
-                                    <td className="px-4 py-2">{testimonial.name}</td>
-                                    <td className="px-4 py-2">{testimonial.occupation}</td>
-                                    <td className="px-4 py-2">{testimonial.testimonialText}</td>
+                                    <td className="px-4 py-2">{testimonial?.name}</td>
+                                    <td className="px-4 py-2">{testimonial?.occupation}</td>
+                                    <td className="px-4 py-2">{testimonial?.testimonialText}</td>
                                 </tr>
                             ))}
                         </tbody>
