@@ -9,10 +9,10 @@ export const navLinks = [
         title: "Facilities",
         path: "/facilities"
     },
-    // {
-    //     title: "Sports Equipments",
-    //     path: "/store"
-    // },
+    {
+        title: "Sports Equipments",
+        path: "/store"
+    },
     {
         title: "About Us",
         path: "/about-us"

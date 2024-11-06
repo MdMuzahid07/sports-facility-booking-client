@@ -2,23 +2,13 @@
 import { Button } from "@/components/ui/button";
 import ProductCard from "./ProductCard";
 import { MoveRight } from "lucide-react";
-import { useState } from "react";
 import { useGetAllProductsQuery } from "@/redux/features/products/productApi";
+import { Link } from "react-router-dom";
 
 
 const ShopSection = () => {
-    const [loadMore, setLoadMore] = useState(8);
-    const [isLoading, setIsLoading] = useState(false);
     const { data: allProducts } = useGetAllProductsQuery(undefined);
 
-
-    const handleLoadMore = () => {
-        setIsLoading(true);
-        setTimeout(() => {
-            setLoadMore(loadMore + 4);
-            setIsLoading(false);
-        }, 2000);
-    }
 
     return (
         <section className="bg-slate-200">
@@ -28,15 +18,15 @@ const ShopSection = () => {
 
                 <section className="mt-20 grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                     {
-                        allProducts?.data?.slice(0, loadMore)?.map((product: any) => (
+                        allProducts?.data?.slice(0, 8)?.map((product: any) => (
                             <ProductCard product={product} key={product?._id} />
                         ))
                     }
                 </section>
                 <section className="mt-14 flex justify-end">
-                    {
-                        allProducts?.data?.length > loadMore ? <Button onClick={handleLoadMore} className="rounded-none text-2xl font-bold py-1"> {isLoading ? "Loading..." : "Load More"} <MoveRight className="ml-3" /></Button> : <p className="text-2xl"> Available equipments Loaded</p>
-                    }
+                    <Link to="/store">
+                        <Button className="rounded-none text-2xl font-bold py-1"> More Items <MoveRight className="ml-3" /></Button>
+                    </Link>
                 </section>
             </section>
         </section>
