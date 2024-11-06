@@ -7,7 +7,6 @@ import MainLayout from "@/layouts/main/MainLayout";
 import ProtectedRoutes from "@/layouts/ProtectedRoutes";
 import AddAdmin from "@/pages/dashboard/AddAdmin";
 import ManageBookings from "@/pages/dashboard/bookings/ManageBookings";
-import DashboardWelcome from "@/pages/dashboard/DashboardWelcome";
 import AddFacility from "@/pages/dashboard/facilities/AddFacility";
 import ManageFacilities from "@/pages/dashboard/facilities/ManageFacilities";
 import UpdateFacility from "@/pages/dashboard/facilities/UpdateFacility";
@@ -31,6 +30,7 @@ import PageNotFound from "@/pages/PageNotFound";
 import {
     createBrowserRouter,
 } from "react-router-dom";
+import MyDashboard from "@/pages/dashboard/MyDashboard";
 
 const routes = createBrowserRouter([
     {
@@ -89,7 +89,7 @@ const routes = createBrowserRouter([
         children: [
             {
                 path: "home",
-                element: <DashboardWelcome />
+                element: <MyDashboard />
             },
             {
                 path: "add-admin",
