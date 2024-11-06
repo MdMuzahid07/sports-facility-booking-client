@@ -39,7 +39,7 @@ const UserDropdownDashboard = () => {
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
                 <Avatar>
-                    <AvatarImage className="w-10 h-10 cursor-pointer rounded-full overflow-hidden object-cover object-center" src={user ? user?.avatar : "https://github.com/shadcn.png"} alt="@shadcn" />
+                    <AvatarImage className="w-10 h-10 cursor-pointer rounded-full overflow-hidden object-cover object-center" src={(user && user.avatar) ? user?.avatar : "https://github.com/shadcn.png"} alt="@shadcn" />
                     <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
             </DropdownMenuTrigger>

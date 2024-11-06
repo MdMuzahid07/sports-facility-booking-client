@@ -7,7 +7,7 @@ import { useUpdateUserInfoMutation } from "@/redux/features/profile/profileApi";
 import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
 import { Button } from "@/components/ui/button";
-import { CardContent, CardFooter } from "@/components/ui/card";
+import { CardFooter } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Pencil } from "lucide-react";
 import { useAppSelector } from "@/redux/hooks";
@@ -114,7 +114,7 @@ const MyProfile = () => {
                                 {imagePreview ? (
                                     <AvatarImage src={imagePreview} alt="Profile Image" />
                                 ) : (
-                                    <AvatarImage src={user ? user?.avatar : "https://github.com/shadcn.png"} alt="@shadcn" />
+                                    <AvatarImage src={(user && user?.avatar) ? user?.avatar : "https://github.com/shadcn.png"} alt="@shadcn" />
                                 )}
                                 <AvatarFallback>CN</AvatarFallback>
                             </Avatar>
