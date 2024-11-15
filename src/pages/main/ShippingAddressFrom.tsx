@@ -3,18 +3,15 @@ import { useLayoutEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
 import { useDispatch } from "react-redux";
+import { Button } from "@/components/ui/button";
+import { MoveRight } from "lucide-react";
 
 const ShippingAddressFrom = () => {
     // const [addOrder, { error, isLoading }] = useAddOrderMutation();
-    const [isStripe, setIsStripe] = useState(false);
-    const [isCod, setIsCod] = useState(false);
     const { cartId } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
     // console.log(error, "🐞🐞🐞🐞🐞");
-
-    const payMethod = isStripe ? "Stripe" : "COD";
-    const payStatus = isCod ? "Pending" : "Paid";
 
 
     const handleOrderSubmit = async (e: any) => {
@@ -35,7 +32,7 @@ const ShippingAddressFrom = () => {
                 }
             },
             paymentMethod: payMethod,
-            paymentStatus: payStatus,
+            paymentStatus: "",
             orderStatus: "Completed"
         }
 
@@ -69,7 +66,7 @@ const ShippingAddressFrom = () => {
     return (
         <div className="min-h-screen bg-slate-100 pb-32 relative">
             <img className="w-full h-[500px] object-cover z-0" src="https://res.cloudinary.com/dymo0iyee/image/upload/v1725805321/Untitled_design_xi0qdl.png" alt="" />
-            <div className="max-w-7xl  mx-auto bg-slate-200 min-h-[400px] bg-opacity-75 shadow-white drop-shadow border-2 border-primary p-8 -mt-44 relative">
+            <div className="max-w-7xl  mx-auto bg-slate-200 min-h-[400px] bg-opacity-75 shadow p-8 -mt-44 relative">
 
                 <div className="mb-14">
                     <h1 className="text-3xl md:text-5xl font-bold mb-4 ">Complete Your Purchase</h1>
@@ -168,12 +165,12 @@ const ShippingAddressFrom = () => {
 
 
                     <div className="mt-24 mb-10 flex justify-end">
-                        <button
+                        <Button
                             type="submit"
-                            className="bg-[#2E2E2E] font-bold border hover:border-primary hover:bg-primary hover text-white py-2 px-4"
-                        >
+                            className="rounded-none text-2xl font-bold py-1">
                             Proceed to Payment
-                        </button>
+                            <MoveRight className="ml-3" />
+                        </Button>
                     </div>
                 </form>
             </div>
