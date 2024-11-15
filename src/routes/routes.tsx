@@ -31,6 +31,7 @@ import {
     createBrowserRouter,
 } from "react-router-dom";
 import MyDashboard from "@/pages/dashboard/MyDashboard";
+import ShippingAddressFrom from "@/pages/main/ShippingAddressFrom";
 
 const routes = createBrowserRouter([
     {
@@ -60,6 +61,10 @@ const routes = createBrowserRouter([
             {
                 path: "/checkout-cart",
                 element: <CartPage />
+            },
+            {
+                path: "/shipping-address/:orderId",
+                element: <ShippingAddressFrom />
             },
             {
                 path: "/facility-details/:facilityId",
