@@ -64,7 +64,7 @@ const routes = createBrowserRouter([
                 element: <CartPage />
             },
             {
-                path: "/shipping-address/:orderId",
+                path: "/shipping-address/:cartId",
                 element: <ShippingAddressFrom />
             },
             {

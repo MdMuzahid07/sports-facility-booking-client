@@ -1,17 +1,26 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useLayoutEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
 import { useDispatch } from "react-redux";
 import { Button } from "@/components/ui/button";
 import { MoveRight } from "lucide-react";
+import { useAddOrderMutation } from "@/redux/features/order/orderApi";
+import PageTopByDefault from "@/utils/PageTopByDefault";
+import { clearCart } from "@/redux/features/cart/CartSlice";
+import { useAppSelector } from "@/redux/hooks";
 
 const ShippingAddressFrom = () => {
-    // const [addOrder, { error, isLoading }] = useAddOrderMutation();
+    const [addOrder, { error, isLoading }] = useAddOrderMutation();
     const { cartId } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    // console.log(error, "🐞🐞🐞🐞🐞");
+    const user = useAppSelector((state) => state.auth.user);
+    const currentUserId = user?.id;
+
+    console.log(error, "🐞🐞🐞🐞🐞");
+    console.log(cartId, "🐞🐞🐞🐞🐞");
+    console.log(user, "user")
 
 
     const handleOrderSubmit = async (e: any) => {
@@ -20,9 +29,10 @@ const ShippingAddressFrom = () => {
         const orderData = {
             cartId: cartId,
             customerDetails: {
-                name: e.target.name.value,
-                email: e.target.email.value,
-                phoneNumber: e.target.phoneNumber.value,
+                userId: currentUserId,
+                // name: e.target.name.value,
+                // email: e.target.email.value,
+                // phoneNumber: e.target.phoneNumber.value,
                 address: {
                     street: e.target.street.value,
                     city: e.target.city.value,
@@ -31,37 +41,35 @@ const ShippingAddressFrom = () => {
                     country: e.target.country.value
                 }
             },
-            paymentMethod: payMethod,
-            paymentStatus: "",
-            orderStatus: "Completed"
+            // paymentMethod: "Pending",
+            // paymentStatus: "Pending",
+            // orderStatus: "Pending"
         }
 
-        // if (error) {
-        //     return toast.loading("Order failed", { id: "orderPending" });
-        // }
+        if (error) {
+            return toast.error("Order failed", { id: "SportsEquipmentsOrderToastId" });
+        }
 
         try {
-            // if (isLoading) {
-            //     toast.loading("Processing your order...", { id: "orderPending" });
-            // } else {
-            //     const data = await addOrder(orderData).unwrap();
-            //     if (data?.success) {
-            //         toast.success("Order successful!", { id: "orderPending" });
+            if (isLoading) {
+                toast.loading("Processing your order...", { id: "SportsEquipmentsOrderToastId" });
+            } else {
+                const data = await addOrder(orderData).unwrap();
+                if (data?.success) {
+                    toast.success("Order successful!", { id: "SportsEquipmentsOrderToastId" });
 
-            //         dispatch(clearCart());
+                    dispatch(clearCart());
 
-            //         navigate("/");
-            //     }
-            // }
-        } catch {
-            toast.error("Order failed. Please try again.", { id: "orderPending" });
+                    navigate("/payment");
+                }
+            }
+        } catch (error) {
+            toast.error("Order failed. Please try again.", { id: "SportsEquipmentsOrderToastId" });
         }
     };
 
 
-    useLayoutEffect(() => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-    }, []);
+    PageTopByDefault();
 
     return (
         <div className="min-h-screen bg-slate-100 pb-32 relative">
@@ -74,7 +82,7 @@ const ShippingAddressFrom = () => {
                 </div>
                 <form onSubmit={handleOrderSubmit}>
                     {/* Customer Information */}
-                    <h2 className="text-xl font-semibold mb-4">Customer Information</h2>
+                    {/* <h2 className="text-xl font-semibold mb-4">Customer Information</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <label className="block font-bold">Name</label>
@@ -106,7 +114,7 @@ const ShippingAddressFrom = () => {
                                 className="w-full mt-1 px-4 bg-slate-100 focus:outline-slate-300 py-3 border"
                             />
                         </div>
-                    </div>
+                    </div> */}
 
                     {/* Address Information */}
                     <h2 className="text-xl font-semibold mt-8 mb-4">Shipping Address</h2>
