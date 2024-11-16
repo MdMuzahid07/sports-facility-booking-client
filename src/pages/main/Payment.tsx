@@ -1,5 +1,7 @@
 import { Button } from "@/components/ui/button";
-import React, { useState } from "react";
+import { useUpdatePaymentMethodMutation } from "@/redux/features/order/orderApi";
+import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
 
 interface PaymentMethod {
@@ -7,18 +9,30 @@ interface PaymentMethod {
     selected: boolean;
 }
 
-const Payment: React.FC = () => {
+const Payment = () => {
+    const { orderId } = useParams();
     const [selectedMethod, setSelectedMethod] = useState<PaymentMethod["method"] | null>(null);
+    const [updatePaymentMethod] = useUpdatePaymentMethodMutation();
+    const navigate = useNavigate();
+
 
     const handlePaymentSelection = (method: PaymentMethod["method"]) => {
         setSelectedMethod(method);
     };
 
-    const handlePaymentSubmit = () => {
+
+    const handlePaymentSubmit = async () => {
         if (selectedMethod === "COD") {
-            toast.success("Order placed successfully with Cash on Delivery!", { id: "paymentPageToastId" });
+            const data = await updatePaymentMethod({ id: orderId }).unwrap();
+            if (data && data?.success) {
+                toast.success("Order placed successfully with Cash on Delivery!", { id: "paymentPageToastId" });
+                setTimeout(() => {
+                    navigate("/");
+                }, 1000);
+            }
         } else if (selectedMethod === "AamarPay") {
             // Integrate AamarPay logic here
+
             toast("Redirecting to AamarPay...", { id: "paymentPageToastId" });
         } else {
             toast.info("Please select a payment method!", { id: "paymentPageToastId" });

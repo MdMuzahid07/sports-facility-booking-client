@@ -45,6 +45,16 @@ const orderApi = baseApi.injectEndpoints({
             invalidatesTags: ["orders"]
         }),
 
+        // this will work for COD - Cash On Delivery ,method update purpose only
+        updatePaymentMethod: builder.mutation({
+            query: ({ id }) => ({
+                url: `/orders/payment-method/${id}`,
+                method: "PATCH",
+                data: {}
+            }),
+            invalidatesTags: ["orders"]
+        }),
+
     })
 });
 
@@ -54,5 +64,6 @@ export const {
     useGetAllOrderQuery,
     useAddOrderMutation,
     useDeleteAOrderMutation,
-    useUpdateAOrderMutation
+    useUpdateAOrderMutation,
+    useUpdatePaymentMethodMutation
 } = orderApi;
