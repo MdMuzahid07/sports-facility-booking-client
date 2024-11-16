@@ -16,6 +16,8 @@ const UserDashboard = () => {
 
     const orders = myOrders?.data;
 
+    console.log(orders)
+
     const testimonials = myTestimonial?.data?.filter((testimonial: any) => testimonial?.email === user?.email);
 
     // Calculate total payable amounts by facility
@@ -49,12 +51,12 @@ const UserDashboard = () => {
             </div>
 
             {/* ========================== Bookings Table ===================================> */}
-            <div className="mb-10">
+            <section className="mb-10">
                 <h4 className="text-2xl font-semibold mb-4">My Bookings</h4>
                 <div className="overflow-x-auto">
                     <table className="min-w-full bg-white border rounded-xl">
                         <thead>
-                            <tr>
+                            <tr className="text-left">
                                 <th className="px-4 py-2">Facility</th>
                                 <th className="px-4 py-2">Date</th>
                                 <th className="px-4 py-2">Time</th>
@@ -77,15 +79,15 @@ const UserDashboard = () => {
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </section>
 
             {/* ========================Orders Table==================================> */}
-            <div className="mb-10">
+            <section className="mb-10">
                 <h4 className="text-2xl font-semibold mb-4">My Orders</h4>
                 <div className="overflow-x-auto">
                     <table className="min-w-full bg-white rounded-xl">
                         <thead>
-                            <tr>
+                            <tr className="text-left">
                                 <th className="px-4 py-2">Order ID</th>
                                 <th className="px-4 py-2">Customer</th>
                                 <th className="px-4 py-2">Payment Method</th>
@@ -94,15 +96,15 @@ const UserDashboard = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {orders?.map((order: any,) => (
+                            {orders?.map((order: any) => (
                                 <tr key={order?._id} className="border-t">
-                                    <td className="px-4 py-2">{order?.cartId}</td>
-                                    <td className="px-4 py-2">{order?.customerDetails.name}</td>
+                                    <td className="px-4 py-2">{order?.cartId?._id}</td>
+                                    <td className="px-4 py-2">{order?.customerDetails?.name}</td>
                                     <td className="px-4 py-2">{order?.paymentMethod}</td>
-                                    <td className={`px-4 py-2 ${order?.paymentStatus === 'Paid' ? 'text-green-600' : 'text-yellow-600'}`}>
+                                    <td className={`px-4 py-2 ${order?.paymentStatus === "Paid" ? "text-green-600" : "text-yellow-600"}`}>
                                         {order?.paymentStatus}
                                     </td>
-                                    <td className={`px-4 py-2 ${order?.orderStatus === 'Completed' ? 'text-green-600' : 'text-yellow-600'}`}>
+                                    <td className={`px-4 py-2 ${order?.orderStatus === "Completed" ? "text-green-600" : "text-yellow-600"}`}>
                                         {order?.orderStatus}
                                     </td>
                                 </tr>
@@ -110,15 +112,15 @@ const UserDashboard = () => {
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </section>
 
             {/* Testimonials Table */}
-            <div className="mb-10">
+            <section className="mb-10">
                 <h4 className="text-2xl font-semibold mb-4">My Testimonials</h4>
                 <div className="overflow-x-auto">
                     <table className="min-w-full bg-white border rounded-xl">
                         <thead>
-                            <tr>
+                            <tr className="text-left">
                                 <th className="px-4 py-2">Image</th>
                                 <th className="px-4 py-2">Name</th>
                                 <th className="px-4 py-2">Occupation</th>
@@ -139,7 +141,7 @@ const UserDashboard = () => {
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </section>
         </section>
     );
 };

@@ -33,7 +33,8 @@ const Payment = () => {
         } else if (selectedMethod === "AamarPay") {
             // Integrate AamarPay logic here
 
-            toast("Redirecting to AamarPay...", { id: "paymentPageToastId" });
+            // toast.success("Redirecting to AamarPay...", { id: "paymentPageToastId" });
+            toast.error("Feature Ongoing Developments, for now only COD available", { id: "paymentPageToastId" });
         } else {
             toast.info("Please select a payment method!", { id: "paymentPageToastId" });
         }

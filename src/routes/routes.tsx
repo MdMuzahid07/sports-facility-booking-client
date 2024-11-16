@@ -61,7 +61,11 @@ const routes = createBrowserRouter([
             },
             {
                 path: "/checkout-cart",
-                element: <CartPage />
+                element: (
+                    <ProtectedRoutes>
+                        <CartPage />
+                    </ProtectedRoutes>
+                )
             },
             {
                 path: "/shipping-address/:cartId",
