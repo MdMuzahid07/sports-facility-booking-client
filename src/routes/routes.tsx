@@ -68,7 +68,7 @@ const routes = createBrowserRouter([
                 element: <ShippingAddressFrom />
             },
             {
-                path: "/payment",
+                path: "/payment/:orderId",
                 element: <Payment />
             },
             {

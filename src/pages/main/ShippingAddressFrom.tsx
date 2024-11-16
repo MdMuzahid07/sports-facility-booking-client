@@ -19,9 +19,6 @@ const ShippingAddressFrom = () => {
     const currentUserId = user?.id;
 
     console.log(error, "🐞🐞🐞🐞🐞");
-    console.log(cartId, "🐞🐞🐞🐞🐞");
-    console.log(user, "user")
-
 
     const handleOrderSubmit = async (e: any) => {
         e.preventDefault();
@@ -30,6 +27,7 @@ const ShippingAddressFrom = () => {
             cartId: cartId,
             customerDetails: {
                 userId: currentUserId,
+                //* can access all info using the userId
                 // name: e.target.name.value,
                 // email: e.target.email.value,
                 // phoneNumber: e.target.phoneNumber.value,
@@ -41,14 +39,13 @@ const ShippingAddressFrom = () => {
                     country: e.target.country.value
                 }
             },
+            //* by default "Pending" from the backend, no need to send it from here
             // paymentMethod: "Pending",
             // paymentStatus: "Pending",
             // orderStatus: "Pending"
         }
 
-        if (error) {
-            return toast.error("Order failed", { id: "SportsEquipmentsOrderToastId" });
-        }
+
 
         try {
             if (isLoading) {
@@ -56,15 +53,22 @@ const ShippingAddressFrom = () => {
             } else {
                 const data = await addOrder(orderData).unwrap();
                 if (data?.success) {
-                    toast.success("Order successful!", { id: "SportsEquipmentsOrderToastId" });
+                    toast.success("Please make payment to confirm order!", { id: "SportsEquipmentsOrderToastId" });
 
+                    const getOrderIdAfterSavedIdDB = data?.data?._id;
+                    console.log({ data, getOrderIdAfterSavedIdDB })
                     dispatch(clearCart());
-
-                    navigate("/payment");
+                    navigate(`/payment/${getOrderIdAfterSavedIdDB}`);
                 }
             }
         } catch (error) {
-            toast.error("Order failed. Please try again.", { id: "SportsEquipmentsOrderToastId" });
+            console.log(error, "from catch error")
+            toast.error(
+                (error as any)?.data?.checkErrorPattern?.code === 11000
+                    ? "Already ordered with this Cart"
+                    : "Order failed!",
+                { id: "SportsEquipmentsOrderToastId" }
+            );
         }
     };
 

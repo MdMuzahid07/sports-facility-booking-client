@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import React, { useState } from "react";
+import { toast } from "sonner";
 
 interface PaymentMethod {
     method: "COD" | "AamarPay";
@@ -15,19 +16,19 @@ const Payment: React.FC = () => {
 
     const handlePaymentSubmit = () => {
         if (selectedMethod === "COD") {
-            alert("Order placed successfully with Cash on Delivery!");
+            toast.success("Order placed successfully with Cash on Delivery!", { id: "paymentPageToastId" });
         } else if (selectedMethod === "AamarPay") {
             // Integrate AamarPay logic here
-            alert("Redirecting to AamarPay...");
+            toast("Redirecting to AamarPay...", { id: "paymentPageToastId" });
         } else {
-            alert("Please select a payment method!");
+            toast.info("Please select a payment method!", { id: "paymentPageToastId" });
         }
     };
 
     const buttonText =
         selectedMethod ? selectedMethod === "COD"
             ? "Confirm Order"
-            : "Payment and Confirm"
+            : "Proceed to Payment"
             : "Select a Option";
 
 
