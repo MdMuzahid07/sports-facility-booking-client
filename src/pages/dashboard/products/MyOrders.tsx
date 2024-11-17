@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Settings, Trash } from "lucide-react"
 import { toast } from "sonner";
-import { useNavigate } from "react-router-dom"
+// import { useNavigate } from "react-router-dom"
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query"
 import { useDeleteAOrderMutation, useGetAllOrderQuery } from "@/redux/features/order/orderApi"
 
@@ -34,7 +34,7 @@ const MyOrders = () => {
     const [deleteAOrder, { error }] = useDeleteAOrderMutation();
 
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
 
     console.log(myOrders);
@@ -64,14 +64,14 @@ const MyOrders = () => {
     };
 
 
-    const handleUpdateOrder = (id: string) => {
-        // navigate(`/dashboard/update-facility/${id}`);
-    };
+    // const handleUpdateOrder = (id: string) => {
+    //     // navigate(`/dashboard/update-facility/${id}`);
+    // };
 
 
-    const handleViewOrder = (id: string) => {
-        navigate(`/product-details/${id}`);
-    };
+    // const handleViewOrder = (id: string) => {
+    //     navigate(`/product-details/${id}`);
+    // };
 
 
     return (

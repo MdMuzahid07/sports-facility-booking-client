@@ -1,7 +1,10 @@
+import DashCards from "./admin/DashCards";
 
 const AdminDashboard = () => {
     return (
-        <div>AdminDashboard</div>
+        <section>
+            <DashCards />
+        </section>
     )
 }
 

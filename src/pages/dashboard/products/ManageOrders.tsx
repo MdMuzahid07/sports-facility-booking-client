@@ -19,9 +19,8 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { PackageCheck, PackageSearch, Settings, Trash, X } from "lucide-react"
+import { PackageCheck, PackageSearch, Settings, X } from "lucide-react"
 import { toast } from "sonner"
-import { useNavigate } from "react-router-dom"
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query"
 import { useDeleteAOrderMutation, useGetAllOrderQuery, useUpdateOrderStatusMutation } from "@/redux/features/order/orderApi"
 
