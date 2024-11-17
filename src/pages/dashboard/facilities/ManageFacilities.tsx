@@ -29,7 +29,7 @@ import { FetchBaseQueryError } from "@reduxjs/toolkit/query"
 
 type TError = {
     message?: string;
-}
+};
 
 const ManageFacilities = () => {
     const { data: allFacilities } = useGetAllFacilitiesQuery(undefined);
