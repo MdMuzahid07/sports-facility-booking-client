@@ -19,7 +19,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { CircleDollarSign, Eye, Pencil, Settings, Trash } from "lucide-react"
+import { Settings, Trash } from "lucide-react"
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom"
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query"

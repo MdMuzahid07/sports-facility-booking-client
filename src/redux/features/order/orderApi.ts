@@ -50,11 +50,23 @@ const orderApi = baseApi.injectEndpoints({
             query: ({ id }) => ({
                 url: `/orders/payment-method/${id}`,
                 method: "PATCH",
-                data: {}
+                body: {}
             }),
             invalidatesTags: ["orders"]
         }),
 
+
+        // manage order for Admin
+        updateOrderStatus: builder.mutation({
+            query: ({ id, data }) => {
+                return {
+                    url: `/orders/order-status-manage/${id}`,
+                    method: "PATCH",
+                    body: data
+                }
+            },
+            invalidatesTags: ["orders"]
+        }),
     })
 });
 
@@ -65,5 +77,6 @@ export const {
     useAddOrderMutation,
     useDeleteAOrderMutation,
     useUpdateAOrderMutation,
-    useUpdatePaymentMethodMutation
+    useUpdatePaymentMethodMutation,
+    useUpdateOrderStatusMutation,
 } = orderApi;

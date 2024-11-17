@@ -23,7 +23,7 @@ import { PackageCheck, PackageSearch, Settings, Trash, X } from "lucide-react"
 import { toast } from "sonner"
 import { useNavigate } from "react-router-dom"
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query"
-import { useDeleteAOrderMutation, useGetAllOrderQuery } from "@/redux/features/order/orderApi"
+import { useDeleteAOrderMutation, useGetAllOrderQuery, useUpdateOrderStatusMutation } from "@/redux/features/order/orderApi"
 
 type TError = {
     message?: string;
@@ -32,38 +32,63 @@ type TError = {
 const ManageOrders = () => {
     const { data: allOrders } = useGetAllOrderQuery(undefined);
     const [deleteAOrder, { error }] = useDeleteAOrderMutation();
+    const [updateOrderStatus, { error: orderStatusError }] = useUpdateOrderStatusMutation();
+    console.log(orderStatusError, "order status error 🐞🐞🐞🐞🐞🐞")
 
-    const navigate = useNavigate();
+    const handleChangeOrderStatus = async (id: string, payload: string) => {
 
-    const handleDeleteOrder = async (id: string) => {
-        const proceed = window.confirm("Cancel Order?");
-        if (proceed) {
+        console.log(payload, "payload");
+
+
+        if (payload === "Delete") {
+            const proceed = window.confirm("Cancel Order?");
+            if (proceed) {
+                try {
+                    toast.loading("Loading...", { id: "deleteId" });
+                    const res = await deleteAOrder(id).unwrap();
+                    if (res?.success) {
+                        toast.success("Order canceled successfully", { id: "deleteId" });
+                    }
+                    else {
+                        if (error) {
+                            if ("data" in error && (error as FetchBaseQueryError).data) {
+                                toast.error(`${((error as FetchBaseQueryError).data as TError)?.message || "Something went wrong!"}`, { id: "deleteId" });
+                            } else {
+                                toast.error(`Something went wrong!`, { id: "deleteId" });
+                            }
+                        };
+                    }
+                } catch (error) {
+                    toast.error(`Something went wrong!`, { id: "deleteId" });
+                }
+            }
+        } else {
+            // order status change
             try {
-                toast.loading("Loading...", { id: "deleteId" });
-                const res = await deleteAOrder(id).unwrap();
+                toast.loading("Loading...", { id: "changeOrderStatusToastId" });
+
+                const orderStatusChangeInfo = { orderStatus: payload };
+                const res = await updateOrderStatus({ id, data: orderStatusChangeInfo }).unwrap();
+
                 if (res?.success) {
-                    toast.success("Order canceled successfully", { id: "deleteId" });
+                    toast.success("Order status update successfully", { id: "changeOrderStatusToastId" });
                 }
                 else {
-                    if (error) {
-                        if ("data" in error && (error as FetchBaseQueryError).data) {
-                            toast.error(`${((error as FetchBaseQueryError).data as TError)?.message || "Something went wrong!"}`, { id: "deleteId" });
+                    if (orderStatusError) {
+                        if ("data" in orderStatusError && (orderStatusError as FetchBaseQueryError).data) {
+                            toast.error(`${((orderStatusError as FetchBaseQueryError).data as TError)?.message || "Something went wrong!"}`, { id: "changeOrderStatusToastId" });
                         } else {
-                            toast.error(`Something went wrong!`, { id: "deleteId" });
+                            toast.error(`Something went wrong!`, { id: "changeOrderStatusToastId" });
                         }
                     };
                 }
             } catch (error) {
-                toast.error(`Something went wrong!`, { id: "deleteId" });
+                console.log(error, "error from update orde status, catch")
+                toast.error(`Something went wrong!`, { id: "changeOrderStatusToastId" });
             }
         }
     };
 
-
-
-    const handleUpdateFacility = (id: string) => {
-        navigate(`/dashboard/update-facility/${id}`);
-    };
 
 
     return (
@@ -89,7 +114,7 @@ const ManageOrders = () => {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {allOrders?.data?.map((order: any, index: any) => (
+                        {allOrders?.data?.filter((order: any) => !order?.deleted)?.map((order: any, index: any) => (
                             <TableRow key={order?._id}>
                                 <TableCell className="font-medium">{index + 1}</TableCell>
                                 <TableCell>{order?._id}</TableCell>
@@ -139,21 +164,21 @@ const ManageOrders = () => {
                                             <DropdownMenuLabel className="font-bold">Change Order Status</DropdownMenuLabel>
                                             <DropdownMenuSeparator />
                                             <DropdownMenuItem
-                                                onClick={() => handleDeleteOrder(order?._id)}
+                                                onClick={() => handleChangeOrderStatus(order?._id, "Processing")}
                                                 className="font-bold"
                                             >
                                                 <PackageSearch className="mr-2 h-4 w-4" />
                                                 Change to Processing
                                             </DropdownMenuItem>
                                             <DropdownMenuItem
-                                                onClick={() => handleDeleteOrder(order?._id)}
+                                                onClick={() => handleChangeOrderStatus(order?._id, "Delivered")}
                                                 className="font-bold"
                                             >
                                                 <PackageCheck className="mr-2 h-4 w-4" />
                                                 Change to Delivered
                                             </DropdownMenuItem>
                                             <DropdownMenuItem
-                                                onClick={() => handleDeleteOrder(order?._id)}
+                                                onClick={() => handleChangeOrderStatus(order?._id, "Delete")}
                                                 className="font-bold"
                                             >
                                                 <X className="mr-2 h-4 w-4" />
