@@ -1,16 +1,18 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Label } from "@radix-ui/react-label";
-import { useForm } from "react-hook-form";
-import { useCreateUserMutation } from "@/redux/features/auth/authApi";
-import { toast } from "sonner";
-import verifyJwtToken from "@/utils/verifyJwtToken";
-import { Input } from "@/components/ui/input";
-import { CardContent, CardFooter } from "@/components/ui/card";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
 import { ChangeEvent, useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { useUpdateUserInfoMutation } from "@/redux/features/profile/profileApi";
+import { Input } from "@/components/ui/input";
+import { Label } from "@radix-ui/react-label";
+import { Button } from "@/components/ui/button";
+import { CardFooter } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Pencil } from "lucide-react";
+import { useAppSelector } from "@/redux/hooks";
+import verifyJwtToken from "@/utils/verifyJwtToken";
+import { Textarea } from "@/components/ui/textarea";
 
 type ProfileFormData = {
     name: string;
@@ -19,39 +21,84 @@ type ProfileFormData = {
     password: string;
     address: string;
     profileImage?: File;
-    street: string;
-    city: string;
-    state: string;
-    postalCode: string;
-    country: string;
 };
 
 const MyProfile = () => {
-    const [createUser] = useCreateUserMutation();
-    const { register, handleSubmit, formState: { errors } } = useForm<ProfileFormData>();
+    const [updateUserInfo, { isLoading, error, data }] = useUpdateUserInfoMutation();
+    const { register, handleSubmit } = useForm<ProfileFormData>();
     const [profileImage, setProfileImage] = useState<File | null>(null);
+    const [imagePreview, setImagePreview] = useState<string | null>(null);
+    const user: any = useAppSelector((state) => state.auth.user);
+    const userId = user?.id;
+
+
 
     const handleImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
         if (event.target.files && event.target.files[0]) {
-            setProfileImage(event.target.files[0]);
+            const file = event.target.files[0];
+            setProfileImage(file);
+
+            // Create an image preview URL
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setImagePreview(reader.result as string); // Set the preview URL
+            };
+            reader.readAsDataURL(file); // Read the file as a data URL
         }
     };
 
-    const onSubmit = async (formData: ProfileFormData) => {
-        const signUpData = {
-            ...formData,
-            profileImage,
-            role: "user",
+    const onSubmit = async (data: ProfileFormData) => {
+        // Prepare FormData object
+        const userInfoFormData = new FormData();
+
+        /* This code snippet is creating an `updatedUserInfo` object by filtering out any properties
+        that have a falsy value (such as empty strings or null values) from the `data` object. */
+        const updatedUserInfo = {
+            name: data?.name,
+            phone: data?.phone,
+            address: data?.address
         };
-        try {
-            const res = await createUser(signUpData).unwrap();
-            const user = verifyJwtToken(res.token);
-            console.log(user)
 
+
+        const updateUserProfileInfo = Object.fromEntries(
+            Object.entries(updatedUserInfo).filter(([_, value]) => value !== "" && value !== null && value !== undefined)
+        );
+
+        console.log(updateUserProfileInfo)
+
+        // Append user data (other than the image)
+        userInfoFormData.append("data", JSON.stringify(updateUserProfileInfo));
+
+        // Append the profile image if available
+        if (profileImage) {
+            userInfoFormData.append("file", profileImage);
+        }
+
+        try {
+            // Send the request with FormData
+            const res = await updateUserInfo({ userId, data: userInfoFormData }).unwrap();
+            const user = verifyJwtToken(res.token);
+            console.log(user);
         } catch (error) {
-            toast.error(`Failed to update profile: ${(error as any).data?.message}`);
+            console.log(error)
+            toast.error((error as any)?.error?.message, { id: "updateProfileInfoToastId" });
         }
     };
+
+
+
+    if (isLoading) {
+        toast.loading("Updating...", { id: "updateProfileInfoToastId" });
+    }
+
+    if (error) {
+        toast.error((error as any)?.data?.message, { id: "updateProfileInfoToastId" });
+    }
+
+    if (data && data?.success) {
+        toast.success("Done", { id: "updateProfileInfoToastId" });
+    }
+
 
     return (
         <div className="py-10">
@@ -60,10 +107,15 @@ const MyProfile = () => {
             </h1>
             <div className="grid md:grid-cols-8 gap-6">
                 <section className="w-full col-span-12 lg:col-span-3">
-                    <div className="bg-white min-h-[400px] pb-10 p-6  rounded-lg">
+                    <div className="bg-white min-h-[400px] pb-10 p-6 rounded-lg">
                         <Label title="click to choose image" className="flex items-center gap-2 relative cursor-pointer" htmlFor="profileImage">
                             <Avatar className="w-44 h-44">
-                                <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+                                {/* Display the selected image preview */}
+                                {imagePreview ? (
+                                    <AvatarImage src={imagePreview} alt="Profile Image" />
+                                ) : (
+                                    <AvatarImage src={(user && user?.avatar) ? user?.avatar : "https://github.com/shadcn.png"} alt="@shadcn" />
+                                )}
                                 <AvatarFallback>CN</AvatarFallback>
                             </Avatar>
                             <div className="absolute bottom-3 text-white bg-primary w-10 h-10 rounded-lg left-[38%] flex justify-center items-center">
@@ -77,152 +129,50 @@ const MyProfile = () => {
                             accept="image/*"
                             onChange={handleImageUpload}
                         />
-                        <div className="mt-5">
-                            <h1 className="text-2xl font-bold">Profile Name</h1>
-                            <h1 className="text-md">CEO of space X</h1>
-                        </div>
                     </div>
                 </section>
                 <section className="col-span-12 lg:col-span-5">
                     <div className="bg-white w-full min-h-[450px] rounded-lg py-10">
-                        <CardContent>
+                        <section className="p-4 md:p-8">
                             <form onSubmit={handleSubmit(onSubmit)}>
                                 <div className="grid gap-4">
                                     <div className="grid sm:grid-cols-2 gap-4">
                                         <div className="flex flex-col space-y-1.5">
-                                            <Label className="flex items-center gap-2" htmlFor="name">
-                                                Name
-                                            </Label>
+                                            <Label className="flex items-center gap-2" htmlFor="name">Name</Label>
                                             <Input
-                                                {...register("name", { required: "Name is required" })}
+                                                {...register("name", { required: false })}
                                                 id="name"
                                                 className="rounded-lg"
+                                                type="text"
                                                 placeholder="Your full name"
-                                                aria-invalid={errors.name ? "true" : "false"}
                                             />
-                                            {errors.name && <p className="text-red-500">{errors.name.message}</p>}
                                         </div>
                                         <div className="flex flex-col space-y-1.5">
-                                            <Label className="flex items-center gap-2" htmlFor="email">
-                                                Email
-                                            </Label>
+                                            <Label className="flex items-center gap-2" htmlFor="phone">Phone</Label>
                                             <Input
-                                                {...register("email", { required: "Email is required" })}
-                                                type="email"
-                                                id="email"
-                                                className="rounded-lg"
-                                                placeholder="Your email address"
-                                                aria-invalid={errors.email ? "true" : "false"}
-                                            />
-                                            {errors.email && <p className="text-red-500">{errors.email.message}</p>}
-                                        </div>
-                                    </div>
-                                    <div className="grid sm:grid-cols-2 gap-4">
-                                        <div className="flex flex-col space-y-1.5">
-                                            <Label className="flex items-center gap-2" htmlFor="phone">
-                                                Phone
-                                            </Label>
-                                            <Input
-                                                {...register("phone", { required: "Phone number is required" })}
+                                                {...register("phone", { required: false })}
                                                 type="text"
                                                 id="phone"
                                                 className="rounded-lg"
                                                 placeholder="Contact number"
-                                                aria-invalid={errors.phone ? "true" : "false"}
                                             />
-                                            {errors.phone && <p className="text-red-500">{errors.phone.message}</p>}
-                                        </div>
-                                        <div className="flex flex-col space-y-1.5">
-                                            <Label className="flex items-center gap-2" htmlFor="password">
-                                                Password
-                                            </Label>
-                                            <Input
-                                                {...register("password", { required: "Password is required" })}
-                                                type="password"
-                                                className="rounded-lg"
-                                                id="password"
-                                                placeholder="Add a strong password"
-                                                aria-invalid={errors.password ? "true" : "false"}
-                                            />
-                                            {errors.password && <p className="text-red-500">{errors.password.message}</p>}
                                         </div>
                                     </div>
                                     <div className="flex flex-col space-y-1.5">
-                                        <Label className="flex items-center gap-2" htmlFor="address">
-                                            Address
-                                        </Label>
+                                        <Label className="flex items-center gap-2" htmlFor="address">Address</Label>
                                         <Textarea
-                                            {...register("address", { required: "Address is required" })}
+                                            {...register("address", { required: false })}
                                             id="address"
                                             className="rounded-lg"
                                             placeholder="Your address"
-                                            aria-invalid={errors.address ? "true" : "false"}
                                         />
-                                        {errors.address && <p className="text-red-500">{errors.address.message}</p>}
-                                    </div>
-
-
-
-                                    {/* Shipping Address Fields */}
-                                    <h2 className="text-2xl font-semibold text-primary mt-8 mb-4">Shipping Address</h2>
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                        <div>
-                                            <label className="block text-primary">Street</label>
-                                            <Input
-                                                {...register("street", { required: "Street is required" })}
-                                                placeholder="Street"
-                                                className="w-full mt-1 px-4 bg-slate-50  py-2 border rounded-lg"
-                                                aria-invalid={errors.street ? "true" : "false"}
-                                            />
-                                            {errors.street && <p className="text-red-500">{errors.street.message}</p>}
-                                        </div>
-                                        <div>
-                                            <label className="block text-primary">City</label>
-                                            <Input
-                                                {...register("city", { required: "City is required" })}
-                                                placeholder="City"
-                                                className="w-full mt-1 px-4 bg-slate-50  py-2 border rounded-lg"
-                                                aria-invalid={errors.city ? "true" : "false"}
-                                            />
-                                            {errors.city && <p className="text-red-500">{errors.city.message}</p>}
-                                        </div>
-                                        <div>
-                                            <label className="block text-primary">State</label>
-                                            <Input
-                                                {...register("state", { required: "State is required" })}
-                                                placeholder="State"
-                                                className="w-full mt-1 px-4 bg-slate-50  py-2 border rounded-lg"
-                                                aria-invalid={errors.state ? "true" : "false"}
-                                            />
-                                            {errors.state && <p className="text-red-500">{errors.state.message}</p>}
-                                        </div>
-                                        <div>
-                                            <label className="block text-primary">Postal Code</label>
-                                            <Input
-                                                {...register("postalCode", { required: "Postal code is required" })}
-                                                placeholder="Postal Code"
-                                                className="w-full mt-1 px-4 bg-slate-50  py-2 border rounded-lg"
-                                                aria-invalid={errors.postalCode ? "true" : "false"}
-                                            />
-                                            {errors.postalCode && <p className="text-red-500">{errors.postalCode.message}</p>}
-                                        </div>
-                                        <div>
-                                            <label className="block text-primary">Country</label>
-                                            <Input
-                                                {...register("country", { required: "Country is required" })}
-                                                placeholder="Country"
-                                                className="w-full mt-1 px-4 bg-slate-50  py-2 border rounded-lg"
-                                                aria-invalid={errors.country ? "true" : "false"}
-                                            />
-                                            {errors.country && <p className="text-red-500">{errors.country.message}</p>}
-                                        </div>
                                     </div>
                                 </div>
                                 <CardFooter className="p-0 mt-14 flex justify-end">
                                     <Button className="rounded-lg" type="submit">Update Profile</Button>
                                 </CardFooter>
                             </form>
-                        </CardContent>
+                        </section>
                     </div>
                 </section>
             </div>

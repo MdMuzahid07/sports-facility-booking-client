@@ -71,7 +71,7 @@ const CartPage = () => {
 
         if (data?.success && data?.data?._id) {
             console.log("working ?")
-            navigate(`/payment/${data?.data?._id}`)
+            navigate(`/shipping-address/${data?.data?._id}`)
         }
     };
 

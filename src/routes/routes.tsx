@@ -7,7 +7,6 @@ import MainLayout from "@/layouts/main/MainLayout";
 import ProtectedRoutes from "@/layouts/ProtectedRoutes";
 import AddAdmin from "@/pages/dashboard/AddAdmin";
 import ManageBookings from "@/pages/dashboard/bookings/ManageBookings";
-import DashboardWelcome from "@/pages/dashboard/DashboardWelcome";
 import AddFacility from "@/pages/dashboard/facilities/AddFacility";
 import ManageFacilities from "@/pages/dashboard/facilities/ManageFacilities";
 import UpdateFacility from "@/pages/dashboard/facilities/UpdateFacility";
@@ -31,6 +30,9 @@ import PageNotFound from "@/pages/PageNotFound";
 import {
     createBrowserRouter,
 } from "react-router-dom";
+import MyDashboard from "@/pages/dashboard/MyDashboard";
+import ShippingAddressFrom from "@/pages/main/ShippingAddressFrom";
+import Payment from "@/pages/main/Payment";
 
 const routes = createBrowserRouter([
     {
@@ -59,7 +61,19 @@ const routes = createBrowserRouter([
             },
             {
                 path: "/checkout-cart",
-                element: <CartPage />
+                element: (
+                    <ProtectedRoutes>
+                        <CartPage />
+                    </ProtectedRoutes>
+                )
+            },
+            {
+                path: "/shipping-address/:cartId",
+                element: <ShippingAddressFrom />
+            },
+            {
+                path: "/payment/:orderId",
+                element: <Payment />
             },
             {
                 path: "/facility-details/:facilityId",
@@ -89,7 +103,7 @@ const routes = createBrowserRouter([
         children: [
             {
                 path: "home",
-                element: <DashboardWelcome />
+                element: <MyDashboard />
             },
             {
                 path: "add-admin",

@@ -4,8 +4,8 @@ import { RootState } from '../store';
 import { logout, setUser } from '../features/auth/authSlice';
 
 const baseQuery = fetchBaseQuery({
-    // baseUrl: "https://sports-facility-booking-platform-ten.vercel.app/api/",
-    baseUrl: "http://localhost:5000/api/",
+    baseUrl: "https://sports-facility-booking-platform-ten.vercel.app/api/",
+    // baseUrl: "http://localhost:5000/api/",
     credentials: "include",
     // extra added with fetchBaseQuery
     // in prepareHeaders we get two parameters (header,api), we get the getState() from the api
@@ -78,6 +78,6 @@ export const baseApi = createApi({
     // we calling baseQuery in our custom base query, thats why it will call from there
     // because we called our baseQuery in our custom base query thats why we need to set here the custom one
     baseQuery: baseQueryWithRefreshToken,
-    tagTypes: ["facility", "bookings", "products", "testimonials"],
+    tagTypes: ["facility", "bookings", "products", "testimonials", "userInfo", "orders"],
     endpoints: () => ({})
 });

@@ -27,7 +27,8 @@ const Login = () => {
         toast.loading("Please wait", { id: "loginUser" });
     }
     if (error) {
-        toast.error(`${(error as any).data?.messages}`, { id: "loginUser" });
+        console.log(error)
+        toast.error(`${(error as any)?.data?.message}`, { id: "loginUser" });
     }
     if (!error && data?.success) {
         toast.success(`Welcome back ${data?.data?.name ? data?.data?.name : "Login failed, please try again!"}, login successfully`, { id: "loginUser" });

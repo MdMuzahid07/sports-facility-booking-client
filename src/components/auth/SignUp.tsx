@@ -24,7 +24,7 @@ const SignUp = () => {
         return toast.loading("Please wait", { id: "signUpUser" })
     };
     if (error) {
-        toast.error(`${(error as any).data?.messages}`, { id: "signUpUser" });
+        toast.error(`${(error as any).data?.message}`, { id: "signUpUser" });
     }
     if (!error && data?.success) {
         toast.success(`Welcome ${data?.data?.name}, account created successfully`, { id: "signUpUser" });

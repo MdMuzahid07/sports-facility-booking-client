@@ -27,13 +27,12 @@ const FacilityBooking = () => {
     const [selectedStartTime, setSelectedStartTime] = useState(" ");
     const [selectedEndTime, setSelectedEndTime] = useState(" ");
     const [formattedDate, setFormattedDate] = useState();
-    const [createBooking] = useCreateBookingMutation();
+    const [createBooking, { isLoading, error, data }] = useCreateBookingMutation();
     const { data: availableSlots } = useCheckAvailabilityQuery(
         { date: formattedDate, id: bookById },
         { skip: !formattedDate && !bookById }
     );
     const { data: facilityData } = useGetASingleFacilityQuery(bookById);
-
     const handleDateSelect = (selectedDate: any) => {
         if (selectedDate) {
             // Format the date to YYYY-MM-DD
@@ -62,18 +61,29 @@ const FacilityBooking = () => {
         }
         console.log(bookingData)
         try {
-            toast.loading("Loading...", { id: "createBookingByUser" });
             const res = await createBooking(bookingData).unwrap();
-            console.log(res)
             if (res?.success) {
-                toast.success("Booking Successfully", { id: "createBookingByUser" });
                 window.location.href = res?.data?.paymentSession?.payment_url;
             }
         } catch (error) {
-            console.log(error)
-            toast.error(`${(error as any).data?.messages}`, { id: "createBookingByUser" });
+            toast.error(`${(error as any)?.error}`, { id: "createBookingByUserToastId" });
         }
     };
+
+
+
+    if (isLoading) {
+        toast.loading("Booking...", { id: "createBookingByUserToastId" });
+    }
+
+    if (error) {
+        toast.error((error as any)?.data?.message, { id: "createBookingByUserToastId" });
+    }
+
+    if (data && data?.success) {
+        toast.success("Done", { id: "createBookingByUserToastId" });
+    }
+
 
     return (
         <section className="bg-slate-200 py-32">

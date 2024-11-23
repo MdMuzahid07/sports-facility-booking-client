@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
     LogOut,
     User,
@@ -21,7 +22,7 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { logout } from "@/redux/features/auth/authSlice";
 
 const UserDropdown = () => {
-    const user = useAppSelector((state) => state.auth.user);
+    const user: any = useAppSelector((state) => state.auth.user);
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
@@ -39,7 +40,7 @@ const UserDropdown = () => {
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
                 <Avatar>
-                    <AvatarImage className="w-10 h-10 rounded-full overflow-hidden object-cover object-center" src="https://github.com/shadcn.png" alt="@shadcn" />
+                    <AvatarImage className="w-10 h-10 rounded-full overflow-hidden object-cover object-center" src={(user && user.avatar) ? user?.avatar : "https://github.com/shadcn.png"} alt="@shadcn" />
                     <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
             </DropdownMenuTrigger>

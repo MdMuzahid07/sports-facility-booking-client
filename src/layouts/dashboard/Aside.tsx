@@ -2,7 +2,7 @@
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useAppSelector } from "@/redux/hooks";
-import { BaggageClaim, BookCheck, LayoutDashboard, ListCheck, ListPlus, MessageSquareQuote, NotebookPen, Plus, Settings2, ShieldPlus, ShoppingBasket, Trophy } from "lucide-react";
+import { BaggageClaim, BookCheck, LayoutDashboard, ListCheck, ListPlus, MessageSquareQuote, NotebookPen, Plus, Settings2, ShieldPlus, ShoppingBasket, Trophy, User } from "lucide-react";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
@@ -54,11 +54,11 @@ const Aside = ({ isSidebarOpen, setIsSidebarOpen }: any) => {
                                 <LayoutDashboard size={15} />   Dashboard
                             </button>
                         </NavLink>
-                        {/* <NavLink to="/dashboard/my-profile">
+                        <NavLink to="/dashboard/my-profile">
                             <button className=" font-semibold py-2 text-xs 2xl:text-sm bg-primary text-left rounded-lg text-slate-200 w-full mb-5 flex items-center gap-2">
                                 <User size={15} /> My Profile
                             </button>
-                        </NavLink> */}
+                        </NavLink>
                         {
                             (user && (userRole === "user")) && (
                                 <>

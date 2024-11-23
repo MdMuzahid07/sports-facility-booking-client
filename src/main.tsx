@@ -15,6 +15,19 @@ createRoot(document.getElementById('root')!).render(
         <RouterProvider router={routes} />
       </PersistGate>
     </Provider>
-    <Toaster />
+    <Toaster
+      closeButton
+      richColors
+      position="top-center"
+      theme="system"
+      toastOptions={{
+        style: {
+          borderRadius: "0px",
+          padding: "16px",
+          minHeight: "60px",
+          boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.25)",
+        }
+      }}
+    />
   </StrictMode>
 );

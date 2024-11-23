@@ -8,6 +8,7 @@ const orderApi = baseApi.injectEndpoints({
                 url: "/orders",
                 method: "GET"
             }),
+            providesTags: ["orders"]
         }),
 
         getASingleOrder: builder.query({
@@ -15,6 +16,7 @@ const orderApi = baseApi.injectEndpoints({
                 url: `/orders/${id}`,
                 method: "GET"
             }),
+            providesTags: ["orders"]
         }),
 
         addOrder: builder.mutation({
@@ -23,6 +25,7 @@ const orderApi = baseApi.injectEndpoints({
                 method: "POST",
                 body: data
             }),
+            invalidatesTags: ["orders"]
         }),
 
         deleteAOrder: builder.mutation({
@@ -30,6 +33,7 @@ const orderApi = baseApi.injectEndpoints({
                 url: `/orders/${id}`,
                 method: "DELETE"
             }),
+            invalidatesTags: ["orders"]
         }),
 
         updateAOrder: builder.mutation({
@@ -38,8 +42,31 @@ const orderApi = baseApi.injectEndpoints({
                 method: "PATCH",
                 body: data
             }),
+            invalidatesTags: ["orders"]
         }),
 
+        // this will work for COD - Cash On Delivery ,method update purpose only
+        updatePaymentMethod: builder.mutation({
+            query: ({ id }) => ({
+                url: `/orders/payment-method/${id}`,
+                method: "PATCH",
+                body: {}
+            }),
+            invalidatesTags: ["orders"]
+        }),
+
+
+        // manage order for Admin
+        updateOrderStatus: builder.mutation({
+            query: ({ id, data }) => {
+                return {
+                    url: `/orders/order-status-manage/${id}`,
+                    method: "PATCH",
+                    body: data
+                }
+            },
+            invalidatesTags: ["orders"]
+        }),
     })
 });
 
@@ -49,5 +76,7 @@ export const {
     useGetAllOrderQuery,
     useAddOrderMutation,
     useDeleteAOrderMutation,
-    useUpdateAOrderMutation
+    useUpdateAOrderMutation,
+    useUpdatePaymentMethodMutation,
+    useUpdateOrderStatusMutation,
 } = orderApi;

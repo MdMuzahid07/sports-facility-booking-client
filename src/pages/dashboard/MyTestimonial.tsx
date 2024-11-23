@@ -19,6 +19,7 @@ const MyTestimonial = () => {
     const handleSubmit = async () => {
         const data = await {
             name: user?.email.split("@")[0],
+            email: user?.email,
             occupation: occupation,
             testimonialText: testimonialText,
             image: "https://res.cloudinary.com/dlxfcyc7x/image/upload/v1729976728/mymb14klmvr1zmqya7ux.jpg",
