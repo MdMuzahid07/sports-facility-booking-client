@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import ExploreFacilities from "./components/main/ExploreFacilities";
 import FeaturedFacilities from "./components/main/featured/FeaturedFacilities";
 import FeaturedProducts from "./components/main/featured/FeaturedProducts";
@@ -15,6 +16,16 @@ const App = () => {
 
   return (
     <main>
+      <Helmet>
+        <title>PlayTime Pro | Home</title>
+        <meta
+          name="description"
+          content="PlayTime Pro, is a sports facility booking platform, with in build sports products e-commerce store"
+        />
+        <meta name="robots" content="index, follow" />{" "}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="author" content="Md.Muzahid" />
+      </Helmet>
       <Hero />
       <HowItWorks />
       <WinterSaleFacilities />
