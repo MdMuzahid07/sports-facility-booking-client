@@ -2,10 +2,14 @@
 import LoadingSpinner from "@/components/LoadingSpinner";
 import { Button } from "@/components/ui/button";
 import { useGetAllFacilitiesQuery } from "@/redux/features/facilities/facilityApi";
+import { useInView, motion } from "framer-motion";
+import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 const WinterSaleFacilities = () => {
     const { data, isLoading } = useGetAllFacilitiesQuery(undefined);
+    const ref = useRef(null);
+    const isInView = useInView(ref);
     const navigate = useNavigate();
 
     const filtered = data?.data?.filter((facility: any) =>
@@ -30,26 +34,35 @@ const WinterSaleFacilities = () => {
                         <section className="grid md:grid-cols-2 gap-8 mt-16">
                             {
                                 filtered?.map((facility: any) => (
-                                    <div
-                                        className="relative bg-cover bg-center h-96 flex items-center justify-start"
-                                        style={{
-                                            backgroundImage: `url(${facility?.image})`,
-                                        }}
-                                    >
-                                        {/* Overlay */}
-                                        <div className="absolute inset-0 bg-black bg-opacity-50"></div>
 
-                                        {/* Content */}
-                                        <div className="relative z-10 px-6 md:px-12">
-                                            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
-                                                {facility?.name}
-                                            </h2>
-                                            <p className="text-gray-300 text-lg md:text-xl leading-relaxed mb-6">
-                                                {facility?.description}
-                                            </p>
-                                            <Button onClick={() => handleRedirectToDetails(facility?._id)} className="mt-6 rounded-none text-2xl md:text-3xl lg:text-4xl">View More</Button>
+                                    <div ref={ref}>
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 50 }}
+                                            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+                                            transition={{ duration: 0.5, ease: "easeOut" }}
+                                        >
+                                            <div
+                                                className="relative bg-cover bg-center h-96 flex items-center justify-start"
+                                                style={{
+                                                    backgroundImage: `url(${facility?.image})`,
+                                                }}
+                                            >
+                                                {/* Overlay */}
+                                                <div className="absolute inset-0 bg-black bg-opacity-50"></div>
 
-                                        </div>
+                                                {/* Content */}
+                                                <div className="relative z-10 px-6 md:px-12">
+                                                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
+                                                        {facility?.name}
+                                                    </h2>
+                                                    <p className="text-gray-300 text-lg md:text-xl leading-relaxed mb-6">
+                                                        {facility?.description}
+                                                    </p>
+                                                    <Button onClick={() => handleRedirectToDetails(facility?._id)} className="mt-6 rounded-none text-2xl md:text-3xl lg:text-4xl">View More</Button>
+
+                                                </div>
+                                            </div>
+                                        </motion.div>
                                     </div>
                                 ))
                             }

@@ -7,8 +7,9 @@ const ExploreFacilities = () => {
     return (
         <section className="pt-28 pb-32 bg-[#2E2E2E] text-slate-200">
             <div className="max-w-7xl mx-auto px-4 xl:px-0">
-                <h2 className="text-3xl md:text-5xl font-extrabold mb-16 text-white">Explore Our Facilities</h2>
-                <div className="space-y-12">
+                <h2 className="text-3xl md:text-5xl font-extrabold mb-5 text-white">Explore Popular Facilities</h2>
+                <p className="text-xl md:text-2xl lg:text-3xl">Discover Top Features and Amenities for Unmatched Comfort and Convenience</p>
+                <div className="space-y-12 mt-16">
                     {/* Featured Item 1 */}
                     <div className="flex flex-col sm:flex-row items-center bg-[#141313] overflow-hidden">
                         <img
