@@ -35,9 +35,9 @@ const FacilityDetails = () => {
             </Helmet>
 
 
-            <section className="bg-slate-200 py-32 px-4 xl:px-0">
+            <section className="bg-slate-200 py-12 lg:py-20 px-4 xl:px-0">
                 <div className="max-w-7xl mx-auto">
-                    <h1 className="mb-10 text-3xl md:text-4xl font-bold ">Product Details</h1>
+                    <h1 className="mb-10 text-3xl md:text-4xl font-bold ">Facility Details</h1>
                     <div className="grid grid-cols-1 lg:grid-cols-5 gap-10">
                         <div className="col-span-3 flex justify-center items-center">
                             <div className="w-full">
