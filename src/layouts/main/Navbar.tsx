@@ -23,7 +23,7 @@ const Navbar = () => {
                 <div>
                     {/* <img className="w-1- h-10" src="" alt="" /> */}
                     <Link to="/">
-                        <img className="w-32" src="https://i.ibb.co.com/yfwf1YG/play-Time-Pro.png" alt="" />
+                        <img className="w-32" src="https://res.cloudinary.com/dymo0iyee/image/upload/v1734177436/qmyvxzex1jxwx8n14l7w.png" alt="" />
                         {/* <h1 className="md:text-2xl font-bold px-4 inline py-2 md:py-1 bg-[#171717] text-white">PlayTime Pro</h1> */}
                     </Link>
                 </div>
