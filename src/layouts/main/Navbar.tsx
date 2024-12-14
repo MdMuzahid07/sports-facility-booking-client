@@ -37,7 +37,7 @@ const Navbar = () => {
                     <CartDropdown cartDrop={cartDrop} setCartDrop={setCartDrop} />
                     {
                         user?.role ? <UserDropdown /> : <NavLink to="/login">
-                            <Button className="hidden md:flex rounded-none md:text-xl">
+                            <Button className="hidden md:flex rounded-full md:text-xl">
                                 Login
                             </Button>
                         </NavLink>

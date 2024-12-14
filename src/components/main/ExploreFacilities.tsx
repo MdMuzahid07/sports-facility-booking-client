@@ -1,9 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-const FeaturedFacilities = () => {
+import { Button } from '../ui/button';
+import { useNavigate } from 'react-router-dom';
+
+const ExploreFacilities = () => {
+    const navigate = useNavigate();
+
     return (
         <section className="pt-28 pb-32 bg-[#2E2E2E] text-slate-200">
             <div className="max-w-7xl mx-auto px-4 xl:px-0">
-                <h2 className="text-4xl font-bold text-center mb-16 text-white">Our Featured Facilities</h2>
+                <h2 className="text-3xl md:text-5xl font-extrabold mb-16 text-white">Explore Our Facilities</h2>
                 <div className="space-y-12">
                     {/* Featured Item 1 */}
                     <div className="flex flex-col sm:flex-row items-center bg-[#141313] overflow-hidden">
@@ -13,7 +17,9 @@ const FeaturedFacilities = () => {
                             className="w-full sm:w-1/2 h-96 object-cover"
                         />
                         <div className="p-8 sm:w-1/2 space-y-4">
-                            <h3 className="text-2xl md:text-3xl lg:text-4xl font-semibold mb-4 text-white">Judo, Gym</h3>
+                            <h3 className="text-2xl md:text-3xl lg:text-4xl font-semibold mb-1 text-white">Judo, Gym</h3>
+                            <Button onClick={() => navigate("/facilities")} className=" bg-white hover:bg-slate-300 text-primary rounded-none text-2xl md:text-3xl lg:text-4xl">Book Now</Button>
+
                             <p className="text-gray-300 text-lg leading-relaxed">
                                 Transform your fitness goals into reality at our state-of-the-art gym, where cutting-edge equipment meets a motivating environment. Our gym is equipped with the latest in cardiovascular, strength, and flexibility training equipment, designed to cater to a wide range of fitness levels and preferences. Whether you're aiming to build muscle, lose weight, or simply stay active, our diverse selection of machines and free weights ensures a comprehensive workout
                             </p>
@@ -28,7 +34,8 @@ const FeaturedFacilities = () => {
                             className="w-full sm:w-1/2 h-96 object-cover"
                         />
                         <div className="p-8 sm:w-1/2 space-y-4">
-                            <h3 className="text-2xl md:text-3xl lg:text-4xl font-semibold mb-4 text-white">Outdoor Sports</h3>
+                            <h3 className="text-2xl md:text-3xl lg:text-4xl font-semibold mb-1 text-white">Outdoor Sports</h3>
+                            <Button onClick={() => navigate("/facilities")} className=" bg-white hover:bg-slate-300 text-primary rounded-none text-2xl md:text-3xl lg:text-4xl">Book Now</Button>
                             <p className="text-gray-300 text-lg leading-relaxed">
                                 Unleash your potential and embrace the great outdoors with our premier outdoor sports facilities. Designed to cater to a wide range of athletic pursuits, our facilities offer vibrant spaces where you can engage in everything from soccer and tennis to running and cycling. Set against picturesque landscapes, our well-maintained fields, courts, and tracks provide the perfect backdrop for both casual play and competitive events.
                             </p>
@@ -38,6 +45,6 @@ const FeaturedFacilities = () => {
             </div>
         </section>
     );
-};
+}
 
-export default FeaturedFacilities;
+export default ExploreFacilities;
