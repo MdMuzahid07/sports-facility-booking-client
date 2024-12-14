@@ -11,7 +11,7 @@ import { Helmet } from 'react-helmet-async';
 import ImageSlider from '../ImageSlider';
 import ReviewCard from '../review/ReviewCard';
 
-const fakeReviews = [
+export const fakeReviews = [
     {
         name: "Alice Carter",
         reviewText: "Fantastic product! Quality and design are top-notch.",
@@ -134,20 +134,10 @@ const ProductDetails = () => {
                         </div>
 
 
-                        {/* product description start here  */}
+                        {/* product review,and details section start here  */}
 
 
-                        {/* <div className="mt-10">
-                            <h2 className="text-xl font-semibold  mb-2">Product Description</h2>
-                            <p className="">{product?.data?.description}</p>
-                        </div> */}
-
-
-
-
-
-
-                        <div className="my-10 border rounded-lg">
+                        <div className="my-10">
                             <div className="tabs flex space-x-4 mb-4">
                                 <Button
                                     className={`tab ${activeTab === "details" ? "active" : "bg-white text-black"} font-bold rounded-none`}
@@ -229,13 +219,8 @@ const ProductDetails = () => {
                             )}
                         </div>
 
+                        {/* product review,and details section start here  */}
 
-
-
-
-
-
-                        {/* product description end here  */}
 
 
                     </div>
