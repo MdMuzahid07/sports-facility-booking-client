@@ -37,6 +37,7 @@ const FacilityDetails = () => {
 
             <section className="bg-slate-200 py-32 px-4 xl:px-0">
                 <div className="max-w-7xl mx-auto">
+                    <h1 className="mb-10 text-3xl md:text-4xl font-bold ">Product Details</h1>
                     <div className="grid grid-cols-1 lg:grid-cols-5 gap-10">
                         <div className="col-span-3 flex justify-center items-center">
                             <div className="w-full">
@@ -50,7 +51,7 @@ const FacilityDetails = () => {
                                 <ImageSlider image={singleFacility?.data?.image} />
                             </div>
                         </div>
-                        <div className="col-span-2 flex flex-col">
+                        <div className="col-span-2 flex flex-col max-h-[400px]">
                             <h3 className="text-2xl md:text-4xl font-extrabold mb-5 mt-8">{singleFacility?.data?.name}</h3>
                             <p className="mt-8 text-xl md:text-2xl mb-5 flex items-center gap-2">
                                 <span><MapPin /></span>

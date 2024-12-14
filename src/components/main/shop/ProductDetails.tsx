@@ -40,10 +40,7 @@ const ProductDetails = () => {
             </Helmet>
 
             <div className="bg-slate-200 min-h-screen">
-                <div className="h-[40vh] w-full hidden lg:block">
-                    <img className="h-full w-full object-cover object-center" src={product?.data?.imageUrl} alt="" />
-                </div>
-                <div className="max-w-7xl mx-auto py-12 lg:py-32 px-4 xl:px-0">
+                <div className="max-w-7xl mx-auto py-12 lg:py-20 px-4 xl:px-0">
                     <h1 className="mb-10 text-3xl md:text-4xl font-bold ">Product Details</h1>
                     <div>
                         <div className="grid grid-cols-1 lg:grid-cols-5 gap-10">
@@ -60,7 +57,7 @@ const ProductDetails = () => {
                                     <ImageSlider image={product?.data?.imageUrl} />
                                 </div>
                             </div>
-                            <div className="col-span-2 flex flex-col justify-between">
+                            <div className="col-span-2 flex flex-col justify-between max-h-[400px]">
                                 <div>
                                     <h1 className="text-3xl font-bold  mb-2">{product?.data?.title}</h1>
                                     <p className=" text-lg">Category: Sports Equipment</p>

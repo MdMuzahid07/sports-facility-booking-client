@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { navLinks } from "@/constants"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Link, NavLink } from "react-router-dom"
 import { Menu, X } from "lucide-react";
 import UserDropdown from "./UserDropdown";
@@ -9,6 +9,7 @@ import CartDropdown from "@/cart/CartDropdown";
 
 const Navbar = () => {
     const [isMobileNavOpen, setIsMobileAppOpen] = useState(false);
+    const [isVisible, setIsVisible] = useState(false);
     const [cartDrop, setCartDrop] = useState(false);
 
     const user = useAppSelector((state) => state.auth.user);
@@ -16,9 +17,29 @@ const Navbar = () => {
     const handleMobileNav = () => setIsMobileAppOpen(!isMobileNavOpen);
 
 
+    // conditionality visible in invisible the button depending on minimum scroll bottom 500px
+    const handleToggleVisible = () => {
+        if (window.scrollY > 70) {
+            setIsVisible(true);
+        } else {
+            setIsVisible(false);
+        }
+    };
+
+    // listening the scroll event and, calling the function
+    useEffect(() => {
+        window.addEventListener("scroll", handleToggleVisible);
+
+        // cleanup function to prevent memory leaks // its clean the scroll event listener after component remove from the DOM
+        return () => {
+            window.removeEventListener("scroll", handleToggleVisible);
+        }
+    }, []);
+
+
 
     return (
-        <header className="bg-white border-b w-full sticky top-0 z-50 bg-opacity-35 backdrop-blur">
+        <header className={`bg-white border-b w-full sticky top-0 z-50 ${isVisible ? "bg-opacity-35 backdrop-blur" : ""}`}>
             <nav className="max-w-7xl mx-auto flex justify-between items-center h-20 px-4 xl:px-0 relative">
                 <div>
                     {/* <img className="w-1- h-10" src="" alt="" /> */}
