@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useNavigate, useParams } from 'react-router-dom';
-import Zoom from 'react-medium-image-zoom'
+// import Zoom from 'react-medium-image-zoom';
 import 'react-medium-image-zoom/dist/styles.css'
 import { DollarSign, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -9,6 +9,7 @@ import PageTopByDefault from '@/utils/PageTopByDefault';
 import FacilityCard from '@/components/main/FacilityCard';
 import ScrollToTop from '@/components/ScrollToTop';
 import { Helmet } from 'react-helmet-async';
+import ImageSlider from '@/components/main/ImageSlider';
 
 const FacilityDetails = () => {
     const { facilityId } = useParams();
@@ -39,13 +40,14 @@ const FacilityDetails = () => {
                     <div className="grid grid-cols-1 lg:grid-cols-5 gap-10">
                         <div className="col-span-3 flex justify-center items-center">
                             <div className="w-full">
-                                <Zoom>
+                                {/* <Zoom>
                                     <img
                                         src={singleFacility?.data?.image}
                                         alt="image"
                                         className="w-full h-auto max-h-[500px] object-cover shadow-lg"
                                     />
-                                </Zoom>
+                                </Zoom> */}
+                                <ImageSlider image={singleFacility?.data?.image} />
                             </div>
                         </div>
                         <div className="col-span-2 flex flex-col">

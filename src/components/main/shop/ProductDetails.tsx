@@ -2,13 +2,13 @@
 import { Button } from '@/components/ui/button';
 import { useGetAllProductsQuery, useGetASingleProductQuery } from '@/redux/features/products/productApi';
 import { useLayoutEffect } from 'react';
-import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
 import { useParams } from 'react-router-dom';
 import ProductCard from './ProductCard';
 import { addCart } from '@/redux/features/cart/CartSlice';
 import { useAppDispatch } from '@/redux/hooks';
 import { Helmet } from 'react-helmet-async';
+import ImageSlider from '../ImageSlider';
 
 
 
@@ -49,14 +49,15 @@ const ProductDetails = () => {
                         <div className="grid grid-cols-1 lg:grid-cols-5 gap-10">
                             <div className="col-span-3 flex justify-center items-center">
                                 <div className="w-full">
-                                    <Zoom>
+                                    {/* <Zoom>
                                         <img
                                             title="click to zoom"
                                             src={product?.data?.imageUrl}
                                             alt=""
                                             className="w-full h-auto  hover:cursor-pointer max-h-[500px] object-cover shadow-lg"
                                         />
-                                    </Zoom>
+                                    </Zoom> */}
+                                    <ImageSlider image={product?.data?.imageUrl} />
                                 </div>
                             </div>
                             <div className="col-span-2 flex flex-col justify-between">
