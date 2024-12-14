@@ -39,7 +39,7 @@ const Navbar = () => {
 
 
     return (
-        <header className={`bg-white border-b w-full sticky top-0 z-50 ${isVisible ? "bg-opacity-35 backdrop-blur" : ""}`}>
+        <header className={`bg-slate-100 border-b w-full sticky top-0 z-50 ${isVisible ? "bg-opacity-35 backdrop-blur" : ""}`}>
             <nav className="max-w-7xl mx-auto flex justify-between items-center h-20 px-4 xl:px-0 relative">
                 <div>
                     {/* <img className="w-1- h-10" src="" alt="" /> */}
