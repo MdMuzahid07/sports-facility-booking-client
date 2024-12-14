@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button } from '@/components/ui/button';
 import { useGetAllProductsQuery, useGetASingleProductQuery } from '@/redux/features/products/productApi';
-import { useLayoutEffect } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import 'react-medium-image-zoom/dist/styles.css'
 import { useParams } from 'react-router-dom';
 import ProductCard from './ProductCard';
@@ -9,6 +9,40 @@ import { addCart } from '@/redux/features/cart/CartSlice';
 import { useAppDispatch } from '@/redux/hooks';
 import { Helmet } from 'react-helmet-async';
 import ImageSlider from '../ImageSlider';
+import ReviewCard from '../review/ReviewCard';
+
+const fakeReviews = [
+    {
+        name: "Alice Carter",
+        reviewText: "Fantastic product! Quality and design are top-notch.",
+        rating: 5,
+        image: "https://res.cloudinary.com/dlxfcyc7x/image/upload/v1729976675/bjem8nwesgau95lhebpm.jpg",
+    },
+    {
+        name: "Brian Harris",
+        reviewText: "Good value for money. Delivery was quick and seamless.",
+        rating: 4,
+        image: "https://res.cloudinary.com/dlxfcyc7x/image/upload/v1729976675/bjem8nwesgau95lhebpm.jpg",
+    },
+    {
+        name: "Chloe Martinez",
+        reviewText: "Decent product, but the packaging could be better.",
+        rating: 3,
+        image: "https://res.cloudinary.com/dlxfcyc7x/image/upload/v1729976675/bjem8nwesgau95lhebpm.jpg",
+    },
+    {
+        name: "Daniel Lee",
+        reviewText: "Not worth the price. Found better options elsewhere.",
+        rating: 2,
+        image: "https://res.cloudinary.com/dlxfcyc7x/image/upload/v1729976675/bjem8nwesgau95lhebpm.jpg",
+    },
+    {
+        name: "Ella Johnson",
+        reviewText: "Absolutely love it! Will definitely purchase again.",
+        rating: 5,
+        image: "https://res.cloudinary.com/dlxfcyc7x/image/upload/v1729976675/bjem8nwesgau95lhebpm.jpg",
+    },
+];
 
 
 
@@ -18,7 +52,20 @@ const ProductDetails = () => {
     const { data: allProducts } = useGetAllProductsQuery(undefined);
     const dispatch = useAppDispatch();
 
+    const [activeTab, setActiveTab] = useState("details");
 
+    const [rating, setRating] = useState(0);
+    const [reviewText, setReviewText] = useState("");
+    const [reviewImage, setReviewImage] = useState(null);
+
+    const handleTabSwitch = (tab: any) => {
+        setActiveTab(tab);
+    };
+
+    const handleReviewSubmit = (e: any) => {
+        e.preventDefault();
+        alert("Review submitted!");
+    };
 
     const handleAddCart = (product: any) => {
         dispatch(addCart(product));
@@ -86,10 +133,109 @@ const ProductDetails = () => {
                             </div>
                         </div>
 
-                        <div className="mt-10">
+
+                        {/* product description start here  */}
+
+
+                        {/* <div className="mt-10">
                             <h2 className="text-xl font-semibold  mb-2">Product Description</h2>
                             <p className="">{product?.data?.description}</p>
+                        </div> */}
+
+
+
+
+
+
+                        <div className="my-10 border rounded-lg">
+                            <div className="tabs flex space-x-4 mb-4">
+                                <Button
+                                    className={`tab ${activeTab === "details" ? "active" : "bg-white text-black"} font-bold rounded-none`}
+                                    onClick={() => handleTabSwitch("details")}
+                                >
+                                    Product Details
+                                </Button>
+                                <Button
+                                    className={`tab ${activeTab === "reviews" ? "active" : "bg-white text-black"} font-bold rounded-none`}
+                                    onClick={() => handleTabSwitch("reviews")}
+                                >
+                                    Reviews
+                                </Button>
+                            </div>
+
+                            {activeTab === "details" && (
+                                <div className="product-details">
+                                    {product?.data?.description}
+                                </div>
+                            )}
+
+                            {activeTab === "reviews" && (
+                                <div className="reviews">
+                                    <div className="grid lg:grid-cols-2 gap-8">
+                                        <div className="space-y-8 mt-7">
+                                            {
+                                                fakeReviews?.map((review) => (
+                                                    <ReviewCard review={review} />
+                                                ))
+                                            }
+                                        </div>
+                                        <div>
+                                            <h3 className="mb-10 text-3xl md:text-4xl font-bold">Write a Review</h3>
+                                            <form onSubmit={handleReviewSubmit}>
+                                                <div className="mb-4">
+                                                    <label className="block text-md font-medium">Rating</label>
+                                                    <div className="flex space-x-2">
+                                                        {[1, 2, 3, 4, 5]?.map((star) => (
+                                                            <button
+                                                                key={star}
+                                                                type="button"
+                                                                className={`star text-2xl ${rating >= star ? "text-yellow-500" : "text-gray-400"}`}
+                                                                onClick={() => setRating(star)}
+                                                            >
+                                                                ★
+                                                            </button>
+                                                        ))}
+                                                    </div>
+                                                </div>
+
+                                                <div className="mb-4">
+                                                    <label className="block text-sm font-medium">Review Image</label>
+                                                    <input
+                                                        type="file"
+                                                        accept="image/*"
+                                                        onChange={(e) => setReviewImage(e.target.files[0])}
+                                                        className="mt-2"
+                                                    />
+                                                </div>
+
+                                                <div className="mb-4">
+                                                    <label className="block text-sm font-medium">Review Text</label>
+                                                    <textarea
+                                                        className="w-full p-2 border focus:outline-none"
+                                                        rows="4"
+                                                        value={reviewText}
+                                                        onChange={(e) => setReviewText(e.target.value)}
+                                                        placeholder="Write your review here..."
+                                                    ></textarea>
+                                                </div>
+
+                                                <Button type="submit" className="btn rounded-none text-white py-2 px-4 ">
+                                                    Submit Review
+                                                </Button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
                         </div>
+
+
+
+
+
+
+
+                        {/* product description end here  */}
 
 
                     </div>
