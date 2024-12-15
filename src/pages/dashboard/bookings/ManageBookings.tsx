@@ -46,7 +46,7 @@ const ManageBookings = () => {
                             <TableRow key={booking?._id}>
                                 <TableCell className="font-medium">{index + 1}</TableCell>
                                 <TableCell>
-                                    <img className="w-32 h-20 rounded-lg object-cover" src={booking?.facility?.image} alt="" />
+                                    <img className="w-16 h-14 rounded-lg object-cover object-center" src={booking?.facility?.image} alt="" />
                                 </TableCell>
                                 <TableCell>Pending</TableCell>
                                 <TableCell>{booking?.facility?.name}</TableCell>

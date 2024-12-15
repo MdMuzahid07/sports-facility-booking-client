@@ -38,10 +38,16 @@ const UserDropdownDashboard = () => {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Avatar>
-                    <AvatarImage className="w-10 h-10 cursor-pointer rounded-full overflow-hidden object-cover object-center" src={(user && user.avatar) ? user?.avatar : "https://github.com/shadcn.png"} alt="@shadcn" />
-                    <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
+                <div className="flex items-center gap-2">
+                    <div className="text-right leading-3">
+                        <h3 className="text-md leading-6">{user?.email?.split(".")[0]}</h3>
+                        <span className="text-sm">{user?.role}</span>
+                    </div>
+                    <Avatar>
+                        <AvatarImage className="w-10 h-10 cursor-pointer rounded-full overflow-hidden object-cover object-center" src={(user && user.avatar) ? user?.avatar : "https://github.com/shadcn.png"} alt="@shadcn" />
+                        <AvatarFallback>CN</AvatarFallback>
+                    </Avatar>
+                </div>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-56 rounded-lg bg-white bg-opacity-45 backdrop-blur-sm py-4">
                 <DropdownMenuLabel>
@@ -50,7 +56,7 @@ const UserDropdownDashboard = () => {
                     <span className="text-xs">{user?.email}</span>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuGroup>
+                {/* <DropdownMenuGroup>
                     <NavLink to="/">
                         <DropdownMenuItem>
                             <Home className="mr-2 h-4 w-4" />
@@ -58,7 +64,7 @@ const UserDropdownDashboard = () => {
                             <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
                         </DropdownMenuItem>
                     </NavLink>
-                </DropdownMenuGroup>
+                </DropdownMenuGroup> */}
                 <DropdownMenuSeparator />
                 {/* <DropdownMenuGroup>
                     <DropdownMenuItem>
@@ -76,7 +82,7 @@ const UserDropdownDashboard = () => {
                     </DropdownMenuItem>
                 </NavLink>
             </DropdownMenuContent>
-        </DropdownMenu>
+        </DropdownMenu >
     )
 }
 

@@ -79,7 +79,7 @@ const ManageProducts = () => {
                             <TableRow key={product?._id}>
                                 <TableCell className="font-medium">{index + 1}</TableCell>
                                 <TableCell>
-                                    <img className="w-32 h-20 rounded-lg object-cover" src={product?.imageUrl} alt="" />
+                                    <img className="w-16 h-14 rounded-lg object-cover object-center" src={product?.imageUrl} alt="" />
                                 </TableCell>
                                 <TableCell>{product?.title}</TableCell>
                                 <TableCell>{product?.stock}</TableCell>

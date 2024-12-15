@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { useCreateProductMutation } from "@/redux/features/products/productApi";
 import { toast } from "sonner";
 import RichTextEditor from "@/components/richTextEditor/RichTextEditor";
+import MultipleImageSelector from "@/utils/MultipleImageSelector";
 
 interface TProductData {
     title: string;
@@ -21,6 +22,13 @@ const AddProduct = () => {
     const [file, setFile] = useState<File | null>(null);
     const [createProduct, { data, isLoading, error }] = useCreateProductMutation();
     const [description, setDescription] = useState("");
+
+    const [selectedImages, setSelectedImages] = useState<File[]>([]); // Store selected images
+
+    // Append selected images without overwriting
+    const handleImageSelection = (files: File[]) => {
+        setSelectedImages((prevFiles) => [...prevFiles, ...files]);
+    };
 
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -69,6 +77,16 @@ const AddProduct = () => {
             </h1>
             <section className="bg-white p-8 rounded-lg mt-10 min-h-[450px] relative">
                 <form onSubmit={handleSubmit(onSubmit)}>
+
+                    <div className="mb-8">
+                        <Label className="mb-2" htmlFor="picture">Select Images</Label>
+                        <MultipleImageSelector
+                            onImagesSelected={handleImageSelection}
+                            multiple={true}
+                            maxFiles={3}
+                            accept="image/png, image/jpeg"
+                        />
+                    </div>
                     <section className="grid sm:grid-cols-2 gap-8 mb-8">
                         <section>
                             <Label htmlFor="title">Product Title</Label>
@@ -87,11 +105,6 @@ const AddProduct = () => {
                             <Label htmlFor="stock">Stock</Label>
                             <Input {...register("stock", { required: true })} type="number" placeholder="Stock" />
                         </section>
-                        <section>
-                            <Label htmlFor="file">Product Image</Label>
-                            <Input type="file" onChange={handleFileChange} placeholder="Product Image" />
-                        </section>
-
                     </section>
 
 

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import useImgBBUpload from "@/hooks/useImgBBUpload"
 import { useCreateFacilityMutation } from "@/redux/features/facilities/facilityApi"
+import MultipleImageSelector from "@/utils/MultipleImageSelector"
 import { Label } from "@radix-ui/react-label"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
@@ -14,6 +15,13 @@ const AddFacility = () => {
     const { register, handleSubmit, reset } = useForm();
     const [AddFacility, { error, data, isLoading }] = useCreateFacilityMutation();
     const [description, setDescription] = useState("");
+    const [selectedImages, setSelectedImages] = useState<File[]>([]); // Store selected images
+
+    // Append selected images without overwriting
+    const handleImageSelection = (files: File[]) => {
+        setSelectedImages((prevFiles) => [...prevFiles, ...files]);
+    };
+
 
     if (isLoading) {
         return toast.loading("Please wait", { id: "createFacility" })
@@ -45,6 +53,16 @@ const AddFacility = () => {
             </h1>
             <div className="bg-white p-8 rounded-lg mt-14 min-h-[450px]  relative">
                 <form onSubmit={handleSubmit(onSubmit)} >
+                    <div className="mb-8">
+                        <Label className="mb-2" htmlFor="picture">Select Images</Label>
+                        <MultipleImageSelector
+
+                            onImagesSelected={handleImageSelection}
+                            multiple={true}
+                            maxFiles={3}
+                            accept="image/png, image/jpeg"
+                        />
+                    </div>
                     <div className="grid sm:grid-cols-2 gap-8 h-full">
                         <div>
                             <Label htmlFor="picture">Facility Name</Label>
@@ -58,10 +76,7 @@ const AddFacility = () => {
                             <Label htmlFor="price">Price Per Hour</Label>
                             <Input id="price" {...register("pricePerHour", { required: true })} type="text" placeholder="Facility price per hour" />
                         </div>
-                        <div>
-                            <Label htmlFor="picture">Picture</Label>
-                            <Input onChange={getEvent} id="picture" type="file" />
-                        </div>
+
                     </div>
 
                     <div className="my-8">
