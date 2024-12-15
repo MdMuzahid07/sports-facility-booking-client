@@ -19,7 +19,6 @@ interface TProductData {
 
 const AddProduct = () => {
     const { register, handleSubmit, reset } = useForm();
-    const [file, setFile] = useState<File | null>(null);
     const [createProduct, { data, isLoading, error }] = useCreateProductMutation();
     const [description, setDescription] = useState("");
 
@@ -31,26 +30,32 @@ const AddProduct = () => {
     };
 
 
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFile(e.target.files?.[0] || null);
-    };
-
     const onSubmit = async (formData: any) => {
         const productData: TProductData = {
             ...formData,
+            description: description,
             price: Number(formData.price),
             quantity: Number(formData.quantity),
             stock: Number(formData.stock)
         };
 
         const submitData = new FormData();
-        if (file) submitData.append("file", file);
+        /* This code block is checking if there are any selected images stored in the `selectedImages`
+        state array. If there are selected images (i.e., `selectedImages` is truthy and its length is
+        greater than 0), it iterates over each image in the array using `forEach` and appends each
+        image to a `FormData` object named `submitData` using the `append` method. */
+        if (selectedImages && selectedImages.length > 0) {
+            selectedImages.forEach((image) => {
+                submitData.append("files", image);
+            });
+        }
         submitData.append("data", JSON.stringify(productData));
 
         try {
             await createProduct(submitData).unwrap();
             reset();
-            setFile(null);
+            setDescription("");
+            setSelectedImages([]);
         } catch (error) {
             console.log(error, "error from try catch");
         }
