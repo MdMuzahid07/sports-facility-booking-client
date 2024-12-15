@@ -16,7 +16,7 @@ import './styles.css';
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
 
 
-const ImageSlider = ({ image }: any) => {
+const ImageSlider = ({ images }: any) => {
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
     return (
@@ -33,8 +33,8 @@ const ImageSlider = ({ image }: any) => {
                 className="mySwiper2"
             >
                 {
-                    [1, 2, 3, 4]?.map(() => (
-                        <SwiperSlide>
+                    images?.map((image: string, index: number) => (
+                        <SwiperSlide key={index + image}>
                             <img src={image} />
                         </SwiperSlide>
                     ))
@@ -50,9 +50,9 @@ const ImageSlider = ({ image }: any) => {
                 className="mySwiper"
             >
                 {
-                    [1, 2, 3, 4]?.map(() => (
-                        <SwiperSlide>
-                            <img src={image} />
+                    images?.map((image: string, index: number) => (
+                        <SwiperSlide key={(index % Math.random()) + image}>
+                            <img className="cursor-pointer" src={image} />
                         </SwiperSlide>
                     ))
                 }

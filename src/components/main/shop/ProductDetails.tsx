@@ -76,6 +76,7 @@ const ProductDetails = () => {
         window.scrollTo({ top: 0, behavior: "smooth" })
     }, [productId]);
 
+
     return (
         <>
             <Helmet>
@@ -101,7 +102,7 @@ const ProductDetails = () => {
                                             className="w-full h-auto  hover:cursor-pointer max-h-[500px] object-cover shadow-lg"
                                         />
                                     </Zoom> */}
-                                    <ImageSlider image={product?.data?.imageUrl} />
+                                    <ImageSlider images={product?.data?.imageUrl} />
                                 </div>
                             </div>
                             <div className="col-span-2 flex flex-col justify-between max-h-[400px]">
@@ -155,7 +156,14 @@ const ProductDetails = () => {
 
                             {activeTab === "details" && (
                                 <div className="product-details">
-                                    {product?.data?.description}
+                                    {product?.data?.description ? (
+                                        <div
+                                            className="w-full"
+                                            dangerouslySetInnerHTML={{ __html: product?.data?.description }}
+                                        />
+                                    ) : (
+                                        <p>No content available for this blog.</p>
+                                    )}
                                 </div>
                             )}
 
