@@ -150,16 +150,6 @@ const FacilityDetails = () => {
                                             </div>
 
                                             <div className="mb-4">
-                                                <label className="block text-sm font-medium">Review Image</label>
-                                                <input
-                                                    type="file"
-                                                    accept="image/*"
-                                                    onChange={(e) => setReviewImage((e.target.files as any)[0])}
-                                                    className="mt-2"
-                                                />
-                                            </div>
-
-                                            <div className="mb-4">
                                                 <label className="block text-sm font-medium">Review Text</label>
                                                 <textarea
                                                     className="w-full p-2 border focus:outline-none"

@@ -164,13 +164,16 @@ const UpdateProduct = () => {
                             <div className="my-8">
                                 <Label htmlFor="des">Product Description</Label>
                                 <div id="des" className="mt-1">
-                                    <RichTextEditor value={description ? description : productCurrentData?.data?.description} onChange={setDescription} style="h-80" />
+                                    <RichTextEditor
+                                        value={description ? description : productCurrentData?.data?.description} onChange={setDescription}
+                                        style="h-80"
+                                    />
                                 </div>
                             </div>
 
 
                             <section className="flex justify-end mt-16">
-                                <Button type="submit" className="text-lg">Add Product</Button>
+                                <Button type="submit" className="text-lg">Save</Button>
                             </section>
                         </form>
                     </section>

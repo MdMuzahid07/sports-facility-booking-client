@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import RichTextEditor from "@/components/richTextEditor/RichTextEditor"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { useCreateFacilityMutation } from "@/redux/features/facilities/facilityApi"
-import MultipleImageSelector from "@/utils/MultipleImageSelector"
-import { Label } from "@radix-ui/react-label"
-import { useState } from "react"
-import { useForm } from "react-hook-form"
-import { toast } from "sonner"
+import RichTextEditor from "@/components/richTextEditor/RichTextEditor";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { useCreateFacilityMutation } from "@/redux/features/facilities/facilityApi";
+import MultipleImageSelector from "@/utils/MultipleImageSelector";
+import { Label } from "@radix-ui/react-label";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 const AddFacility = () => {
     const { register, handleSubmit, reset } = useForm();
