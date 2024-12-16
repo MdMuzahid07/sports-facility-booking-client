@@ -17,15 +17,17 @@ import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
 
 
 const ImageSlider = ({ images }: any) => {
-    const [thumbsSwiper, setThumbsSwiper] = useState(null);
+    const [thumbsSwiper, setThumbsSwiper] = useState<any | null>(null);
+
+    const swiperStyle: React.CSSProperties = {
+        '--swiper-navigation-color': '#fff',
+        '--swiper-pagination-color': '#fff',
+    } as any;
 
     return (
         <>
             <Swiper
-                style={{
-                    '--swiper-navigation-color': '#fff',
-                    '--swiper-pagination-color': '#fff',
-                }}
+                style={swiperStyle}
                 spaceBetween={10}
                 navigation={true}
                 thumbs={{ swiper: thumbsSwiper }}
@@ -41,7 +43,7 @@ const ImageSlider = ({ images }: any) => {
                 }
             </Swiper>
             <Swiper
-                onSwiper={setThumbsSwiper}
+                onSwiper={(swiper: any) => setThumbsSwiper(swiper)}
                 spaceBetween={10}
                 slidesPerView={4}
                 freeMode={true}

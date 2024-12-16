@@ -57,6 +57,7 @@ const ProductDetails = () => {
     const [rating, setRating] = useState(0);
     const [reviewText, setReviewText] = useState("");
     const [reviewImage, setReviewImage] = useState(null);
+    console.log(reviewImage);
 
     const handleTabSwitch = (tab: any) => {
         setActiveTab(tab);
