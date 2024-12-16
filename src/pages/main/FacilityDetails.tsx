@@ -65,7 +65,7 @@ const FacilityDetails = () => {
                                         className="w-full h-auto max-h-[500px] object-cover shadow-lg"
                                     />
                                 </Zoom> */}
-                                <ImageSlider image={singleFacility?.data?.image} />
+                                <ImageSlider images={singleFacility?.data?.image} />
                             </div>
                         </div>
                         <div className="col-span-2 flex flex-col max-h-[400px]">
@@ -105,7 +105,16 @@ const FacilityDetails = () => {
 
                         {activeTab === "details" && (
                             <div className="product-details">
-                                {singleFacility?.data?.description}
+                                {singleFacility?.data?.description ? (
+                                    <article className="prose lg:prose-xl">
+                                        <div
+                                            className="w-full"
+                                            dangerouslySetInnerHTML={{ __html: singleFacility?.data?.description }}
+                                        />
+                                    </article>
+                                ) : (
+                                    <p>No content available for this blog.</p>
+                                )}
                             </div>
                         )}
 
@@ -143,7 +152,7 @@ const FacilityDetails = () => {
                                                 <input
                                                     type="file"
                                                     accept="image/*"
-                                                    onChange={(e) => setReviewImage(e.target.files[0])}
+                                                    onChange={(e) => setReviewImage((e.target.files as any)[0])}
                                                     className="mt-2"
                                                 />
                                             </div>
@@ -152,7 +161,7 @@ const FacilityDetails = () => {
                                                 <label className="block text-sm font-medium">Review Text</label>
                                                 <textarea
                                                     className="w-full p-2 border focus:outline-none"
-                                                    rows="4"
+                                                    rows={4}
                                                     value={reviewText}
                                                     onChange={(e) => setReviewText(e.target.value)}
                                                     placeholder="Write your review here..."
@@ -174,7 +183,7 @@ const FacilityDetails = () => {
                         <h1 className="text-xl md:text-2xl lg:text-3xl font-bold mb-10 ">Some of others facilities</h1>
                         <div className="w-full grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 md:gap-5">
                             {
-                                allFacilities?.data?.map((facility: any) => <FacilityCard key={facility?._id} facility={facility} styles="bg-[#2B2C2D] text-white" />)
+                                allFacilities?.data?.filter((facility: any) => facility?._id !== facilityId)?.slice(0, 4)?.map((facility: any) => <FacilityCard key={facility?._id} facility={facility} styles="bg-[#2B2C2D] text-white" />)
                             }
                         </div>
                     </div>

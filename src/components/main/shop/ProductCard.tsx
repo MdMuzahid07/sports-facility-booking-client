@@ -55,7 +55,7 @@ const ProductCard = ({ product }: any) => {
                         {/* </div> */}
                     </CardContent>
                     <CardFooter className="p-4 flex justify-between">
-                        <Button title="click for add to cart" onClick={() => handleAddCart(product)} variant="outline" className="w-full rounded-none text-xl hover:bg-[#2E2E2E] hover:text-white">Add to Cart</Button>
+                        <Button title="click for add to cart" onClick={() => handleAddCart(product)} variant="outline" className="w-full rounded-full text-xl hover:bg-[#2E2E2E] hover:text-white">Add to Cart</Button>
                     </CardFooter>
                 </Card>
             </motion.div>

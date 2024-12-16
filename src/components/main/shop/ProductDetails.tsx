@@ -157,10 +157,12 @@ const ProductDetails = () => {
                             {activeTab === "details" && (
                                 <div className="product-details">
                                     {product?.data?.description ? (
-                                        <div
-                                            className="w-full"
-                                            dangerouslySetInnerHTML={{ __html: product?.data?.description }}
-                                        />
+                                        <article className="prose lg:prose-xl">
+                                            <div
+                                                className="w-full"
+                                                dangerouslySetInnerHTML={{ __html: product?.data?.description }}
+                                            />
+                                        </article>
                                     ) : (
                                         <p>No content available for this blog.</p>
                                     )}
@@ -201,7 +203,7 @@ const ProductDetails = () => {
                                                     <input
                                                         type="file"
                                                         accept="image/*"
-                                                        onChange={(e) => setReviewImage(e.target.files[0])}
+                                                        onChange={(e) => setReviewImage((e.target.files as any)[0])}
                                                         className="mt-2"
                                                     />
                                                 </div>
@@ -210,7 +212,7 @@ const ProductDetails = () => {
                                                     <label className="block text-sm font-medium">Review Text</label>
                                                     <textarea
                                                         className="w-full p-2 border focus:outline-none"
-                                                        rows="4"
+                                                        rows={4}
                                                         value={reviewText}
                                                         onChange={(e) => setReviewText(e.target.value)}
                                                         placeholder="Write your review here..."

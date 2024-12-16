@@ -2,7 +2,6 @@
 import RichTextEditor from "@/components/richTextEditor/RichTextEditor"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import useImgBBUpload from "@/hooks/useImgBBUpload"
 import { useCreateFacilityMutation } from "@/redux/features/facilities/facilityApi"
 import MultipleImageSelector from "@/utils/MultipleImageSelector"
 import { Label } from "@radix-ui/react-label"
@@ -11,7 +10,6 @@ import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 
 const AddFacility = () => {
-    const { img, getEvent } = useImgBBUpload();
     const { register, handleSubmit, reset } = useForm();
     const [AddFacility, { error, data, isLoading }] = useCreateFacilityMutation();
     const [description, setDescription] = useState("");
@@ -32,19 +30,38 @@ const AddFacility = () => {
     if (data && data.success) {
         toast.success("Faculty created successfully!", { id: "createFacility" });
     }
-    // console.log({ data, error });
 
 
     const onSubmit = async (data: any) => {
         const facilityData = {
             ...data,
-            image: img,
+            description: description,
             pricePerHour: Number(data?.pricePerHour)
-        }
+        };
 
-        await AddFacility(facilityData).unwrap();
-        reset();
+        const submitData = new FormData();
+        /* This code block is checking if there are any selected images stored in the `selectedImages`
+        state array. If there are selected images (i.e., `selectedImages` is truthy and its length is
+        greater than 0), it iterates over each image in the array using `forEach` and appends each
+        image to a `FormData` object named `submitData` using the `append` method. */
+        if (selectedImages && selectedImages.length > 0) {
+            selectedImages.forEach((image) => {
+                submitData.append("files", image);
+            });
+        }
+        submitData.append("data", JSON.stringify(facilityData));
+
+        try {
+            await AddFacility(submitData).unwrap();
+            reset();
+            setDescription("");
+            setSelectedImages([]);
+        } catch (error) {
+            console.log(error, "error from try catch");
+        }
     };
+
+
 
     return (
         <div className="py-10">
