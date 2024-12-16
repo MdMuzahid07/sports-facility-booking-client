@@ -25,10 +25,11 @@ import { Pencil, Settings, Trash } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import { useDeleteAProductMutation, useGetAllProductsQuery } from "@/redux/features/products/productApi"
 import { toast } from "sonner"
+import LoadingSpinner from "@/components/LoadingSpinner"
 
 
 const ManageProducts = () => {
-    const { data: allProducts } = useGetAllProductsQuery(undefined);
+    const { data: allProducts, isLoading: isLoadingProduct } = useGetAllProductsQuery(undefined);
     const [deleteAProduct, { data, isLoading, error }] = useDeleteAProductMutation();
     const navigate = useNavigate();
 
@@ -75,53 +76,57 @@ const ManageProducts = () => {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {allProducts?.data?.map((product: any, index: any) => (
-                            <TableRow key={product?._id}>
-                                <TableCell className="font-medium">{index + 1}</TableCell>
-                                <TableCell>
-                                    <img className="w-16 h-14 rounded-lg object-cover object-center" src={product?.imageUrl} alt="" />
-                                </TableCell>
-                                <TableCell>{product?.title}</TableCell>
-                                <TableCell>{product?.stock}</TableCell>
-                                <TableCell>${product?.price}</TableCell>
-                                <TableCell className="text-right">
-                                    <DropdownMenu>
-                                        <DropdownMenuTrigger asChild>
-                                            <Button className="flex items-center gap-2">
-                                                <span>
-                                                    <Settings size={15} />
-                                                </span>
-                                                <span>
-                                                    Options
-                                                </span>
-                                            </Button>
-                                        </DropdownMenuTrigger>
-                                        <DropdownMenuContent align="end" className="w-56">
-                                            <DropdownMenuLabel className="font-bold">
-                                                Appearance
-                                            </DropdownMenuLabel>
-                                            <DropdownMenuSeparator />
+                        {isLoadingProduct ? (<LoadingSpinner />) :
+                            (
+                                allProducts?.data?.map((product: any, index: any) => (
+                                    <TableRow key={product?._id}>
+                                        <TableCell className="font-medium">{index + 1}</TableCell>
+                                        <TableCell>
+                                            <img className="w-16 h-14 rounded-lg object-cover object-center" src={product?.imageUrl[0]} alt="" />
+                                        </TableCell>
+                                        <TableCell>{product?.title}</TableCell>
+                                        <TableCell>{product?.stock}</TableCell>
+                                        <TableCell>${product?.price}</TableCell>
+                                        <TableCell className="text-right">
+                                            <DropdownMenu>
+                                                <DropdownMenuTrigger asChild>
+                                                    <Button className="flex items-center gap-2">
+                                                        <span>
+                                                            <Settings size={15} />
+                                                        </span>
+                                                        <span>
+                                                            Options
+                                                        </span>
+                                                    </Button>
+                                                </DropdownMenuTrigger>
+                                                <DropdownMenuContent align="end" className="w-56">
+                                                    <DropdownMenuLabel className="font-bold">
+                                                        Appearance
+                                                    </DropdownMenuLabel>
+                                                    <DropdownMenuSeparator />
 
-                                            <DropdownMenuGroup>
-                                                <DropdownMenuItem
-                                                    onClick={() => handleUpdateProduct(product?._id)}
-                                                    className="font-bold">
-                                                    <Pencil className="mr-2 h-4 w-4" />
-                                                    <span>Update</span>
-                                                    <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-                                                </DropdownMenuItem>
-                                                <DropdownMenuItem onClick={() => handleDelete(product?._id)} className="font-bold">
-                                                    <Trash className="mr-2 h-4 w-4" />
-                                                    <span>Delete</span>
-                                                    <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-                                                </DropdownMenuItem>
-                                            </DropdownMenuGroup>
+                                                    <DropdownMenuGroup>
+                                                        <DropdownMenuItem
+                                                            onClick={() => handleUpdateProduct(product?._id)}
+                                                            className="font-bold">
+                                                            <Pencil className="mr-2 h-4 w-4" />
+                                                            <span>Update</span>
+                                                            <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+                                                        </DropdownMenuItem>
+                                                        <DropdownMenuItem onClick={() => handleDelete(product?._id)} className="font-bold">
+                                                            <Trash className="mr-2 h-4 w-4" />
+                                                            <span>Delete</span>
+                                                            <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+                                                        </DropdownMenuItem>
+                                                    </DropdownMenuGroup>
 
-                                        </DropdownMenuContent>
-                                    </DropdownMenu>
-                                </TableCell>
-                            </TableRow>
-                        ))}
+                                                </DropdownMenuContent>
+                                            </DropdownMenu>
+                                        </TableCell>
+                                    </TableRow>
+                                ))
+                            )
+                        }
                     </TableBody>
                 </Table>
             </section>

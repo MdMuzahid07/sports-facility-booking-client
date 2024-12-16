@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import ExploreFacilities from "./components/main/ExploreFacilities";
 import FeaturedFacilities from "./components/main/featured/FeaturedFacilities";
-import FeaturedProducts from "./components/main/featured/FeaturedProducts";
+// import FeaturedProducts from "./components/main/featured/FeaturedProducts";
 import Hero from "./components/main/Hero";
 import HowItWorks from "./components/main/HowItWorks";
 import MosaicSportsGallery from "./components/main/MosaicSportsGallery";

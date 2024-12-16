@@ -38,7 +38,7 @@ const HowItWorks = () => {
                 <h3 className="text-3xl md:text-5xl font-extrabold mb-5">Unlock Your Sports Experience with Ease </h3>
                 <p className="text-xl md:text-2xl lg:text-3xl">Our platform makes booking your next sports facility easy and hassle-free. Follow these simple steps to get started.</p>
 
-                <div className="mt-20 grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div className="mt-20 grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
                     {
                         howItsWorksCardData?.map(({ icon, title, description }, index) => (
                             <div ref={ref}>

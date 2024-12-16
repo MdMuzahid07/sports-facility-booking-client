@@ -13,6 +13,8 @@ const SportsEquipments = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { data: allProducts } = useGetAllProductsQuery(undefined);
 
+  console.log(allProducts)
+
 
   const handleLoadMore = () => {
     setIsLoading(true);
