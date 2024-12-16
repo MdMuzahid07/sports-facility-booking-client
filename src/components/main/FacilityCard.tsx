@@ -30,7 +30,7 @@ const FacilityCard = ({ facility, styles }: any) => {
                     <CardContent>
                         <CardTitle>{facility?.name}</CardTitle>
                         <CardTitle className="mt-2 text-md">${facility?.pricePerHour} hour</CardTitle>
-                        <CardDescription className="mt-2">{facility?.description}</CardDescription>
+                        <CardDescription className="mt-2">{facility?.name}...</CardDescription>
                     </CardContent>
                     <CardFooter className="absolute bottom-0 right-0">
                         <Button onClick={() => handleRedirectToDetails(facility?._id)} className="rounded-full bg-slate-700">Details</Button>

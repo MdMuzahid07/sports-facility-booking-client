@@ -9,7 +9,7 @@ const WinterSaleFacilities = () => {
     const navigate = useNavigate();
 
     const filtered = data?.data?.filter((facility: any) =>
-        ["Badminton Court", "Volleyball Court"].includes(facility?.name)
+        ["Indoor Basketball Court", "Grass Tennis Court"].includes(facility?.name)
     );
 
 
@@ -34,7 +34,7 @@ const WinterSaleFacilities = () => {
                                     <div
                                         className="relative bg-cover bg-center h-96 flex items-center justify-start"
                                         style={{
-                                            backgroundImage: `url(${facility?.image})`,
+                                            backgroundImage: `url(${facility?.image?.[0]})`,
                                         }}
                                     >
                                         {/* Overlay */}
@@ -46,7 +46,7 @@ const WinterSaleFacilities = () => {
                                                 {facility?.name}
                                             </h2>
                                             <p className="text-gray-300 text-lg md:text-xl leading-relaxed mb-6">
-                                                {facility?.description}
+                                                {facility?.name}...
                                             </p>
                                             <Button onClick={() => handleRedirectToDetails(facility?._id)} className="mt-6 rounded-none text-2xl md:text-3xl lg:text-4xl">View More</Button>
 

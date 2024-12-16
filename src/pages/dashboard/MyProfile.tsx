@@ -112,9 +112,9 @@ const MyProfile = () => {
                             <Avatar className="w-44 h-44">
                                 {/* Display the selected image preview */}
                                 {imagePreview ? (
-                                    <AvatarImage src={imagePreview} alt="Profile Image" />
+                                    <AvatarImage className="object-cover object-center" src={imagePreview} alt="Profile Image" />
                                 ) : (
-                                    <AvatarImage src={(user && user?.avatar) ? user?.avatar : "https://github.com/shadcn.png"} alt="@shadcn" />
+                                    <AvatarImage className="object-cover object-center" src={(user && user?.avatar) ? user?.avatar : "https://github.com/shadcn.png"} alt="@shadcn" />
                                 )}
                                 <AvatarFallback>CN</AvatarFallback>
                             </Avatar>
