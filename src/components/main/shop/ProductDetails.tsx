@@ -200,7 +200,7 @@ const ProductDetails = () => {
                             {activeTab === "reviews" && (
                                 <div className="reviews">
                                     <div className="grid lg:grid-cols-2 gap-8">
-                                        <div className="space-y-8 mt-7">
+                                        <div className="mt-7">
                                             {
                                                 isReviewLoading ? (<p>Review Loading...</p>) : (
                                                     filteredReviews?.map((review: any) => (
