@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import LoadingSpinner from "@/components/LoadingSpinner";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import {
@@ -16,12 +17,11 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 const MyBookings = () => {
-    const { data: bookings } = useGetAllBookingsUserQuery(undefined);
+    const { data: bookings, isLoading } = useGetAllBookingsUserQuery(undefined);
     const [cancelBooking] = useCancelBookingMutation();
     const navigate = useNavigate();
 
     const handleCancel = async (id: string) => {
-        console.log(id, "booking id")
         const isProceed = window.confirm("Cancel Order");
         try {
             if (isProceed) {
@@ -39,6 +39,14 @@ const MyBookings = () => {
     const handleViewBookingDetails = (id: string) => {
         navigate(`/dashboard/my-booking-details/${id}`)
     };
+
+
+    if (!bookings && isLoading) {
+        return <LoadingSpinner />
+    }
+
+
+    console.log(bookings)
 
     return (
         <div className="py-10">
@@ -61,11 +69,11 @@ const MyBookings = () => {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {bookings?.data?.map((booking: any, index: any) => (
+                        {bookings?.data?.map((booking: any, index: any) =>
                             <TableRow key={booking?._id}>
                                 <TableCell className="font-medium">{index + 1}</TableCell>
                                 <TableCell>
-                                    <img className="w-16 h-14 rounded-lg object-cover object-center" src={booking?.facility?.image} alt="" />
+                                    <img className="w-16 h-14 rounded-lg object-cover object-center" src={booking?.facility?.image?.[0]} alt="" />
                                 </TableCell>
                                 <TableCell>Pending</TableCell>
                                 <TableCell>{booking?.facility?.name}</TableCell>
@@ -122,7 +130,8 @@ const MyBookings = () => {
                                     </TableCell>
                                 </TableCell>
                             </TableRow>
-                        ))}
+                        )
+                        })
                     </TableBody>
                 </Table>
             </section>

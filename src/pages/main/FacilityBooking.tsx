@@ -105,7 +105,7 @@ const FacilityBooking = () => {
                                 <div className="w-full">
                                     <Zoom>
                                         <img
-                                            src={facilityData?.data?.image}
+                                            src={facilityData?.data?.image?.[0]}
                                             alt="image"
                                             className="w-full h-auto max-h-[500px] object-cover shadow-lg"
                                         />
@@ -125,9 +125,16 @@ const FacilityBooking = () => {
                                     </p>
                                 </div>
                                 <div className="mt-3">
-                                    <p className="text-xl">
-                                        {facilityData?.data?.description}
-                                    </p>
+                                    {facilityData?.data?.description ? (
+                                        <article className="prose lg:prose-xl">
+                                            <div
+                                                className="w-full"
+                                                dangerouslySetInnerHTML={{ __html: facilityData?.data?.description }}
+                                            />
+                                        </article>
+                                    ) : (
+                                        <p>No content available for this blog.</p>
+                                    )}
                                 </div>
                             </div>
                         </div>
