@@ -6,6 +6,7 @@ interface ImageUploaderProps {
     accept?: string; // Accepted file types
     multiple?: boolean; // Allow multiple files
     maxFiles?: number; // Limit number of files
+    style?: string;
 }
 
 const MultipleImageSelector: React.FC<ImageUploaderProps> = ({
@@ -13,6 +14,7 @@ const MultipleImageSelector: React.FC<ImageUploaderProps> = ({
     accept = "image/png, image/jpeg",
     multiple = true,
     maxFiles = 5,
+    style
 }) => {
     const [previewUrls, setPreviewUrls] = useState<string[]>([]);
     const [selectedFiles, setSelectedFiles] = useState<File[]>([]); // To keep track of selected files
@@ -55,7 +57,7 @@ const MultipleImageSelector: React.FC<ImageUploaderProps> = ({
             {/* File Input */}
             <label
                 htmlFor="file-input"
-                className="cursor-pointer flex items-center justify-center w-full h-40 border-2 border-dashed border-gray-300 rounded-lg bg-gray-50 hover:bg-gray-100 transition duration-300"
+                className={`cursor-pointer flex items-center justify-center w-full h-40 border-2 border-dashed border-gray-300 rounded-lg bg-gray-50 hover:bg-gray-100 transition duration-300 ${style}`}
             >
                 <span className="text-gray-500 text-sm">Click to browse or select files</span>
                 <input

@@ -12,34 +12,97 @@ import { Helmet } from 'react-helmet-async';
 import ImageSlider from '@/components/main/ImageSlider';
 import { useState } from 'react';
 import ReviewCard from '@/components/main/review/ReviewCard';
-import { fakeReviews } from '@/components/main/shop/ProductDetails';
+import { Label } from '@radix-ui/react-label';
+import MultipleImageSelector from '@/utils/MultipleImageSelector';
+import { useAppSelector } from '@/redux/hooks';
+import { useAddReviewMutation, useGetAllReviewQuery } from '@/redux/features/review/review.api';
+import { toast } from 'sonner';
 
 const FacilityDetails = () => {
     const { facilityId } = useParams();
+    const user = useAppSelector((state) => state.auth.user);
     const { data: allFacilities } = useGetAllFacilitiesQuery(undefined);
     const { data: singleFacility } = useGetASingleFacilityQuery(facilityId);
+    const { data: reviews, isLoading: isReviewLoading } = useGetAllReviewQuery(facilityId);
+    const [addReview, { data, error, isLoading }] = useAddReviewMutation();
+    const [activeTab, setActiveTab] = useState("details");
+    const [selectedImages, setSelectedImages] = useState<File[]>([]); // Store selected images
+    const [rating, setRating] = useState(3);
+    const [reviewText, setReviewText] = useState("");
     const navigate = useNavigate();
 
-    const [activeTab, setActiveTab] = useState("details");
 
-    const [rating, setRating] = useState(0);
-    const [reviewText, setReviewText] = useState("");
-    const [reviewImage, setReviewImage] = useState(null);
+    // Append selected images without overwriting
+    const handleImageSelection = (files: File[]) => {
+        setSelectedImages((prevFiles) => [...prevFiles, ...files]);
+    };
 
-    console.log(reviewImage, setReviewImage);
+
 
     const handleTabSwitch = (tab: any) => {
         setActiveTab(tab);
     };
 
-    const handleReviewSubmit = (e: any) => {
-        e.preventDefault();
-        alert("Review submitted!");
-    };
-
     const handleBookingPageRedirect = (id: string) => {
         navigate(`/facility-booking/${id}`);
     };
+
+
+
+
+    const handleReviewSubmit = async (e: any) => {
+        e.preventDefault();
+
+        const reviewData = {
+            userId: user?.id,
+            facilityOrProductId: facilityId,
+            rating: rating.toString(),
+            reviewText: reviewText,
+        };
+
+        const submitData = new FormData();
+        /* This code block is checking if there are any selected images stored in the `selectedImages`
+        state array. If there are selected images (i.e., `selectedImages` is truthy and its length is
+        greater than 0), it iterates over each image in the array using `forEach` and appends each
+        image to a `FormData` object named `submitData` using the `append` method. */
+        if (selectedImages && selectedImages.length > 0) {
+            selectedImages.forEach((image) => {
+                submitData.append("files", image);
+            });
+        }
+        submitData.append("data", JSON.stringify(reviewData));
+
+        try {
+            await addReview(submitData).unwrap();
+
+            if (data && data?.success) {
+                setSelectedImages([]);
+                setRating(0);
+                setReviewText("")
+            }
+        } catch (error) {
+            console.log(error, "error from try catch");
+        }
+    };
+
+
+    if (isLoading) {
+        toast.loading("Creating...", { id: "addReviewToastId" });
+    }
+
+    if (error) {
+        toast.error((error as any)?.data?.message, { id: "addReviewToastId" });
+    }
+
+    if (data && data?.success) {
+        toast.success("Done", { id: "addReviewToastId" });
+    }
+
+
+    // this filtering for to separate reviews for this product 
+    const filteredReviews = reviews?.data?.filter(({ facilityOrProductId }: { facilityOrProductId: string }) => facilityOrProductId === facilityId);
+
+
 
     PageTopByDefault();
 
@@ -95,7 +158,7 @@ const FacilityDetails = () => {
                                 className={`tab ${activeTab === "details" ? "active" : "bg-white text-black"} font-bold rounded-none`}
                                 onClick={() => handleTabSwitch("details")}
                             >
-                                Product Details
+                                Facility Details
                             </Button>
                             <Button
                                 className={`tab ${activeTab === "reviews" ? "active" : "bg-white text-black"} font-bold rounded-none`}
@@ -125,9 +188,10 @@ const FacilityDetails = () => {
                                 <div className="grid lg:grid-cols-2 gap-8">
                                     <div className="space-y-8 mt-7">
                                         {
-                                            fakeReviews?.map((review) => (
-                                                <ReviewCard review={review} />
-                                            ))
+                                            isReviewLoading ? (<p>Review Loading...</p>) : (
+                                                filteredReviews?.map((review: any) => (
+                                                    <ReviewCard key={review?._id} review={review} />
+                                                )))
                                         }
                                     </div>
                                     <div>
@@ -140,13 +204,24 @@ const FacilityDetails = () => {
                                                         <button
                                                             key={star}
                                                             type="button"
-                                                            className={`star text-2xl ${rating >= star ? "text-yellow-500" : "text-gray-400"}`}
+                                                            className={`star text-3xl ${rating >= star ? "text-yellow-500" : "text-gray-400"}`}
                                                             onClick={() => setRating(star)}
                                                         >
                                                             ★
                                                         </button>
                                                     ))}
                                                 </div>
+                                            </div>
+
+                                            <div className="mb-4">
+                                                <Label className="mb-2" htmlFor="picture">Select Product Images</Label>
+                                                <MultipleImageSelector
+                                                    onImagesSelected={handleImageSelection}
+                                                    multiple={true}
+                                                    maxFiles={3}
+                                                    accept="image/png, image/jpeg"
+                                                    style="rounded-none"
+                                                />
                                             </div>
 
                                             <div className="mb-4">
@@ -160,9 +235,12 @@ const FacilityDetails = () => {
                                                 ></textarea>
                                             </div>
 
-                                            <Button type="submit" className="btn rounded-none text-white py-2 px-4 ">
+                                            <Button disabled={!user && !(user as any)?.id} type="submit" className="btn rounded-none text-white py-2 px-4 ">
                                                 Submit Review
                                             </Button>
+                                            {
+                                                !user && !(user as any)?.id ? (<p>Please login to review</p>) : ""
+                                            }
                                         </form>
                                     </div>
                                 </div>

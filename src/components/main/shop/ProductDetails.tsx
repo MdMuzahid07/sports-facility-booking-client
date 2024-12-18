@@ -6,71 +6,99 @@ import 'react-medium-image-zoom/dist/styles.css'
 import { useParams } from 'react-router-dom';
 import ProductCard from './ProductCard';
 import { addCart } from '@/redux/features/cart/CartSlice';
-import { useAppDispatch } from '@/redux/hooks';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { Helmet } from 'react-helmet-async';
 import ImageSlider from '../ImageSlider';
 import ReviewCard from '../review/ReviewCard';
-
-export const fakeReviews = [
-    {
-        name: "Alice Carter",
-        reviewText: "Fantastic product! Quality and design are top-notch.",
-        rating: 5,
-        image: "https://res.cloudinary.com/dlxfcyc7x/image/upload/v1729976675/bjem8nwesgau95lhebpm.jpg",
-    },
-    {
-        name: "Brian Harris",
-        reviewText: "Good value for money. Delivery was quick and seamless.",
-        rating: 4,
-        image: "https://res.cloudinary.com/dlxfcyc7x/image/upload/v1729976675/bjem8nwesgau95lhebpm.jpg",
-    },
-    {
-        name: "Chloe Martinez",
-        reviewText: "Decent product, but the packaging could be better.",
-        rating: 3,
-        image: "https://res.cloudinary.com/dlxfcyc7x/image/upload/v1729976675/bjem8nwesgau95lhebpm.jpg",
-    },
-    {
-        name: "Daniel Lee",
-        reviewText: "Not worth the price. Found better options elsewhere.",
-        rating: 2,
-        image: "https://res.cloudinary.com/dlxfcyc7x/image/upload/v1729976675/bjem8nwesgau95lhebpm.jpg",
-    },
-    {
-        name: "Ella Johnson",
-        reviewText: "Absolutely love it! Will definitely purchase again.",
-        rating: 5,
-        image: "https://res.cloudinary.com/dlxfcyc7x/image/upload/v1729976675/bjem8nwesgau95lhebpm.jpg",
-    },
-];
+import { useAddReviewMutation, useGetAllReviewQuery } from '@/redux/features/review/review.api';
+import { Label } from '@/components/ui/label';
+import MultipleImageSelector from '@/utils/MultipleImageSelector';
+import { toast } from 'sonner';
 
 
 
 const ProductDetails = () => {
     const { productId } = useParams();
+    const user = useAppSelector((state) => state.auth.user);
     const { data: product } = useGetASingleProductQuery(productId);
     const { data: allProducts } = useGetAllProductsQuery(undefined);
+    const [addReview, { data, error, isLoading }] = useAddReviewMutation();
+    const { data: reviews, isLoading: isReviewLoading } = useGetAllReviewQuery(productId);
     const dispatch = useAppDispatch();
-
     const [activeTab, setActiveTab] = useState("details");
-
-    const [rating, setRating] = useState(0);
+    const [selectedImages, setSelectedImages] = useState<File[]>([]); // Store selected images
+    const [rating, setRating] = useState(3);
     const [reviewText, setReviewText] = useState("");
-    const [reviewImage, setReviewImage] = useState(null);
-    console.log(reviewImage, setReviewImage);
+
+    // Append selected images without overwriting
+    const handleImageSelection = (files: File[]) => {
+        setSelectedImages((prevFiles) => [...prevFiles, ...files]);
+    };
 
     const handleTabSwitch = (tab: any) => {
         setActiveTab(tab);
     };
 
-    const handleReviewSubmit = (e: any) => {
-        e.preventDefault();
-        alert("Review submitted!");
-    };
-
     const handleAddCart = (product: any) => {
         dispatch(addCart(product));
     };
+
+
+
+
+    const handleReviewSubmit = async (e: any) => {
+        e.preventDefault();
+
+        const reviewData = {
+            userId: user?.id,
+            facilityOrProductId: productId,
+            rating: rating.toString(),
+            reviewText: reviewText,
+        };
+
+        const submitData = new FormData();
+        /* This code block is checking if there are any selected images stored in the `selectedImages`
+        state array. If there are selected images (i.e., `selectedImages` is truthy and its length is
+        greater than 0), it iterates over each image in the array using `forEach` and appends each
+        image to a `FormData` object named `submitData` using the `append` method. */
+        if (selectedImages && selectedImages.length > 0) {
+            selectedImages.forEach((image) => {
+                submitData.append("files", image);
+            });
+        }
+        submitData.append("data", JSON.stringify(reviewData));
+
+        try {
+            await addReview(submitData).unwrap();
+
+            if (data && data?.success) {
+                setSelectedImages([]);
+                setRating(0);
+                setReviewText("")
+            }
+        } catch (error) {
+            console.log(error, "error from try catch");
+        }
+    };
+
+
+    if (isLoading) {
+        toast.loading("Creating...", { id: "addReviewToastId" });
+    }
+
+    if (error) {
+        toast.error((error as any)?.data?.message, { id: "addReviewToastId" });
+    }
+
+    if (data && data?.success) {
+        toast.success("Done", { id: "addReviewToastId" });
+    }
+
+
+    // this filtering for to separate reviews for this product 
+    const filteredReviews = reviews?.data?.filter(({ facilityOrProductId }: { facilityOrProductId: string }) => facilityOrProductId === productId);
+
+
 
 
     useLayoutEffect(() => {
@@ -136,8 +164,7 @@ const ProductDetails = () => {
                         </div>
 
 
-                        {/* product review,and details section start here  */}
-
+                        {/* facility review,and details section start here  */}
 
                         <div className="my-10">
                             <div className="tabs flex space-x-4 mb-4">
@@ -175,9 +202,10 @@ const ProductDetails = () => {
                                     <div className="grid lg:grid-cols-2 gap-8">
                                         <div className="space-y-8 mt-7">
                                             {
-                                                fakeReviews?.map((review) => (
-                                                    <ReviewCard review={review} />
-                                                ))
+                                                isReviewLoading ? (<p>Review Loading...</p>) : (
+                                                    filteredReviews?.map((review: any) => (
+                                                        <ReviewCard key={review?._id} review={review} />
+                                                    )))
                                             }
                                         </div>
                                         <div>
@@ -190,13 +218,24 @@ const ProductDetails = () => {
                                                             <button
                                                                 key={star}
                                                                 type="button"
-                                                                className={`star text-2xl ${rating >= star ? "text-yellow-500" : "text-gray-400"}`}
+                                                                className={`star text-3xl ${rating >= star ? "text-yellow-500" : "text-gray-400"}`}
                                                                 onClick={() => setRating(star)}
                                                             >
                                                                 ★
                                                             </button>
                                                         ))}
                                                     </div>
+                                                </div>
+
+                                                <div className="mb-4">
+                                                    <Label className="mb-2" htmlFor="picture">Select Product Images</Label>
+                                                    <MultipleImageSelector
+                                                        onImagesSelected={handleImageSelection}
+                                                        multiple={true}
+                                                        maxFiles={3}
+                                                        accept="image/png, image/jpeg"
+                                                        style="rounded-none"
+                                                    />
                                                 </div>
 
                                                 <div className="mb-4">
@@ -210,17 +249,19 @@ const ProductDetails = () => {
                                                     ></textarea>
                                                 </div>
 
-                                                <Button type="submit" className="btn rounded-none text-white py-2 px-4 ">
+                                                <Button disabled={!user && !(user as any)?.id} type="submit" className="btn rounded-none text-white py-2 px-4 ">
                                                     Submit Review
                                                 </Button>
+                                                {
+                                                    !user && !(user as any)?.id ? (<p>Please login to review</p>) : ""
+                                                }
                                             </form>
                                         </div>
                                     </div>
                                 </div>
                             )}
                         </div>
-
-                        {/* product review,and details section start here  */}
+                        {/* facility review,and details section end here  */}
 
 
 

@@ -12,14 +12,13 @@ import { useGetAllBookingsAdminQuery } from "@/redux/features/bookings/bookingsA
 
 const ManageBookings = () => {
     const { data: bookings } = useGetAllBookingsAdminQuery(undefined);
-    console.log(bookings)
-
     // const handleCancel = () => {
     //     const isProceed = window.confirm("Cancel Order");
     //     if (isProceed) {
     //         toast.success("Order cancelled successfully")
     //     }
     // }
+
 
     return (
         <div className="py-10">
