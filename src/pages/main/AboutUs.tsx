@@ -19,9 +19,6 @@ const AboutUs = () => {
                 />
             </Helmet>
             <div className="bg-slate-200">
-                <div className="h-[300px] w-screen">
-                    <img className="h-full w-full object-cover" src="https://res.cloudinary.com/dymo0iyee/image/upload/v1725805321/Untitled_design_xi0qdl.png" alt="" />
-                </div>
                 <Mission />
                 <TeamSection />
                 <HistoryAndTimeline />

@@ -5,10 +5,11 @@ import { Button } from "../ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import TestimonialCard from "./TestimonialCard";
 import { useGetAllTestimonialsQuery } from "@/redux/features/testimonial/testimonialApi";
+import LoadingSpinner from "../LoadingSpinner";
 
 const Testimonial = () => {
     const sliderRef = useRef<Slider>(null);
-    const { data: testimonials } = useGetAllTestimonialsQuery(null);
+    const { data: testimonials, isLoading } = useGetAllTestimonialsQuery(null);
 
     const settings = {
         dots: false,
@@ -63,13 +64,17 @@ const Testimonial = () => {
                     </div>
                 </div>
                 <div className="slider-container">
-                    <Slider ref={sliderRef} arrows={false} {...settings}>
-                        {
-                            testimonials?.data?.map((testimonial: any) => (
-                                <TestimonialCard testimonial={testimonial} key={testimonial?._id} />
-                            ))
-                        }
-                    </Slider>
+                    {
+                        isLoading ? (<LoadingSpinner />) : (
+                            <Slider ref={sliderRef} arrows={false} {...settings}>
+                                {
+                                    testimonials?.data?.map((testimonial: any) => (
+                                        <TestimonialCard testimonial={testimonial} key={testimonial?._id} />
+                                    ))
+                                }
+                            </Slider>
+                        )
+                    }
                 </div>
             </div>
         </div>

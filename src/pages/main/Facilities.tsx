@@ -74,11 +74,13 @@ const Facilities = () => {
             </Helmet>
 
             <section className="bg-slate-200">
-                <section className="h-[300px] w-screen relative">
-                    <img className="h-full w-full object-cover" src="https://res.cloudinary.com/dymo0iyee/image/upload/v1725805321/Untitled_design_xi0qdl.png" alt="" />
-                </section>
                 <div className="max-w-7xl mx-auto px-4 xl:px-0 py-32">
-                    <section className="grid grid-cols-1 lg:grid-cols-4 lg:gap-10">
+                    <h3 className="text-3xl md:text-5xl font-extrabold mb-5">Facilities</h3>
+                    <p className="text-xl md:text-2xl lg:text-3xl">
+                        Explore world-class facilities designed to elevate your experience. Discover everything you need to achieve your goals and enjoy unmatched comfort.
+                    </p>
+
+                    <section className="grid grid-cols-1 lg:grid-cols-4 lg:gap-10 mt-20">
                         {/* Search and Filter Section */}
                         <aside className="col-span-1 max-h-[700px] sticky top-24 bg-slate-100 p-6 w-full mb-10 lg:mb-0">
                             <h2 className="text-2xl font-extrabold  mb-10">Filter Facility</h2>
