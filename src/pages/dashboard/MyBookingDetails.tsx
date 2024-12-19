@@ -70,6 +70,7 @@ const MyBookingDetails = () => {
                                 </div>
                             </div>
 
+
                         </div>
                         <section className="">
                             <h4 className="text-xl font-extrabold text-gray-800">

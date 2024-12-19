@@ -42,7 +42,7 @@ const ProductCard = ({ product }: any) => {
                     <CardContent title="click to view details" onClick={() => handleDetails(product?._id)} className="p-4">
                         <CardTitle className="text-lg font-semibold cursor-pointer">{product?.title}</CardTitle>
                         <div className="text-gray-700 mt-2 text-sm">
-                            <p className="font-semibold">Price: $29.99</p>
+                            <p className="font-semibold">Price: ${product?.price}</p>
                         </div>
                         {/* <div className="flex items-center mt-2"> */}
                         {/* <p className="text-yellow-500 flex items-center gap-1"> */}
