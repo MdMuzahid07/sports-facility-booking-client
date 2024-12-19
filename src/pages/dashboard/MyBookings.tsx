@@ -131,7 +131,7 @@ const MyBookings = () => {
                                 </TableCell>
                             </TableRow>
                         )
-                        })
+                        }
                     </TableBody>
                 </Table>
             </section>
