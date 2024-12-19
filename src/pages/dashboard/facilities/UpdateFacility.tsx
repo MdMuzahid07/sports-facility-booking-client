@@ -48,14 +48,14 @@ const UpdateFacility = () => {
 
 
     if (isLoading) {
-        return toast.loading("Please wait", { id: "createFacility" })
+        toast.loading("Updating...", { id: "createFacility" })
     };
     if (error) {
         console.log(error)
         toast.error(`${(error as any).data?.message}`, { id: "createFacility" });
     };
     if (data && data.success) {
-        toast.success("Faculty created successfully!", { id: "createFacility" });
+        toast.success("Done", { id: "createFacility" });
     };
 
 

@@ -92,7 +92,7 @@ const UpdateProduct = () => {
 
 
     if (isLoading) {
-        toast.loading("Creating...", { id: "createProductToastId" });
+        toast.loading("Updating...", { id: "createProductToastId" });
     }
 
     if (error) {
