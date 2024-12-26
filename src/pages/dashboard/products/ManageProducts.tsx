@@ -82,7 +82,7 @@ const ManageProducts = () => {
                                     <TableRow key={product?._id}>
                                         <TableCell className="font-medium">{index + 1}</TableCell>
                                         <TableCell>
-                                            <img className="w-16 h-14 rounded-lg object-cover object-center" src={product?.imageUrl[0]} alt="" />
+                                            <img className="w-12 h-12 rounded-full object-cover object-center" src={product?.imageUrl[0]} alt="" />
                                         </TableCell>
                                         <TableCell>{product?.title}</TableCell>
                                         <TableCell>{product?.stock}</TableCell>
@@ -90,7 +90,7 @@ const ManageProducts = () => {
                                         <TableCell className="text-right">
                                             <DropdownMenu>
                                                 <DropdownMenuTrigger asChild>
-                                                    <Button className="flex items-center gap-2">
+                                                    <Button variant="outline" className="flex items-center gap-2 rounded-full">
                                                         <span>
                                                             <Settings size={15} />
                                                         </span>

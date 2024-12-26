@@ -126,7 +126,7 @@ const ManageOrders = () => {
                                 <TableCell>
                                     {order?.paymentMethod} -{" "}
                                     <span
-                                        className={`px-2 py-1 rounded ${order?.paymentStatus === "Completed"
+                                        className={`px-3 py-1 rounded-full border ${order?.paymentStatus === "Completed"
                                             ? "bg-green-100 text-green-700"
                                             : order?.paymentStatus === "Pending"
                                                 ? "bg-yellow-100 text-yellow-700"
@@ -141,7 +141,7 @@ const ManageOrders = () => {
                                 </TableCell>
                                 <TableCell>
                                     <span
-                                        className={`px-2 py-1 rounded ${order?.orderStatus === "Completed"
+                                        className={`px-3 py-1 rounded-full ${order?.orderStatus === "Completed"
                                             ? "bg-green-100 text-green-700"
                                             : order?.orderStatus === "Pending"
                                                 ? "bg-yellow-100 text-yellow-700"
@@ -154,7 +154,7 @@ const ManageOrders = () => {
                                 <TableCell className="text-right">
                                     <DropdownMenu>
                                         <DropdownMenuTrigger asChild>
-                                            <Button className="px-2 mt-2 w-full flex items-center gap-2">
+                                            <Button variant="outline" className="px-2 mt-2 w-full flex items-center rounded-full gap-2">
                                                 <Settings size={15} />
                                                 Order Status
                                             </Button>
