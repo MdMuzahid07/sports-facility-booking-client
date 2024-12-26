@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { memo, useRef } from "react";
 import { Button } from "../ui/button";
@@ -13,10 +14,10 @@ const FacilityCard = ({ facility, styles }: any) => {
     const navigate = useNavigate();
     const facilityId = facility?._id;
 
-    const { data: reviews, isLoading: isReviewLoading } = useGetAllReviewQuery(facilityId);
+    const { data: reviews } = useGetAllReviewQuery(facilityId);
     const filteredReviews = reviews?.data?.filter(({ facilityOrProductId }: { facilityOrProductId: string }) => facilityOrProductId === facilityId);
-    const ratingNumber = Number(filteredReviews?.rating);
-    const ratings = Array.from({ length: ratingNumber }, (_, index) => index + 1);
+    // const ratingNumber = Number(filteredReviews?.rating);
+    // const ratings = Array.from({ length: ratingNumber }, (_, index) => index + 1);
 
     const handleRedirectToDetails = (id: string) => {
         navigate(`/facility-details/${id}`);

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -18,10 +19,10 @@ const ProductCard = ({ product }: any) => {
     const ref = useRef(null);
     const isInView = useInView(ref);
 
-    const { data: reviews, isLoading: isReviewLoading } = useGetAllReviewQuery(productId);
+    const { data: reviews } = useGetAllReviewQuery(productId);
     const filteredReviews = reviews?.data?.filter(({ facilityOrProductId }: { facilityOrProductId: string }) => facilityOrProductId === productId);
-    const ratingNumber = Number(filteredReviews?.rating);
-    const ratings = Array.from({ length: ratingNumber }, (_, index) => index + 1);
+    // const ratingNumber = Number(filteredReviews?.rating);
+    // const ratings = Array.from({ length: ratingNumber }, (_, index) => index + 1);
 
     const handleDetails = (id: string) => {
         navigate(`/product-details/${id}`);
