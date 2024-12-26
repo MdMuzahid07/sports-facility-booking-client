@@ -6,6 +6,9 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { useAddCartMutation } from "@/redux/features/cart/CartApi";
 import { clearCart } from "@/redux/features/cart/CartSlice";
 import CartPageCard from "@/cart/CartPageCard";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Puzzle } from "lucide-react";
 
 interface TCartInfo {
     productId: string;
@@ -91,7 +94,7 @@ const CartPage = () => {
                     <div className="lg:col-span-5">
                         <h1 className="text-xl md:text-2xl lg:text-4xl font-bold ">My Cart</h1>
                         <div className=" border-t border-primary mt-7">
-                            <div className="overflow-y-scroll h-[600px] mt-7 bg-white px-4">
+                            <div className="overflow-y-scroll md:h-[600px] mt-7 bg-white px-4">
                                 {
                                     cartProducts.length > 0 ? cartProducts?.map((product: any) => <CartPageCard key={product?._id} product={product} />) : <div className="flex items-center justify-center h-full">
                                         <p className=" text-2xl">Add items to your cart to continue your purchase.</p>
@@ -121,11 +124,20 @@ const CartPage = () => {
                                     <li className="mb-3 text-md py-1 hover:bg-primary hover:text-white px-2  flex justify-between items-center">
                                         <span className="font-bold ">Shipping Cost  :</span> <span>${shippingCost}</span>
                                     </li>
+                                    <li className="relative mb-3 py-1 px-2">
+                                        <span className="font-bold ">Coupon Code(if have):</span> <div className="flex w-full items-center mt-3">
+                                            <Puzzle className="w-4 h-4 absolute left-6" />
+                                            <Input className=" w-full rounded-none focus:outline-none focus:border-none active:outline-none active:border-none pl-10" type="email" placeholder="Enter Coupon Code" />
+                                            <Button className="rounded-none" type="submit">Apply Coupon</Button>
+                                        </div>
+                                    </li>
                                 </ul>
+
+
                                 <hr className="border-t border-primary mt-5 mb-1" />
                                 <p className="text-lg  flex justify-between items-center  py-1 px-2"><span className="font-bold ">Grad Total  :</span> <span className="font-bold">${grandTotal}</span></p>
 
-                                <div className="mt-7 flex items-center gap-4">
+                                <div className="mt-7 flex items-center gap-4 px-2">
                                     <button onClick={handleClearCart} className="px-4 py-1 border  bg-white  hover:text-white hover:bg-red-500">Clear All</button>
                                     <button
                                         disabled={cartProducts?.length <= 0}
@@ -137,7 +149,7 @@ const CartPage = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

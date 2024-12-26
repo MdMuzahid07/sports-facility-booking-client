@@ -89,7 +89,7 @@ const ManageFacilities = () => {
                             <TableRow key={facility?._id}>
                                 <TableCell className="font-medium">{index + 1}</TableCell>
                                 <TableCell>
-                                    <img className="w-32 h-20 rounded-lg object-cover" src={facility?.image} alt="" />
+                                    <img className="w-12 h-12 rounded-full object-cover object-center" src={facility?.image?.[0]} alt="" />
                                 </TableCell>
                                 <TableCell>{facility?.name}</TableCell>
                                 <TableCell>{facility?.location}</TableCell>
@@ -97,7 +97,7 @@ const ManageFacilities = () => {
                                 <TableCell className="text-right">
                                     <DropdownMenu>
                                         <DropdownMenuTrigger asChild>
-                                            <Button className="flex items-center gap-2">
+                                            <Button variant="outline" className="flex items-center gap-2 h-10 rounded-full">
                                                 <span>
                                                     <Settings size={15} />
                                                 </span>

@@ -22,7 +22,7 @@ const CartPageCard = ({ product }: any) => {
     return (
         <div className="border-t py-7 bg-white overflow-hidden w-full grid grid-cols-9 gap-2">
             <div className="col-span-3 w-full h-full">
-                <img src={product?.imageUrl} alt="" />
+                <img className="w-44" src={product?.imageUrl?.[0]} alt="" />
             </div>
             <div className="col-span-6 relative pl-0 p-4">
 

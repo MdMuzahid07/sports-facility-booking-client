@@ -7,7 +7,7 @@ const DashboardDashCard = ({ cardInfo }: any) => {
             <CardHeader title="click to view details" className="p-0 cursor-pointer">
 
             </CardHeader>
-            <CardContent title="click to view details" className="p-4">
+            <CardContent className="p-4">
                 <CardTitle className="text-lg font-semibold cursor-pointer">{cardInfo?.title}</CardTitle>
                 <div className="text-gray-700 mt-2 text-sm">
                     <p className="font-semibold md:font-bold text-3xl md:text-4xl">{cardInfo?.length}</p>

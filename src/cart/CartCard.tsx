@@ -22,7 +22,7 @@ const CartCard = ({ product }: any) => {
 
     return (
         <div className="flex gap-2 py-5 border-b border-primary relative">
-            <img className="w-20 border drop-shadow-sm h-20 object-cover " src={product?.imageUrl} alt="" />
+            <img className="w-20 border drop-shadow-sm h-20 object-cover " src={product?.imageUrl?.[0]} alt="" />
             <div className="py-1">
                 <h1 className="text-md">{product?.title}</h1>
                 <div className="flex items-center gap-2">

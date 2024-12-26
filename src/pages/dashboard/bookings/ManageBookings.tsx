@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { Badge } from "@/components/ui/badge";
 import {
     Table,
     TableBody,
@@ -12,14 +13,13 @@ import { useGetAllBookingsAdminQuery } from "@/redux/features/bookings/bookingsA
 
 const ManageBookings = () => {
     const { data: bookings } = useGetAllBookingsAdminQuery(undefined);
-    console.log(bookings)
-
     // const handleCancel = () => {
     //     const isProceed = window.confirm("Cancel Order");
     //     if (isProceed) {
     //         toast.success("Order cancelled successfully")
     //     }
     // }
+
 
     return (
         <div className="py-10">
@@ -46,13 +46,15 @@ const ManageBookings = () => {
                             <TableRow key={booking?._id}>
                                 <TableCell className="font-medium">{index + 1}</TableCell>
                                 <TableCell>
-                                    <img className="w-32 h-20 rounded-lg object-cover" src={booking?.facility?.image} alt="" />
+                                    <img className="w-12 h-12 rounded-full object-cover object-center" src={booking?.facility?.image?.[0]} alt="" />
                                 </TableCell>
                                 <TableCell>Pending</TableCell>
                                 <TableCell>{booking?.facility?.name}</TableCell>
                                 <TableCell>${booking?.payableAmount}</TableCell>
-                                <TableCell>{booking?.isBooked}</TableCell>
-                                <TableCell>{booking?.user?.name}</TableCell>
+                                <TableCell>
+                                    <Badge>{booking?.isBooked}</Badge>
+                                </TableCell>
+                                <TableCell className="font-bold">{booking?.user?.name}</TableCell>
                                 {/* <TableCell className="text-right">
                                     <Button onClick={() => handleCancel()}>Cancel</Button>
                                 </TableCell> */}

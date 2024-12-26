@@ -29,6 +29,7 @@ const CartDropdown = ({ cartDrop, setCartDrop }: any) => {
         if (proceed) {
             dispatch(clearCart());
             toast.success("Cart clear", { id: "CartClear" });
+            setCartDrop(false);
         }
     };
 

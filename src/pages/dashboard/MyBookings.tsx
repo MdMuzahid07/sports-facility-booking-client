@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import LoadingSpinner from "@/components/LoadingSpinner";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import {
@@ -16,12 +18,11 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 const MyBookings = () => {
-    const { data: bookings } = useGetAllBookingsUserQuery(undefined);
+    const { data: bookings, isLoading } = useGetAllBookingsUserQuery(undefined);
     const [cancelBooking] = useCancelBookingMutation();
     const navigate = useNavigate();
 
     const handleCancel = async (id: string) => {
-        console.log(id, "booking id")
         const isProceed = window.confirm("Cancel Order");
         try {
             if (isProceed) {
@@ -39,6 +40,14 @@ const MyBookings = () => {
     const handleViewBookingDetails = (id: string) => {
         navigate(`/dashboard/my-booking-details/${id}`)
     };
+
+
+    if (!bookings && isLoading) {
+        return <LoadingSpinner />
+    }
+
+
+    console.log(bookings)
 
     return (
         <div className="py-10">
@@ -61,24 +70,28 @@ const MyBookings = () => {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {bookings?.data?.map((booking: any, index: any) => (
+                        {bookings?.data?.map((booking: any, index: any) =>
                             <TableRow key={booking?._id}>
                                 <TableCell className="font-medium">{index + 1}</TableCell>
                                 <TableCell>
-                                    <img className="w-32 h-20 rounded-lg object-cover" src={booking?.facility?.image} alt="" />
+                                    <img className="w-12 h-12 rounded-full object-cover object-center" src={booking?.facility?.image?.[0]} alt="" />
                                 </TableCell>
                                 <TableCell>Pending</TableCell>
                                 <TableCell>{booking?.facility?.name}</TableCell>
                                 <TableCell>${booking?.payableAmount}</TableCell>
                                 <TableCell>
-                                    {booking?.isBooked}
+                                    <Badge variant="outline"
+                                        className={`${booking?.isBooked === "confirmed" ? "bg-green-500" : "bg-red-500"}  `}
+                                    >
+                                        {booking?.isBooked}
+                                    </Badge>
                                 </TableCell>
                                 <TableCell><span className="capitalize">{booking?.user?.name}</span></TableCell>
                                 <TableCell className="text-right">
                                     <TableCell className="text-right">
                                         <DropdownMenu>
                                             <DropdownMenuTrigger asChild>
-                                                <Button className="flex items-center gap-2">
+                                                <Button variant="outline" className="flex rounded-full items-center gap-2">
                                                     <span>
                                                         <Settings size={15} />
                                                     </span>
@@ -122,7 +135,8 @@ const MyBookings = () => {
                                     </TableCell>
                                 </TableCell>
                             </TableRow>
-                        ))}
+                        )
+                        }
                     </TableBody>
                 </Table>
             </section>

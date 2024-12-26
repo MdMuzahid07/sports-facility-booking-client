@@ -103,7 +103,7 @@ const MyProfile = () => {
     return (
         <div className="py-10">
             <h1 className="gap-8 text-3xl md:text-4xl lg:text-5xl xl:text-7xl font-extrabold mb-10">
-                <span className="bg-black text-white px-4 pb-1">My</span> Profile
+                My Profile
             </h1>
             <div className="grid md:grid-cols-8 gap-6">
                 <section className="w-full col-span-12 lg:col-span-3">
@@ -112,9 +112,9 @@ const MyProfile = () => {
                             <Avatar className="w-44 h-44">
                                 {/* Display the selected image preview */}
                                 {imagePreview ? (
-                                    <AvatarImage src={imagePreview} alt="Profile Image" />
+                                    <AvatarImage className="object-cover object-center" src={imagePreview} alt="Profile Image" />
                                 ) : (
-                                    <AvatarImage src={(user && user?.avatar) ? user?.avatar : "https://github.com/shadcn.png"} alt="@shadcn" />
+                                    <AvatarImage className="object-cover object-center" src={(user && user?.avatar) ? user?.avatar : "https://github.com/shadcn.png"} alt="@shadcn" />
                                 )}
                                 <AvatarFallback>CN</AvatarFallback>
                             </Avatar>

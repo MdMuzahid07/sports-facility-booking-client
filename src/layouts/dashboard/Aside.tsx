@@ -25,7 +25,9 @@ const Aside = ({ isSidebarOpen, setIsSidebarOpen }: any) => {
             <div
                 className="relative p-8 w-full"
             >
-                <h4 className="text-2xl md:text-3xl text-slate-200 lg:text-4xl font-extrabold">PlayTime Pro</h4>
+                <NavLink to="/">
+                    <h4 title="Back to Homepage" className="text-2xl md:text-3xl text-slate-200 lg:text-4xl font-extrabold">PlayTime Pro</h4>
+                </NavLink>
 
                 <button
                     onClick={() => setIsSidebarOpen(false)}

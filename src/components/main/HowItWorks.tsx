@@ -1,5 +1,7 @@
 import { Calendar, CheckCheck, Search, ThumbsUp } from 'lucide-react';
 import { Button } from '../ui/button';
+import { useRef } from 'react';
+import { useInView, motion } from 'framer-motion';
 
 const howItsWorksCardData = [
     {
@@ -27,6 +29,8 @@ const howItsWorksCardData = [
 
 
 const HowItWorks = () => {
+    const ref = useRef(null);
+    const isInView = useInView(ref);
 
     return (
         <section className="bg-slate-200">
@@ -34,20 +38,27 @@ const HowItWorks = () => {
                 <h3 className="text-3xl md:text-5xl font-extrabold mb-5">Unlock Your Sports Experience with Ease </h3>
                 <p className="text-xl md:text-2xl lg:text-3xl">Our platform makes booking your next sports facility easy and hassle-free. Follow these simple steps to get started.</p>
 
-                <div className="mt-20 grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div className="mt-20 grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
                     {
                         howItsWorksCardData?.map(({ icon, title, description }, index) => (
-
-                            <div key={index + title} className="w-full h-[270px] border-2 border-[#2E2E2E] px-5 py-8 hover:bg-[#2B2C2D] hover:text-white transition ease-in delay-50">
-                                <div className="flex flew-col  justify-center">
-                                    <Button className="w-12 h-12 p-2 rounded-full">
-                                        {icon}
-                                    </Button>
-                                </div>
-                                <div>
-                                    <h1 className="text-xl md:text-2xl font-bold text-center mt-3 mb-5">{title}</h1>
-                                    <p className="text-lg font-bold text-center">{description}</p>
-                                </div>
+                            <div ref={ref}>
+                                <motion.div
+                                    initial={{ opacity: 0, y: 50 }}
+                                    animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+                                    transition={{ duration: 0.5, ease: "easeOut" }}
+                                >
+                                    <div key={index + title} className="w-full h-[270px] border-2 border-[#2E2E2E] px-5 py-8 hover:bg-[#2B2C2D] hover:text-white transition ease-in delay-50">
+                                        <div className="flex flew-col  justify-center">
+                                            <Button className="w-12 h-12 p-2 rounded-full">
+                                                {icon}
+                                            </Button>
+                                        </div>
+                                        <div>
+                                            <h1 className="text-xl md:text-2xl font-bold text-center mt-3 mb-5">{title}</h1>
+                                            <p className="text-lg font-bold text-center">{description}</p>
+                                        </div>
+                                    </div>
+                                </motion.div>
                             </div>
                         ))
                     }
