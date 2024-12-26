@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import LoadingSpinner from "@/components/LoadingSpinner";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import {
@@ -73,20 +74,24 @@ const MyBookings = () => {
                             <TableRow key={booking?._id}>
                                 <TableCell className="font-medium">{index + 1}</TableCell>
                                 <TableCell>
-                                    <img className="w-16 h-14 rounded-lg object-cover object-center" src={booking?.facility?.image?.[0]} alt="" />
+                                    <img className="w-12 h-12 rounded-full object-cover object-center" src={booking?.facility?.image?.[0]} alt="" />
                                 </TableCell>
                                 <TableCell>Pending</TableCell>
                                 <TableCell>{booking?.facility?.name}</TableCell>
                                 <TableCell>${booking?.payableAmount}</TableCell>
                                 <TableCell>
-                                    {booking?.isBooked}
+                                    <Badge variant="outline"
+                                        className={`${booking?.isBooked === "confirmed" ? "bg-green-500" : "bg-red-500"}  `}
+                                    >
+                                        {booking?.isBooked}
+                                    </Badge>
                                 </TableCell>
                                 <TableCell><span className="capitalize">{booking?.user?.name}</span></TableCell>
                                 <TableCell className="text-right">
                                     <TableCell className="text-right">
                                         <DropdownMenu>
                                             <DropdownMenuTrigger asChild>
-                                                <Button className="flex items-center gap-2">
+                                                <Button variant="outline" className="flex rounded-full items-center gap-2">
                                                     <span>
                                                         <Settings size={15} />
                                                     </span>

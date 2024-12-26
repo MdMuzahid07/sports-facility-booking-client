@@ -4,6 +4,7 @@ import { useGetAllOrderQuery } from '@/redux/features/order/orderApi';
 import { useGetAllTestimonialsQuery } from '@/redux/features/testimonial/testimonialApi';
 import { useAppSelector } from '@/redux/hooks';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { Badge } from '../ui/badge';
 
 const UserDashboard = () => {
     const { data: myBookings } = useGetAllBookingsUserQuery(undefined);
@@ -71,8 +72,10 @@ const UserDashboard = () => {
                                     <td className="px-4 py-2">{booking?.date}</td>
                                     <td className="px-4 py-2">{booking?.startTime} - {booking?.endTime}</td>
                                     <td className="px-4 py-2">${booking?.payableAmount}</td>
-                                    <td className={`px-4 py-2 ${booking?.isBooked === 'confirmed' ? 'text-green-600' : 'text-red-600'}`}>
-                                        {booking?.isBooked}
+                                    <td className={`px-4 py-2 `}>
+                                        <Badge variant="outline" className={`${booking?.isBooked === "confirmed" ? "bg-green-500" : "bg-red-500"}`}>
+                                            {booking?.isBooked}
+                                        </Badge>
                                     </td>
                                 </tr>
                             ))}
@@ -101,11 +104,17 @@ const UserDashboard = () => {
                                     <td className="px-4 py-2">{order?.cartId?._id}</td>
                                     <td className="px-4 py-2">{order?.customerDetails?.name}</td>
                                     <td className="px-4 py-2">{order?.paymentMethod}</td>
-                                    <td className={`px-4 py-2 ${order?.paymentStatus === "Paid" ? "text-green-600" : "text-yellow-600"}`}>
-                                        {order?.paymentStatus}
+                                    <td className={`px-4 py-2 `}>
+                                        <Badge variant="outline" className={`${order?.paymentStatus === "Paid" ? "bg-green-600" : "bg-yellow-500"}`}>
+                                            {order?.paymentStatus}
+                                        </Badge>
                                     </td>
-                                    <td className={`px-4 py-2 ${order?.orderStatus === "Completed" ? "text-green-600" : "text-yellow-600"}`}>
-                                        {order?.orderStatus}
+                                    <td >
+                                        <Badge variant="outline"
+                                            className={`${order?.orderStatus === "Processing" ? "bg-red-500" : order?.orderStatus === "Delivered" ? "bg-green-500" : "bg-yellow-500"}`}
+                                        >
+                                            {order?.orderStatus}
+                                        </Badge>
                                     </td>
                                 </tr>
                             ))}
