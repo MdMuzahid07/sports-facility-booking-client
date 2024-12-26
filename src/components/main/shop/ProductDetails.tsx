@@ -44,8 +44,6 @@ const ProductDetails = () => {
     };
 
 
-
-
     const handleReviewSubmit = async (e: any) => {
         e.preventDefault();
 

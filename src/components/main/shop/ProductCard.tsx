@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { addCart } from "@/redux/features/cart/CartSlice";
+import { useGetAllReviewQuery } from "@/redux/features/review/review.api";
 import { useAppDispatch } from "@/redux/hooks";
 import { useInView, motion } from "framer-motion";
 import { useRef } from "react";
@@ -11,10 +12,16 @@ import { useNavigate } from "react-router-dom";
 
 
 const ProductCard = ({ product }: any) => {
+    const productId = product?._id;
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const ref = useRef(null);
     const isInView = useInView(ref);
+
+    const { data: reviews, isLoading: isReviewLoading } = useGetAllReviewQuery(productId);
+    const filteredReviews = reviews?.data?.filter(({ facilityOrProductId }: { facilityOrProductId: string }) => facilityOrProductId === productId);
+    const ratingNumber = Number(filteredReviews?.rating);
+    const ratings = Array.from({ length: ratingNumber }, (_, index) => index + 1);
 
     const handleDetails = (id: string) => {
         navigate(`/product-details/${id}`);
@@ -41,7 +48,8 @@ const ProductCard = ({ product }: any) => {
                     </CardHeader>
                     <CardContent title="click to view details" onClick={() => handleDetails(product?._id)} className="p-4">
                         <CardTitle className="text-lg font-semibold cursor-pointer">{product?.title}</CardTitle>
-                        <div className="text-gray-700 mt-2 text-sm">
+                        <div className="text-gray-700 mt-2 text-sm flex items-center justify-between">
+                            <p className="font-semibold text-xs">Reviews ({filteredReviews?.length})</p>
                             <p className="font-semibold">Price: ${product?.price}</p>
                         </div>
                         {/* <div className="flex items-center mt-2"> */}
