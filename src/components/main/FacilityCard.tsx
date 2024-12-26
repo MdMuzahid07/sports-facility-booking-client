@@ -4,12 +4,19 @@ import { Button } from "../ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../ui/card";
 import { motion, useInView } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { useGetAllReviewQuery } from "@/redux/features/review/review.api";
 
 
 const FacilityCard = ({ facility, styles }: any) => {
     const ref = useRef(null);
     const isInView = useInView(ref);
     const navigate = useNavigate();
+    const facilityId = facility?._id;
+
+    const { data: reviews, isLoading: isReviewLoading } = useGetAllReviewQuery(facilityId);
+    const filteredReviews = reviews?.data?.filter(({ facilityOrProductId }: { facilityOrProductId: string }) => facilityOrProductId === facilityId);
+    const ratingNumber = Number(filteredReviews?.rating);
+    const ratings = Array.from({ length: ratingNumber }, (_, index) => index + 1);
 
     const handleRedirectToDetails = (id: string) => {
         navigate(`/facility-details/${id}`);
@@ -29,7 +36,11 @@ const FacilityCard = ({ facility, styles }: any) => {
                     </CardHeader>
                     <CardContent>
                         <CardTitle>{facility?.name}</CardTitle>
-                        <CardTitle className="mt-2 text-md">${facility?.pricePerHour} hour</CardTitle>
+                        <CardTitle className="mt-2 text-md flex justify-between items-center">
+                            <p className="font-semibold text-xs">Reviews ({filteredReviews?.length})</p>
+                            <p className="font-semibold">${facility?.pricePerHour} hour</p>
+                        </CardTitle>
+
                         <CardDescription className="mt-2">{facility?.name}...</CardDescription>
                     </CardContent>
                     <CardFooter className="absolute bottom-0 right-0">
