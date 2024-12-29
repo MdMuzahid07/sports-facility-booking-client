@@ -2,7 +2,7 @@
 import { useNavigate, useParams } from 'react-router-dom';
 // import Zoom from 'react-medium-image-zoom';
 import 'react-medium-image-zoom/dist/styles.css'
-import { DollarSign, MapPin } from 'lucide-react';
+import { DollarSign, MapPin, ShoppingCart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useGetAllFacilitiesQuery, useGetASingleFacilityQuery } from '@/redux/features/facilities/facilityApi';
 import PageTopByDefault from '@/utils/PageTopByDefault';
@@ -144,7 +144,7 @@ const FacilityDetails = () => {
                                 <span>{singleFacility?.data?.pricePerHour} hour</span>
                             </p>
                             <div className="mt-14">
-                                <Button onClick={() => handleBookingPageRedirect(singleFacility?.data?._id)} className="rounded-none text-2xl">Book now</Button>
+                                <Button onClick={() => handleBookingPageRedirect(singleFacility?.data?._id)} className="rounded-full text-lg">Book now  <ShoppingCart className="ml-2 w-5 h-5" /></Button>
                             </div>
                         </div>
                     </div>
@@ -155,13 +155,13 @@ const FacilityDetails = () => {
                     <div className="my-10">
                         <div className="tabs flex space-x-4 mb-4">
                             <Button
-                                className={`tab ${activeTab === "details" ? "active" : "bg-white text-black"} font-bold rounded-none`}
+                                className={`tab ${activeTab === "details" ? "active" : "bg-white text-black"} font-bold rounded-full`}
                                 onClick={() => handleTabSwitch("details")}
                             >
                                 Facility Details
                             </Button>
                             <Button
-                                className={`tab ${activeTab === "reviews" ? "active" : "bg-white text-black"} font-bold rounded-none`}
+                                className={`tab ${activeTab === "reviews" ? "active" : "bg-white text-black"} font-bold rounded-full`}
                                 onClick={() => handleTabSwitch("reviews")}
                             >
                                 Reviews
@@ -220,14 +220,14 @@ const FacilityDetails = () => {
                                                     multiple={true}
                                                     maxFiles={3}
                                                     accept="image/png, image/jpeg"
-                                                    style="rounded-none"
+                                                    style="rounded-2xl"
                                                 />
                                             </div>
 
                                             <div className="mb-4">
                                                 <label className="block text-sm font-medium">Review Text</label>
                                                 <textarea
-                                                    className="w-full p-2 border focus:outline-none"
+                                                    className="w-full p-2 border-none focus:outline-none rounded-2xl drop-shadow-sm"
                                                     rows={4}
                                                     value={reviewText}
                                                     onChange={(e) => setReviewText(e.target.value)}
@@ -235,7 +235,7 @@ const FacilityDetails = () => {
                                                 ></textarea>
                                             </div>
 
-                                            <Button disabled={!user && !(user as any)?.id} type="submit" className="btn rounded-none text-white py-2 px-4 ">
+                                            <Button disabled={!user && !(user as any)?.id} type="submit" className="btn rounded-full text-white py-2 px-4 ">
                                                 Submit Review
                                             </Button>
                                             {
