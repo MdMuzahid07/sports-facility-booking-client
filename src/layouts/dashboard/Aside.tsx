@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useAppSelector } from "@/redux/hooks";
-import { BaggageClaim, BookCheck, CircleOff, LayoutDashboard, ListCheck, ListPlus, MessageSquareQuote, NotebookPen, Plus, Settings2, ShieldPlus, ShoppingBasket, Star, Trophy } from "lucide-react";
+import { BaggageClaim, BookCheck, LayoutDashboard, ListCheck, ListPlus, MessageSquareQuote, NotebookPen, Plus, Settings2, ShieldPlus, ShoppingBasket, Star, Trophy } from "lucide-react";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
@@ -81,6 +81,12 @@ const Aside = ({ isSidebarOpen, setIsSidebarOpen }: any) => {
                                             <MessageSquareQuote size={15} />  Testimonial
                                         </button>
                                     </NavLink>
+
+                                    <NavLink to="/dashboard/cancelled-bookings-user">
+                                        <button className=" font-semibold py-2 text-xs 2xl:text-sm bg-primary text-left rounded-lg text-red-300 w-full mb-5  flex items-center gap-2">
+                                            <BookCheck size={15} />  Cancelled Bookings
+                                        </button>
+                                    </NavLink>
                                 </>
                             )
                         }
@@ -155,15 +161,18 @@ const Aside = ({ isSidebarOpen, setIsSidebarOpen }: any) => {
                                             </NavLink>
                                         </AccordionContent>
                                     </AccordionItem>
+
+
+                                    <NavLink to="/dashboard/cancelled-bookings">
+                                        <button className=" font-semibold py-2 text-xs 2xl:text-sm bg-primary text-left rounded-lg text-red-300 w-full mb-5  flex items-center gap-2">
+                                            <BookCheck size={15} />  Cancelled Bookings
+                                        </button>
+                                    </NavLink>
                                 </>
                             )
                         }
 
-                        <NavLink to="/dashboard/cancelled-bookings">
-                            <button className=" font-semibold py-2 text-xs 2xl:text-sm bg-primary text-left rounded-lg text-red-300 w-full mb-5  flex items-center gap-2">
-                                <BookCheck size={15} />  Cancelled Bookings
-                            </button>
-                        </NavLink>
+
 
                         <NavLink to="/dashboard/cancelled-orders">
                             <button className=" font-semibold py-2 text-xs 2xl:text-sm bg-primary text-left rounded-lg text-red-300 w-full mb-5  flex items-center gap-2">

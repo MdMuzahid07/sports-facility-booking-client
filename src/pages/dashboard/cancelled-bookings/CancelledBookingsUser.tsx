@@ -8,22 +8,27 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-import { useGetAllBookingsAdminQuery } from "@/redux/features/bookings/bookingsApi";
+import { useGetAllBookingsUserQuery } from "@/redux/features/bookings/bookingsApi";
 
 // import { useNavigate } from "react-router-dom"
 import { useAppSelector } from "@/redux/hooks";
 import { useEffect, useState } from "react";
 
-const CancelledBookings = () => {
-    const { data: bookings } = useGetAllBookingsAdminQuery(undefined);
+const CancelledBookingsUser = () => {
+    const { data: userBookings } = useGetAllBookingsUserQuery(undefined);
     const user = useAppSelector((state) => state.auth.user);
     const [filteredBookings, setFilteredBookings] = useState<any[]>([]);
 
     useEffect(() => {
-        const filteredAll = bookings?.data?.filter((booking: any) => booking?.isBooked === "canceled");
-        setFilteredBookings(filteredAll);
-    }, [bookings, user]);
 
+        const filteredAllCancelledForUser = userBookings?.data?.filter((booking: any) => booking?.isBooked === "canceled");
+
+        const filteredForUser = filteredAllCancelledForUser?.filter((booking: any) => booking?.user?._id === user?.id);
+
+        setFilteredBookings(filteredForUser);
+    }, [userBookings, user]);
+
+    console.log(filteredBookings)
 
     return (
         <div className="py-10">
@@ -70,4 +75,4 @@ const CancelledBookings = () => {
     )
 };
 
-export default CancelledBookings;
+export default CancelledBookingsUser;

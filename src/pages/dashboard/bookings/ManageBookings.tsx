@@ -26,7 +26,7 @@ const ManageBookings = () => {
             <h1 className="gap-8 text-3xl md:text-4xl font-bold">
                 Manage Bookings
             </h1>
-            <section className="mt-14">
+            <section className="mt-6">
                 <Table className="bg-white rounded-2xl drop-shadow-sm">
                     <TableCaption>All Bookings</TableCaption>
                     <TableHeader>

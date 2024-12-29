@@ -36,6 +36,7 @@ import Payment from "@/pages/main/Payment";
 import MyReviews from "@/pages/dashboard/reviews/MyReviews";
 import CancelledOrders from "@/pages/dashboard/cancelled-orders/CancelledOrders";
 import CancelledBookings from "@/pages/dashboard/cancelled-bookings/CancelledBookings";
+import CancelledBookingsUser from "@/pages/dashboard/cancelled-bookings/CancelledBookingsUser";
 
 const routes = createBrowserRouter([
     {
@@ -151,6 +152,10 @@ const routes = createBrowserRouter([
             {
                 path: "cancelled-bookings",
                 element: <CancelledBookings />
+            },
+            {
+                path: "cancelled-bookings-user",
+                element: <CancelledBookingsUser />
             },
             {
                 path: "my-testimonial",
