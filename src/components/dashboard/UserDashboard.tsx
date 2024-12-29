@@ -11,13 +11,11 @@ const UserDashboard = () => {
     const { data: myOrders } = useGetAllOrderQuery(undefined);
     const { data: myTestimonial } = useGetAllTestimonialsQuery(undefined);
     const user = useAppSelector((state) => state.auth.user);
-    console.log(user)
 
     const bookings = myBookings?.data;
 
     const orders = myOrders?.data;
 
-    console.log(orders)
 
     const testimonials = myTestimonial?.data?.filter((testimonial: any) => testimonial?.email === user?.email);
 

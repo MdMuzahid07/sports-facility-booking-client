@@ -51,10 +51,10 @@ const MyBookings = () => {
 
     return (
         <div className="py-10">
-            <h1 className="gap-8 text-3xl md:text-4xl lg:text-5xl xl:text-7xl font-extrabold">
+            <h1 className="gap-8 text-3xl md:text-4xl lg:text-5xl font-bold">
                 My Bookings
             </h1>
-            <section className="mt-14">
+            <section className="mt-6">
                 <Table className="bg-white rounded-lg">
                     <TableCaption>My Bookings</TableCaption>
                     <TableHeader>

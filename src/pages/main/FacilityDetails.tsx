@@ -2,7 +2,7 @@
 import { useNavigate, useParams } from 'react-router-dom';
 // import Zoom from 'react-medium-image-zoom';
 import 'react-medium-image-zoom/dist/styles.css'
-import { DollarSign, MapPin, ShoppingCart } from 'lucide-react';
+import { DollarSign, MapPin, NotebookPen } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useGetAllFacilitiesQuery, useGetASingleFacilityQuery } from '@/redux/features/facilities/facilityApi';
 import PageTopByDefault from '@/utils/PageTopByDefault';
@@ -144,7 +144,7 @@ const FacilityDetails = () => {
                                 <span>{singleFacility?.data?.pricePerHour} hour</span>
                             </p>
                             <div className="mt-14">
-                                <Button onClick={() => handleBookingPageRedirect(singleFacility?.data?._id)} className="rounded-full text-lg">Book now  <ShoppingCart className="ml-2 w-5 h-5" /></Button>
+                                <Button onClick={() => handleBookingPageRedirect(singleFacility?.data?._id)} className="rounded-full text-lg">Book now  <NotebookPen className="ml-2 w-5 h-5" /></Button>
                             </div>
                         </div>
                     </div>

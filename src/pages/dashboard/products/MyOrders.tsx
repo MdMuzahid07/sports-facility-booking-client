@@ -76,11 +76,11 @@ const MyOrders = () => {
 
     return (
         <div className="py-10">
-            <h1 className="gap-8 text-3xl md:text-4xl lg:text-5xl xl:text-7xl font-extrabold">
+            <h1 className="gap-8 text-3xl md:text-4xl lg:text-5xl font-bold">
                 My Orders
             </h1>
-            <section className="mt-14">
-                <Table className="bg-white rounded-lg shadow">
+            <section className="mt-6">
+                <Table className="bg-white rounded-2xl drop-shadow-sm">
                     <TableCaption className="text-lg font-bold">User Orders</TableCaption>
                     <TableHeader>
                         <TableRow>
@@ -110,7 +110,7 @@ const MyOrders = () => {
                                 <TableCell>
                                     {order?.paymentMethod} -{" "}
                                     <span
-                                        className={`px-2 py-1 rounded ${order?.paymentStatus === "Completed"
+                                        className={`px-2 py-1 rounded-full ${order?.paymentStatus === "Completed"
                                             ? "bg-green-100 text-green-700"
                                             : order?.paymentStatus === "Pending"
                                                 ? "bg-yellow-100 text-yellow-700"
@@ -125,7 +125,7 @@ const MyOrders = () => {
                                 </TableCell>
                                 <TableCell>
                                     <span
-                                        className={`px-2 py-1 rounded ${order?.orderStatus === "Completed"
+                                        className={`px-2 py-1 rounded-full ${order?.orderStatus === "Completed"
                                             ? "bg-green-100 text-green-700"
                                             : order?.orderStatus === "Pending"
                                                 ? "bg-yellow-100 text-yellow-700"
@@ -138,7 +138,7 @@ const MyOrders = () => {
                                 <TableCell className="text-right">
                                     <DropdownMenu>
                                         <DropdownMenuTrigger asChild>
-                                            <Button className="bg-primary flex items-center gap-2">
+                                            <Button variant="outline" className="flex items-center rounded-full gap-2">
                                                 <Settings size={15} />
                                                 Options
                                             </Button>

@@ -96,10 +96,10 @@ const FacilityBooking = () => {
                 />
             </Helmet>
 
-            <section className="bg-slate-200 py-32">
+            <section className="bg-slate-200 pt-20 pb-32">
                 <section className="max-w-7xl mx-auto px-4 xl:px-0">
-                    <h3 className="text-3xl md:text-5xl font-extrabold mb-5">Booking</h3>
-                    <section className="grid grid-cols-1 lg:grid-cols-5 w-full min-h-[500px] bg-slate-100">
+                    <h3 className="text-3xl md:text-5xl font-bold mb-5">Booking</h3>
+                    <section className="grid grid-cols-1 lg:grid-cols-5 w-full min-h-[500px] bg-slate-100 rounded-2xl overflow-hidden drop-shadow-sm">
                         <div className="col-span-3 bg-white">
                             <div className="col-span-3 flex justify-center items-center">
                                 <div className="w-full">
@@ -149,7 +149,7 @@ const FacilityBooking = () => {
                                             <Button
                                                 variant={"outline"}
                                                 className={cn(
-                                                    "w-full justify-start text-left font-normal rounded-none",
+                                                    "w-full justify-start text-left font-normal rounded-full drop-shadow-sm",
                                                     !date && "text-muted-foreground"
                                                 )}
                                             >
@@ -171,9 +171,9 @@ const FacilityBooking = () => {
                                 <section className="mt-10">
                                     <h1 className="text-xl mb-3">Available Slots ({availableSlots?.data?.length})</h1>
                                     <div className="flex items-center justify-between">
-                                        <Badge className="max-w-44 w-full rounded-none py-1.5 text-lg">Start Time</Badge>
+                                        <Badge className="max-w-44 w-full rounded-full py-1.5 text-lg">Start Time</Badge>
                                         <MoveRight />
-                                        <Badge className="max-w-44 w-full rounded-none py-1.5 text-lg">End Time</Badge>
+                                        <Badge className="max-w-44 w-full rounded-full py-1.5 text-lg">End Time</Badge>
                                     </div>
                                 </section>
                                 <hr className="my-5 border-t border-black" />
@@ -228,7 +228,7 @@ const FacilityBooking = () => {
 
 
                                     <section className="flex justify-end">
-                                        <Button onClick={handleBooking} className="mt-10 rounded-none text-lg space-x-2">
+                                        <Button onClick={handleBooking} className="mt-10 rounded-full text-lg space-x-2">
                                             <span>
                                                 Confirm Booking
                                             </span>
