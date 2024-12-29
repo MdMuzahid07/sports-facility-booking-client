@@ -118,7 +118,7 @@ const MyProfile = () => {
                                 )}
                                 <AvatarFallback>CN</AvatarFallback>
                             </Avatar>
-                            <div className="absolute bottom-3 text-white bg-primary w-10 h-10 rounded-lg left-[38%] flex justify-center items-center">
+                            <div className="absolute bottom-3 text-white bg-primary w-10 h-10 rounded-full left-[28%] flex justify-center items-center">
                                 <Pencil size={20} />
                             </div>
                         </Label>
