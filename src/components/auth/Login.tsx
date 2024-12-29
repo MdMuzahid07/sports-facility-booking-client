@@ -59,7 +59,7 @@ const Login = () => {
     return (
         <div className="w-screen h-screen bg-cover bg-[url('https://res.cloudinary.com/dymo0iyee/image/upload/v1725725369/2150426501_xar9gl.jpg')]">
             <div className="flex justify-center items-center h-full w-full px-4 xl:px-0">
-                <Card className="w-[350px] rounded-none">
+                <Card className="w-[350px] rounded-2xl">
                     <CardHeader>
                         <CardTitle>Login</CardTitle>
                         <CardDescription>Enter your username and password</CardDescription>
@@ -70,7 +70,7 @@ const Login = () => {
                             <div className="grid w-full items-center gap-4">
                                 <div className="flex flex-col space-y-1.5">
                                     <Label className="flex items-center gap-2" htmlFor="email">
-                                        <span><User /></span>
+                                        <span><User className="w-5 h-5" /></span>
                                         <span>Email</span>
                                     </Label>
                                     <Input
@@ -78,34 +78,36 @@ const Login = () => {
                                         id="email"
                                         placeholder="Your account email address"
                                         aria-invalid={errors.name ? "true" : "false"}
+                                        className="rounded-full drop-shadow-sm"
                                     />
                                 </div>
                                 <div className="flex flex-col space-y-1.5">
                                     <Label className="flex items-center gap-2" htmlFor="password">
-                                        <span><Key /></span>
+                                        <span><Key className="w-5 h-5" /></span>
                                         <span>Password</span>
                                     </Label>
                                     <Input
                                         {...register("password", { required: true })}
                                         type="password"
                                         id="password"
+                                        className="rounded-full drop-shadow-sm"
                                         placeholder="Your password"
                                         aria-invalid={errors.password ? "true" : "false"}
                                     />
                                 </div>
                                 <div className="text-slate-600">
-                                    <small>New here? <span className="font-bold"><NavLink to="/sign-up">Create Account</NavLink></span></small>
+                                    <small>New here? <span className="font-bold text-black"><NavLink to="/sign-up">Create Account</NavLink></span></small>
                                 </div>
                             </div>
-                            <CardFooter className="flex justify-end">
-                                <Button type="submit" className="rounded-none">Login</Button>
+                            <CardFooter className="flex justify-end pr-0">
+                                <Button type="submit" className="rounded-full">Login</Button>
                             </CardFooter>
                         </form>
                         <section className="border-t">
                             <h1 className="text-xl mb-2 ">For test purpose</h1>
                             <div className="flex justify-between">
-                                <Button onClick={() => handleSetCredentials("admin")} className="rounded-none">Login as Admin</Button>
-                                <Button onClick={() => handleSetCredentials("user")} className="rounded-none">Login as User</Button>
+                                <Button onClick={() => handleSetCredentials("admin")} className="rounded-full">Login as Admin</Button>
+                                <Button onClick={() => handleSetCredentials("user")} className="rounded-full">Login as User</Button>
                             </div>
                         </section>
                     </CardContent>
