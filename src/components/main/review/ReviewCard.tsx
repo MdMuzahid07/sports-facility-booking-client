@@ -31,7 +31,7 @@ const ReviewCard = ({ review }: any) => {
 
 
     if (isLoading) {
-        toast.loading("Creating...", { id: "deleteReviewToastId" });
+        toast.loading("Deleting...", { id: "deleteReviewToastId" });
     }
 
     if (error) {

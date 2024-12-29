@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useAppSelector } from "@/redux/hooks";
-import { BaggageClaim, BookCheck, LayoutDashboard, ListCheck, ListPlus, MessageSquareQuote, NotebookPen, Plus, Settings2, ShieldPlus, ShoppingBasket, Trophy } from "lucide-react";
+import { BaggageClaim, BookCheck, CircleOff, LayoutDashboard, ListCheck, ListPlus, MessageSquareQuote, NotebookPen, Plus, Settings2, ShieldPlus, ShoppingBasket, Star, Trophy } from "lucide-react";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
@@ -17,11 +16,12 @@ const Aside = ({ isSidebarOpen, setIsSidebarOpen }: any) => {
     }, [user]);
 
     return (
-        <aside className={
-            `${isSidebarOpen ? "flex" : "hidden"
-            } col-span-12 lg:col-span-4 xl:col-span-2 text-[18px] sm:text-[25px] bg-primary text-black min-h-screen sm:max-h-screen h-full w-full sticky top-0 z-50
-            `
-        }>
+        <aside
+            className={
+                `col-span-12 lg:col-span-4 xl:col-span-2 text-[18px] sm:text-[25px] bg-primary text-black min-h-screen sm:max-h-screen h-full w-full sticky top-0 z-50 ${isSidebarOpen ? "flex" : "hidden"
+                }`
+            }
+        >
             <div
                 className="relative p-8 w-full"
             >
@@ -67,6 +67,17 @@ const Aside = ({ isSidebarOpen, setIsSidebarOpen }: any) => {
                                     <NavLink to="/dashboard/my-orders">
                                         <button className=" font-semibold py-2 text-xs 2xl:text-sm bg-primary text-left rounded-lg text-slate-200 w-full mb-5  flex items-center gap-2">
                                             <BaggageClaim size={15} /> My Orders
+                                        </button>
+                                    </NavLink>
+
+                                    <NavLink to="/dashboard/my-reviews">
+                                        <button className=" font-semibold py-2 text-xs 2xl:text-sm bg-primary text-left rounded-lg text-slate-200 w-full mb-5  flex items-center gap-2">
+                                            <Star size={15} />  My Reviews
+                                        </button>
+                                    </NavLink>
+                                    <NavLink to="/dashboard/my-cancelled-orders">
+                                        <button className=" font-semibold py-2 text-xs 2xl:text-sm bg-primary text-left rounded-lg text-slate-200 w-full mb-5  flex items-center gap-2">
+                                            <CircleOff size={15} />  Cancelled Orders
                                         </button>
                                     </NavLink>
                                     <NavLink to="/dashboard/my-testimonial">
