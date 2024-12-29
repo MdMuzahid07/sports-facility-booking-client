@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
     LogOut,
+    User,
 } from "lucide-react";
 
 import {
@@ -72,8 +73,16 @@ const UserDropdownDashboard = () => {
                     </DropdownMenuItem>
                 </DropdownMenuGroup> */}
                 <DropdownMenuSeparator />
+                <NavLink to="/dashboard/my-profile">
+                    <DropdownMenuItem className="cursor-pointer" onClick={handleLogout} >
+                        <User className="mr-2 h-4 w-4" />
+                        <span>My Profile</span>
+                        <DropdownMenuShortcut>⇧⌘p</DropdownMenuShortcut>
+                    </DropdownMenuItem>
+                </NavLink>
+
                 <NavLink to="/">
-                    <DropdownMenuItem onClick={handleLogout} >
+                    <DropdownMenuItem className="cursor-pointer" onClick={handleLogout} >
                         <LogOut className="mr-2 h-4 w-4" />
                         <span>Log out</span>
                         <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
