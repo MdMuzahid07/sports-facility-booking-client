@@ -13,6 +13,7 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { useCancelBookingMutation, useGetAllBookingsUserQuery } from "@/redux/features/bookings/bookingsApi";
+import { useAppSelector } from "@/redux/hooks";
 import { CircleOff, Settings, SquareArrowUpRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
@@ -21,6 +22,9 @@ const MyBookings = () => {
     const { data: bookings, isLoading } = useGetAllBookingsUserQuery(undefined);
     const [cancelBooking] = useCancelBookingMutation();
     const navigate = useNavigate();
+    const currentUser = useAppSelector((state) => state.auth.user);
+
+    const myBookings = bookings?.data?.filter((booking: any) => booking?.user?._id === currentUser?.id)
 
     const handleCancel = async (id: string) => {
         const isProceed = window.confirm("Cancel Order");
@@ -47,7 +51,7 @@ const MyBookings = () => {
     }
 
 
-    console.log(bookings)
+    console.log(bookings, "bookings")
 
     return (
         <div className="py-10">
@@ -55,7 +59,7 @@ const MyBookings = () => {
                 My Bookings
             </h1>
             <section className="mt-6">
-                <Table className="bg-white rounded-lg">
+                <Table className="bg-white rounded-2xl drop-shadow-sm">
                     <TableCaption>My Bookings</TableCaption>
                     <TableHeader>
                         <TableRow>
@@ -70,7 +74,7 @@ const MyBookings = () => {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {bookings?.data?.map((booking: any, index: any) =>
+                        {myBookings?.map((booking: any, index: any) =>
                             <TableRow key={booking?._id}>
                                 <TableCell className="font-medium">{index + 1}</TableCell>
                                 <TableCell>

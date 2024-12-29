@@ -184,7 +184,7 @@ const FacilityBooking = () => {
                                     </section>
                                     <section className="space-y-4 max-h-[400px] overflow-y-auto">
                                         {availableSlots?.data?.map((slots: any, index: number) => (
-                                            <div key={slots?._id + Math.random()} className="flex items-center justify-between">
+                                            <div key={slots?._id + Math.random()} className="flex items-center justify-between cursor-pointer">
                                                 {/* Start Time Selection */}
                                                 <div className="flex items-center space-x-2">
                                                     <input
@@ -193,12 +193,12 @@ const FacilityBooking = () => {
                                                         onClick={handleStartTimeSelect}
                                                         value={slots?.startTime}
                                                         checked={selectedStartTime === slots?.startTime} // Allow only one start time selection
-                                                        className="radio"
+                                                        className="radio cursor-pointer"
                                                         id={`startTime-${index}`}
                                                     />
                                                     <label
                                                         htmlFor={`startTime-${index}`}
-                                                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                                        className="text-sm cursor-pointer font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                                                     >
                                                         {slots?.startTime}
                                                     </label>

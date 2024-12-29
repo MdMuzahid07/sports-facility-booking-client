@@ -23,11 +23,14 @@ import { Settings, Trash } from "lucide-react"
 import { toast } from "sonner";
 // import { useNavigate } from "react-router-dom"
 import { useCancelOrderByUserMutation, useGetAllOrderQuery } from "@/redux/features/order/orderApi"
+import { useAppSelector } from "@/redux/hooks";
 
 const MyOrders = () => {
-    const { data: myOrders } = useGetAllOrderQuery(undefined);
+    const { data: Orders } = useGetAllOrderQuery(undefined);
     const [cancelOrderByUser] = useCancelOrderByUserMutation();
+    const currentUser = useAppSelector((state) => state.auth.user);
 
+    const myOrders = Orders?.data?.filter((order: any) => order?.customerDetails?.userId?._id === currentUser?.id);
 
     const handleCancelOrder = async (id: string) => {
         const proceed = window.confirm("Cancel Order?");
@@ -67,7 +70,7 @@ const MyOrders = () => {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {myOrders?.data?.map((order: any, index: any) => (
+                        {myOrders?.map((order: any, index: any) => (
                             <TableRow key={order?._id}>
                                 <TableCell className="font-medium">{index + 1}</TableCell>
                                 <TableCell>{order?._id}</TableCell>
