@@ -75,11 +75,7 @@ const Aside = ({ isSidebarOpen, setIsSidebarOpen }: any) => {
                                             <Star size={15} />  My Reviews
                                         </button>
                                     </NavLink>
-                                    <NavLink to="/dashboard/my-cancelled-orders">
-                                        <button className=" font-semibold py-2 text-xs 2xl:text-sm bg-primary text-left rounded-lg text-slate-200 w-full mb-5  flex items-center gap-2">
-                                            <CircleOff size={15} />  Cancelled Orders
-                                        </button>
-                                    </NavLink>
+
                                     <NavLink to="/dashboard/my-testimonial">
                                         <button className=" font-semibold py-2 text-xs 2xl:text-sm bg-primary text-left rounded-lg text-slate-200 w-full mb-5  flex items-center gap-2">
                                             <MessageSquareQuote size={15} />  Testimonial
@@ -162,6 +158,20 @@ const Aside = ({ isSidebarOpen, setIsSidebarOpen }: any) => {
                                 </>
                             )
                         }
+
+                        <NavLink to="/dashboard/cancelled-bookings">
+                            <button className=" font-semibold py-2 text-xs 2xl:text-sm bg-primary text-left rounded-lg text-red-300 w-full mb-5  flex items-center gap-2">
+                                <BookCheck size={15} />  Cancelled Bookings
+                            </button>
+                        </NavLink>
+
+                        <NavLink to="/dashboard/cancelled-orders">
+                            <button className=" font-semibold py-2 text-xs 2xl:text-sm bg-primary text-left rounded-lg text-red-300 w-full mb-5  flex items-center gap-2">
+                                <BaggageClaim size={15} />  Cancelled Orders
+                            </button>
+                        </NavLink>
+
+
                     </Accordion>
                 </div>
             </div>
