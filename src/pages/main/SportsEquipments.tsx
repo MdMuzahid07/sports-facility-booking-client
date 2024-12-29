@@ -51,7 +51,7 @@ const SportsEquipments = () => {
           </section>
           <section className="mt-14 flex justify-end">
             {
-              allProducts?.data?.length > loadMore ? <Button onClick={handleLoadMore} className="rounded-none text-2xl font-bold py-1"> {isLoading ? "Loading..." : "Load More"} <MoveRight className="ml-3" /></Button> : <p className="text-2xl"> Available equipments Loaded</p>
+              allProducts?.data?.length > loadMore ? <Button onClick={handleLoadMore} className="rounded-full text-lg font-bold py-1"> {isLoading ? "Loading..." : "Load More"} <MoveRight className="ml-3" /></Button> : <p className="text-2xl"> Available equipments Loaded</p>
             }
           </section>
         </section>

@@ -8,7 +8,8 @@ const allTimelines = [
         "className": "vertical-timeline-element--work",
         "contentStyle": {
             "background": "#F1F5F9",
-            "color": "#2C2D2D"
+            "color": "#2C2D2D",
+            "border-radius": "13px"
         },
         "contentArrowStyle": {
             "borderRight": "7px solid  #F1F5F9"
@@ -32,7 +33,8 @@ const allTimelines = [
         "className": "vertical-timeline-element--work",
         "contentStyle": {
             "background": "#F1F5F9",
-            "color": "#2C2D2D"
+            "color": "#2C2D2D",
+            "border-radius": "13px"
         },
         "contentArrowStyle": {
             "borderRight": "7px solid  #F1F5F9"
@@ -56,7 +58,8 @@ const allTimelines = [
         "className": "vertical-timeline-element--work",
         "contentStyle": {
             "background": "#F1F5F9",
-            "color": "#2C2D2D"
+            "color": "#2C2D2D",
+            "border-radius": "13px"
         },
         "contentArrowStyle": {
             "borderRight": "7px solid  #F1F5F9"
@@ -80,7 +83,8 @@ const allTimelines = [
         "className": "vertical-timeline-element--work",
         "contentStyle": {
             "background": "#F1F5F9",
-            "color": "#2C2D2D"
+            "color": "#2C2D2D",
+            "border-radius": "13px"
         },
         "contentArrowStyle": {
             "borderRight": "7px solid  #F1F5F9"
@@ -104,7 +108,8 @@ const allTimelines = [
         "className": "vertical-timeline-element--work",
         "contentStyle": {
             "background": "#F1F5F9",
-            "color": "#2C2D2D"
+            "color": "#2C2D2D",
+            "border-radius": "13px"
         },
         "contentArrowStyle": {
             "borderRight": "7px solid  #F1F5F9"
@@ -128,7 +133,8 @@ const allTimelines = [
         "className": "vertical-timeline-element--work",
         "contentStyle": {
             "background": "#F1F5F9",
-            "color": "#2C2D2D"
+            "color": "#2C2D2D",
+            "border-radius": "13px"
         },
         "contentArrowStyle": {
             "borderRight": "7px solid  #F1F5F9"
@@ -152,7 +158,8 @@ const allTimelines = [
         "className": "vertical-timeline-element--work",
         "contentStyle": {
             "background": "#F1F5F9",
-            "color": "#2C2D2D"
+            "color": "#2C2D2D",
+            "border-radius": "13px"
         },
         "contentArrowStyle": {
             "borderRight": "7px solid  #F1F5F9"
@@ -176,7 +183,8 @@ const allTimelines = [
         "className": "vertical-timeline-element--work",
         "contentStyle": {
             "background": "#F1F5F9",
-            "color": "#2C2D2D"
+            "color": "#2C2D2D",
+            "border-radius": "13px"
         },
         "contentArrowStyle": {
             "borderRight": "7px solid  #F1F5F9"
@@ -200,7 +208,8 @@ const allTimelines = [
         "className": "vertical-timeline-element--work",
         "contentStyle": {
             "background": "#F1F5F9",
-            "color": "#2C2D2D"
+            "color": "#2C2D2D",
+            "border-radius": "13px"
         },
         "contentArrowStyle": {
             "borderRight": "7px solid  #F1F5F9"
@@ -224,7 +233,8 @@ const allTimelines = [
         "className": "vertical-timeline-element--work",
         "contentStyle": {
             "background": "#F1F5F9",
-            "color": "#2C2D2D"
+            "color": "#2C2D2D",
+            "border-radius": "13px"
         },
         "contentArrowStyle": {
             "borderRight": "7px solid  #F1F5F9"
@@ -247,35 +257,37 @@ const allTimelines = [
 
 const HistoryAndTimeline = () => {
     return (
-        <section className="py-32 max-w-7xl mx-auto px-4 xl:px-0 border-b border-primary">
-            <h3 className="text-3xl md:text-5xl font-extrabold mb-5">History and Timeline</h3>
-            <div className="mt-10">
-                <VerticalTimeline layout={"1-column-left"}>
-                    {
-                        allTimelines?.map((timeline) => (
-                            <VerticalTimelineElement
-                                key={timeline?.key}
-                                className={timeline?.className}
-                                contentStyle={timeline?.contentStyle}
-                                contentArrowStyle={timeline?.contentArrowStyle}
-                                date={timeline?.date}
-                                iconStyle={timeline?.iconStyle}
-                                icon={timeline?.icon}
-                            >
-                                <h3 className="vertical-timeline-element-title">{timeline?.title}</h3>
-                                <h4 className="vertical-timeline-element-subtitle">{timeline?.subtitle}</h4>
-                                <p>{timeline?.description}</p>
-                            </VerticalTimelineElement>
-                        ))
-                    }
+        <div className="bg-[#2B2C2D]">
+            <section className="py-32 max-w-7xl mx-auto px-4 xl:px-0 border-b border-primary">
+                <h3 className="text-3xl md:text-5xl text-slate-200 font-bold mb-5">History and Timeline</h3>
+                <div className="mt-10">
+                    <VerticalTimeline layout={"1-column-left"}  >
+                        {
+                            allTimelines?.map((timeline) => (
+                                <VerticalTimelineElement
+                                    key={timeline?.key}
+                                    className={`${timeline?.className}`}
+                                    contentStyle={timeline?.contentStyle}
+                                    contentArrowStyle={timeline?.contentArrowStyle}
+                                    date={timeline?.date}
+                                    iconStyle={timeline?.iconStyle}
+                                    icon={timeline?.icon}
+                                >
+                                    <h3 className="vertical-timeline-element-title">{timeline?.title}</h3>
+                                    <h4 className="vertical-timeline-element-subtitle">{timeline?.subtitle}</h4>
+                                    <p>{timeline?.description}</p>
+                                </VerticalTimelineElement>
+                            ))
+                        }
 
-                    <VerticalTimelineElement
-                        iconStyle={{ background: '#2C2D2D', color: '#fff' }}
-                        icon={<StarIcon />}
-                    />
-                </VerticalTimeline>
-            </div>
-        </section>
+                        <VerticalTimelineElement
+                            iconStyle={{ background: '#2C2D2D', color: '#fff' }}
+                            icon={<StarIcon />}
+                        />
+                    </VerticalTimeline>
+                </div>
+            </section>
+        </div>
     )
 }
 

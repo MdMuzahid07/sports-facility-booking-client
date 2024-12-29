@@ -33,8 +33,8 @@ const ScrollToTop = () => {
     return (
         <>
             {
-                isVisible && <Button onClick={scrollTop} className="rounded-none fixed bottom-7 right-4">
-                    <ArrowUp />
+                isVisible && <Button onClick={scrollTop} className="fixed bottom-7 right-4 w-10 rounded-full p-0">
+                    <ArrowUp className="w-4 h-4" />
                 </Button >
             }
         </>
