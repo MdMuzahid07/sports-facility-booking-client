@@ -35,7 +35,7 @@ const OrderPaidUnpaidPieChart: React.FC = () => {
     const COLORS = ["#0088FE", "#FF8042"];
 
     return (
-        <section className="bg-slate-100 rounded-xl shadow-xl p-6" >
+        <section className="bg-slate-100 rounded-2xl drop-shadow-sm p-6" >
             <h2 className="text-lg font-semibold mb-2">Store : Sports Equipments Payment</h2>
             <ResponsiveContainer width="100%" height={400}>
                 <PieChart>

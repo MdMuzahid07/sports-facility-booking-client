@@ -65,33 +65,33 @@ const AddFacility = () => {
 
     return (
         <div className="py-10">
-            <h1 className="gap-8 text-3xl md:text-4xl lg:text-5xl xl:text-7xl font-extrabold">
+            <h1 className="gap-8 text-3xl md:text-4xl font-bold">
                 Add Facility
             </h1>
-            <div className="bg-white p-8 rounded-lg mt-14 min-h-[450px]  relative">
+            <div className="bg-white p-8 rounded-2xl mt-6 min-h-[450px]  relative">
                 <form onSubmit={handleSubmit(onSubmit)} >
                     <div className="mb-8">
                         <Label className="mb-2" htmlFor="picture">Select Images</Label>
                         <MultipleImageSelector
-
                             onImagesSelected={handleImageSelection}
                             multiple={true}
                             maxFiles={3}
+                            style="rounded-2xl"
                             accept="image/png, image/jpeg"
                         />
                     </div>
                     <div className="grid sm:grid-cols-2 gap-8 h-full">
                         <div>
                             <Label htmlFor="picture">Facility Name</Label>
-                            <Input {...register("name", { required: true })} type="text" placeholder="Facility Name" />
+                            <Input className="rounded-full drop-shadow-sm"  {...register("name", { required: true })} type="text" placeholder="Facility Name" />
                         </div>
                         <div>
                             <Label htmlFor="location">Location</Label>
-                            <Input {...register("location", { required: true })} id="location" type="text" placeholder="Facility Location" />
+                            <Input className="rounded-full drop-shadow-sm" {...register("location", { required: true })} id="location" type="text" placeholder="Facility Location" />
                         </div>
                         <div>
                             <Label htmlFor="price">Price Per Hour</Label>
-                            <Input id="price" {...register("pricePerHour", { required: true })} type="text" placeholder="Facility price per hour" />
+                            <Input className="rounded-full drop-shadow-sm" id="price" {...register("pricePerHour", { required: true })} type="text" placeholder="Facility price per hour" />
                         </div>
 
                     </div>
@@ -103,7 +103,7 @@ const AddFacility = () => {
                         </div>
                     </div>
                     <div className=" mt-16 flex justify-end">
-                        <Button type="submit" className="text-lg">Add</Button>
+                        <Button type="submit" className="text-lg rounded-full">Add Facility</Button>
                     </div>
                 </form>
             </div>

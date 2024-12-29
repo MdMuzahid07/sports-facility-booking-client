@@ -92,12 +92,11 @@ const ManageOrders = () => {
 
     return (
         <div className="py-10">
-            <h1 className="gap-8 text-3xl md:text-4xl lg:text-5xl xl:text-7xl font-extrabold">
+            <h1 className="gap-8 text-3xl md:text-4xl font-bold">
                 Manage Orders
             </h1>
-            <section className="mt-14">
-                <Table className="bg-white rounded-lg shadow">
-                    <TableCaption className="text-lg font-bold">User Orders</TableCaption>
+            <section className="mt-6">
+                <Table className="bg-white rounded-2xl drop-shadow-sm">
                     <TableHeader>
                         <TableRow>
                             <TableHead className="w-[50px]">No.</TableHead>

@@ -68,11 +68,11 @@ const ManageFacilities = () => {
 
     return (
         <div className="py-10">
-            <h1 className="gap-8 text-3xl md:text-4xl lg:text-5xl xl:text-7xl font-extrabold">
+            <h1 className="gap-8 text-3xl md:text-4xl font-bold">
                 Manage Facilities
             </h1>
-            <section className="mt-14">
-                <Table className="bg-white rounded-lg">
+            <section className="mt-6">
+                <Table className="bg-white rounded-2xl drop-shadow-sm">
                     <TableCaption>A list of facilities</TableCaption>
                     <TableHeader>
                         <TableRow>

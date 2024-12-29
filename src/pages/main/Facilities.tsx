@@ -74,8 +74,8 @@ const Facilities = () => {
             </Helmet>
 
             <section className="bg-slate-200">
-                <div className="max-w-7xl mx-auto px-4 xl:px-0 py-32">
-                    <h3 className="text-3xl md:text-5xl font-extrabold mb-5">Facilities</h3>
+                <div className="max-w-7xl mx-auto px-4 xl:px-0 pt-20 pb-32">
+                    <h3 className="text-3xl md:text-5xl font-bold mb-5">Facilities</h3>
                     <p className="text-xl md:text-2xl lg:text-3xl">
                         Explore world-class facilities designed to elevate your experience. Discover everything you need to achieve your goals and enjoy unmatched comfort.
                     </p>
