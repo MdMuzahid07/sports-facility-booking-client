@@ -62,10 +62,10 @@ const CartDropdown = ({ cartDrop, setCartDrop }: any) => {
 
             <Dropdown
                 active={cartDrop}
-                styles="absolute w-full md:w-[400px] h-[500px] md:h-[600px] right-0 top-20  text-left"
+                styles="absolute w-full md:w-[400px] h-[500px] md:h-[600px] right-0 top-20  text-left rounded-2xl border-white"
             >
-                <h1 className="text-xl font-bold border-b border-primary pb-1 flex items-center gap-2">
-                    <ShoppingCart size={30} />
+                <h1 className="text-lg border-b border-primary pb-1 flex items-center gap-2">
+                    <ShoppingCart className="w-5 h-5" />
 
                     My Cart
                 </h1>
@@ -81,8 +81,9 @@ const CartDropdown = ({ cartDrop, setCartDrop }: any) => {
                     }
                 </div>
                 <div className="flex justify-between items-center gap-2 bottom-0 pt-3">
-                    <button onClick={() => handleCart()} className="border w-full py-1.5 border-primary font-bold hover:bg-white hover:text-primary bg-primary text-white">View Cart</button>
-                    <button disabled={cartProducts?.length <= 0} onClick={handleClearCart} className={`${(cartProducts?.length <= 0) ? "opacity-75 hover:bg-primary" : ""} border w-full py-1.5 border-primary font-bold hover:bg-primary hover:text-white`}>Clear Cart</button>
+                    <button onClick={() => handleCart()} className="border rounded-full w-full py-1.5 border-primary font-bold hover:bg-white hover:text-primary bg-primary text-white">View Cart</button>
+
+                    <button disabled={cartProducts?.length <= 0} onClick={handleClearCart} className={`${(cartProducts?.length <= 0) ? "opacity-75 hover:bg-primary" : ""} border w-full py-1.5 border-primary font-bold hover:bg-primary hover:text-white rounded-full`}>Clear Cart</button>
                 </div>
             </Dropdown>
         </div>
