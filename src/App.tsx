@@ -15,7 +15,7 @@ const App = () => {
   PageTopByDefault();
 
   return (
-    <main>
+    <main className="relative">
       <Helmet>
         <title>PlayTime Pro | Home</title>
         <meta

@@ -139,3 +139,25 @@
   font-weight: 900;
   font-style: italic;
 }
+
+.custom-scrollbar {
+  overflow-y: scroll; /* Enable vertical scrolling */
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 7px; /* Width of the scrollbar */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #d9d9d9; /* Light grey background */
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #2e2e2e8f; /* Grey color */
+  border-radius: 6px; /* Rounded corners */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Darker grey on hover */
+}
