@@ -25,7 +25,7 @@ const ShopSection = () => {
                 </section>
                 <section className="mt-14 flex justify-end">
                     <Link to="/store">
-                        <Button className="rounded-none text-2xl font-bold py-1"> More Items <MoveRight className="ml-3" /></Button>
+                        <Button className="rounded-full text-lg font-bold py-1"> More Items <MoveRight className="ml-3" /></Button>
                     </Link>
                 </section>
             </section>

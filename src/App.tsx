@@ -31,7 +31,7 @@ const App = () => {
       <WinterSaleFacilities />
       <FeaturedFacilities />
       <ExploreFacilities />
-      {/* <FeaturedProducts/> */}
+      {/* <FeaturedProducts /> */}
       <ShopSection />
       <Testimonial />
       <MosaicSportsGallery />
