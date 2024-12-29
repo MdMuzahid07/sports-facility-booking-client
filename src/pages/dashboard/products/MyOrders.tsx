@@ -22,57 +22,28 @@ import {
 import { Settings, Trash } from "lucide-react"
 import { toast } from "sonner";
 // import { useNavigate } from "react-router-dom"
-import { FetchBaseQueryError } from "@reduxjs/toolkit/query"
-import { useDeleteAOrderMutation, useGetAllOrderQuery } from "@/redux/features/order/orderApi"
-
-type TError = {
-    message?: string;
-}
+import { useCancelOrderByUserMutation, useGetAllOrderQuery } from "@/redux/features/order/orderApi"
 
 const MyOrders = () => {
     const { data: myOrders } = useGetAllOrderQuery(undefined);
-    const [deleteAOrder, { error }] = useDeleteAOrderMutation();
+    const [cancelOrderByUser, { error }] = useCancelOrderByUserMutation();
 
+    console.error(error)
 
-    // const navigate = useNavigate();
-
-
-    console.log(myOrders);
-
-    const handleDeleteOrder = async (id: string) => {
+    const handleCancelOrder = async (id: string) => {
         const proceed = window.confirm("Cancel Order?");
         if (proceed) {
             try {
-                toast.loading("Loading...", { id: "deleteId" });
-                const res = await deleteAOrder(id).unwrap();
+                toast.loading("Cancel Processing...", { id: "deleteId" });
+                const res = await cancelOrderByUser({ id }).unwrap();
                 if (res?.success) {
                     toast.success("Order canceled successfully", { id: "deleteId" });
-                }
-                else {
-                    if (error) {
-                        if ("data" in error && (error as FetchBaseQueryError).data) {
-                            toast.error(`${((error as FetchBaseQueryError).data as TError)?.message || "Something went wrong!"}`, { id: "deleteId" });
-                        } else {
-                            toast.error(`Something went wrong!`, { id: "deleteId" });
-                        }
-                    };
                 }
             } catch (error) {
                 toast.error(`Something went wrong!`, { id: "deleteId" });
             }
         }
     };
-
-
-    // const handleUpdateOrder = (id: string) => {
-    //     // navigate(`/dashboard/update-facility/${id}`);
-    // };
-
-
-    // const handleViewOrder = (id: string) => {
-    //     navigate(`/product-details/${id}`);
-    // };
-
 
     return (
         <div className="py-10">
@@ -156,7 +127,7 @@ const MyOrders = () => {
                                                 </DropdownMenuItem>
                                             } */}
                                             <DropdownMenuItem
-                                                onClick={() => handleDeleteOrder(order?._id)}
+                                                onClick={() => handleCancelOrder(order?._id)}
                                                 className="font-bold text-red-600"
                                             >
                                                 <Trash className="mr-2 h-4 w-4" />

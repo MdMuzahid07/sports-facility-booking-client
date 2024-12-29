@@ -31,7 +31,6 @@ const ManageOrders = () => {
     const { data: allOrders } = useGetAllOrderQuery(undefined);
     const [deleteAOrder, { error }] = useDeleteAOrderMutation();
     const [updateOrderStatus, { error: orderStatusError }] = useUpdateOrderStatusMutation();
-    console.log(orderStatusError, "order status error 🐞🐞🐞🐞🐞🐞")
 
     const handleChangeOrderStatus = async (id: string, payload: string) => {
 

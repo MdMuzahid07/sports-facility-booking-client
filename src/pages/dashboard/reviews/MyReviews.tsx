@@ -25,7 +25,7 @@ import { toast } from "sonner";
 
 
 const MyReviews = () => {
-    const { data } = useGetAllReviewQuery(undefined);
+    const { data, isLoading: isReviewLoading } = useGetAllReviewQuery(undefined);
     const user = useAppSelector((state) => state?.auth?.user);
     const [deleteAReview, { data: deleteReviewData, isLoading, error }] = useDeleteAReviewMutation();
 
@@ -67,43 +67,45 @@ const MyReviews = () => {
                 My Reviews
             </h1>
             <section className="mt-6">
-                <Table className="bg-white rounded-2xl drop-shadow-sm">
-                    <TableCaption className="text-lg font-bold">User reviews</TableCaption>
-                    <TableHeader>
-                        <TableRow>
-                            <TableHead className="w-[50px]">No.</TableHead>
-                            <TableHead className="w-[150px]">User Image</TableHead>
-                            <TableHead className="w-[150px]">Name</TableHead>
-                            <TableHead>Facility/Product ID</TableHead>
-                            <TableHead>Rating</TableHead>
-                            <TableHead>Review Text</TableHead>
-                            <TableHead>Actions</TableHead>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                        {userReviews?.map((review: any, index: any) => (
-                            <TableRow key={review?._id}>
-                                <TableCell className="font-medium">{index + 1}</TableCell>
-                                <TableCell>
-                                    <img className="w-12 h-12 rounded-full object-cover object-center" src={review?.userId?.avatar} alt="" />
-                                </TableCell>
-                                <TableCell>{review?.userId?.name || "N/A"}</TableCell>
-                                <TableCell>{review?.facilityOrProductId || "N/A"}</TableCell>
-                                <TableCell>{review?.rating || "N/A"}</TableCell>
-                                <TableCell>{review?.reviewText || "N/A"}</TableCell>
+                {
+                    !isReviewLoading && (
+                        <Table className="bg-white rounded-2xl drop-shadow-sm">
+                            <TableCaption className="text-lg font-bold">User reviews</TableCaption>
+                            <TableHeader>
+                                <TableRow>
+                                    <TableHead className="w-[50px]">No.</TableHead>
+                                    <TableHead className="w-[150px]">User Image</TableHead>
+                                    <TableHead className="w-[150px]">Name</TableHead>
+                                    <TableHead>Facility/Product ID</TableHead>
+                                    <TableHead>Rating</TableHead>
+                                    <TableHead>Review Text</TableHead>
+                                    <TableHead>Actions</TableHead>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                {userReviews?.map((review: any, index: any) => (
+                                    <TableRow key={review?._id}>
+                                        <TableCell className="font-medium">{index + 1}</TableCell>
+                                        <TableCell>
+                                            <img className="w-12 h-12 rounded-full object-cover object-center" src={review?.userId?.avatar} alt="" />
+                                        </TableCell>
+                                        <TableCell>{review?.userId?.name || "N/A"}</TableCell>
+                                        <TableCell>{review?.facilityOrProductId || "N/A"}</TableCell>
+                                        <TableCell>{review?.rating || "N/A"}</TableCell>
+                                        <TableCell>{review?.reviewText || "N/A"}</TableCell>
 
-                                <TableCell className="text-right">
-                                    <DropdownMenu>
-                                        <DropdownMenuTrigger asChild>
-                                            <Button variant="outline" className="flex items-center rounded-full gap-2">
-                                                <Settings size={15} />
-                                                Options
-                                            </Button>
-                                        </DropdownMenuTrigger>
-                                        <DropdownMenuContent align="end" className="w-56">
-                                            <DropdownMenuLabel className="font-bold">Actions</DropdownMenuLabel>
-                                            <DropdownMenuSeparator />
-                                            {/* {
+                                        <TableCell className="text-right">
+                                            <DropdownMenu>
+                                                <DropdownMenuTrigger asChild>
+                                                    <Button variant="outline" className="flex items-center rounded-full gap-2">
+                                                        <Settings size={15} />
+                                                        Options
+                                                    </Button>
+                                                </DropdownMenuTrigger>
+                                                <DropdownMenuContent align="end" className="w-56">
+                                                    <DropdownMenuLabel className="font-bold">Actions</DropdownMenuLabel>
+                                                    <DropdownMenuSeparator />
+                                                    {/* {
                                                 (review?.paymentMethod === "Pending") && <DropdownMenuItem
                                                     // onClick={() => handleUpdatereview(review?._id)}
                                                     className="font-bold"
@@ -112,20 +114,22 @@ const MyReviews = () => {
                                                     Make Payment
                                                 </DropdownMenuItem>
                                             } */}
-                                            <DropdownMenuItem
-                                                onClick={() => handleDelete((user as any)?.id, review?._id)}
-                                                className="font-bold text-red-600"
-                                            >
-                                                <Trash className="mr-2 h-4 w-4" />
-                                                Delete Review
-                                            </DropdownMenuItem>
-                                        </DropdownMenuContent>
-                                    </DropdownMenu>
-                                </TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
+                                                    <DropdownMenuItem
+                                                        onClick={() => handleDelete((user as any)?.id, review?._id)}
+                                                        className="font-bold text-red-600"
+                                                    >
+                                                        <Trash className="mr-2 h-4 w-4" />
+                                                        Delete Review
+                                                    </DropdownMenuItem>
+                                                </DropdownMenuContent>
+                                            </DropdownMenu>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    )
+                }
             </section>
         </div>
     )
