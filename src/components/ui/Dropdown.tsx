@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { memo } from "react";
+
 const Dropdown = ({ children, styles, active }: any) => {
     return (
         <div
@@ -11,5 +13,5 @@ const Dropdown = ({ children, styles, active }: any) => {
     );
 }
 
-export default Dropdown;
+export default memo(Dropdown);
 
