@@ -158,7 +158,7 @@ const ManageFacilities = () => {
                     {/* Array.form  This creates an array of a specific length (totalPages in this case) */}
                     {Array.from({ length: totalPages }, (_, index) => (
                         <button
-                            className={`rounded-full w-10 h-10 flex items-center justify-center ${currentPage === index + 1 ? "bg-black text-white" : "bg-slate-300 text-black border"}`}
+                            className={`rounded-lg w-9 h-9 flex items-center justify-center ${currentPage === index + 1 ? "bg-black text-white" : "bg-slate-300 text-black border"}`}
                             key={index}
                             onClick={() => handleChangePage(index + 1)}
                             //  disables the button for the currently active page, so user can't re select the page they are already on.
