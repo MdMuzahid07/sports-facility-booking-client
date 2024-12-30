@@ -2,6 +2,7 @@
 import LoadingSpinner from "@/components/LoadingSpinner";
 import { Button } from "@/components/ui/button";
 import { useGetAllFacilitiesQuery } from "@/redux/features/facilities/facilityApi";
+import { MoveRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const WinterSaleFacilities = () => {
@@ -32,7 +33,7 @@ const WinterSaleFacilities = () => {
                                 filtered?.map((facility: any) => (
 
                                     <div
-                                        className="relative bg-cover bg-center h-96 flex items-center justify-start"
+                                        className="relative bg-cover bg-center h-96 flex items-center justify-start rounded-2xl overflow-hidden"
                                         style={{
                                             backgroundImage: `url(${facility?.image?.[0]})`,
                                         }}
@@ -48,7 +49,7 @@ const WinterSaleFacilities = () => {
                                             <p className="text-gray-300 text-lg md:text-xl leading-relaxed mb-6">
                                                 {facility?.name}...
                                             </p>
-                                            <Button onClick={() => handleRedirectToDetails(facility?._id)} className="mt-6 rounded-none text-2xl md:text-3xl lg:text-4xl">View More</Button>
+                                            <Button onClick={() => handleRedirectToDetails(facility?._id)} className="mt-6 rounded-full text-2xl  ">View More <MoveRight className="ml-3" /> </Button>
 
                                         </div>
                                     </div>

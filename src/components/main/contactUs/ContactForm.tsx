@@ -19,7 +19,7 @@ const ContactForm = () => {
 
             <div className="space-y-6">
                 <div className="mb-10">
-                    <h3 className="text-3xl md:text-5xl font-extrabold mb-5">Contact Us</h3>
+                    <h3 className="text-3xl md:text-5xl font-bold mb-5">Contact Us</h3>
                     <p className="text-xl md:text-2xl lg:text-3xl">We'd love to hear from you!</p>
                 </div>
 
@@ -50,14 +50,14 @@ const ContactForm = () => {
                                         <span><User /></span>
                                         <span>Name</span>
                                     </Label>
-                                    <Input className="rounded-none bg-slate-100" id="name" placeholder="Name of your project" />
+                                    <Input className="rounded-full drop-shadow-sm bg-slate-100" id="name" placeholder="Name of your project" />
                                 </div>
                                 <div className="flex flex-col space-y-1.5">
                                     <Label className=" flex items-center gap-2" htmlFor="mail">
                                         <span><Mail /></span>
                                         <span>Email</span>
                                     </Label>
-                                    <Input type="email" className="rounded-none bg-slate-100" id="mail" placeholder="Name of your project" />
+                                    <Input type="email" className="rounded-full drop-shadow-sm bg-slate-100" id="mail" placeholder="Name of your project" />
                                 </div>
                             </div>
                             <div className="grid sm:grid-cols-2 gap-4">
@@ -66,14 +66,14 @@ const ContactForm = () => {
                                         <span><PhoneCall /></span>
                                         <span>Phone</span>
                                     </Label>
-                                    <Input className="rounded-none bg-slate-100" id="phone" placeholder="Name of your project" />
+                                    <Input className="rounded-full drop-shadow-sm bg-slate-100" id="phone" placeholder="Name of your project" />
                                 </div>
                                 <div className="flex flex-col space-y-1.5">
                                     <Label className=" flex items-center gap-2" htmlFor="subject">
                                         <span><Notebook /></span>
                                         <span>Subject</span>
                                     </Label>
-                                    <Input className="rounded-none bg-slate-100" id="subject" placeholder="Name of your project" />
+                                    <Input className="rounded-full drop-shadow-sm bg-slate-100" id="subject" placeholder="Name of your project" />
                                 </div>
                             </div>
                             <div className="flex flex-col space-y-1.5">
@@ -81,10 +81,10 @@ const ContactForm = () => {
                                     <span><Pencil /></span>
                                     <span>How can we help you, feel free to get in touch</span>
                                 </Label>
-                                <textarea className="w-full bg-slate-100 mt-2" rows={4} name="" id=""></textarea>
+                                <textarea className="w-full rounded-2xl border-none drop-shadow-sm bg-slate-100 mt-2" rows={4} name="" id=""></textarea>
                             </div>
 
-                            <Button type="submit" className="rounded-none mt-5">Submit</Button>
+                            <Button type="submit" className="rounded-full drop-shadow-sm mt-5 text-lg">Submit</Button>
                         </div>
                     </form>
                 </CardContent>

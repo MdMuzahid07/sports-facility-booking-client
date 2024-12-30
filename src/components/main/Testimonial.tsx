@@ -55,10 +55,10 @@ const Testimonial = () => {
                 </div>
                 <div className="flex items-center justify-end mb-5 mr-4">
                     <div className="flex items-center space-x-6">
-                        <Button onClick={() => sliderRef.current?.slickPrev()} className="rounded-none">
+                        <Button onClick={() => sliderRef.current?.slickPrev()} className="rounded-full">
                             <ChevronLeft />
                         </Button>
-                        <Button onClick={() => sliderRef.current?.slickNext()} className="rounded-none">
+                        <Button onClick={() => sliderRef.current?.slickNext()} className="rounded-full">
                             <ChevronRight />
                         </Button>
                     </div>

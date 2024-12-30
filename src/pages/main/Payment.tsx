@@ -59,12 +59,12 @@ const Payment = () => {
             </Helmet>
 
             <section className="min-h-screen bg-slate-100 pt-24 px-4 xl:px-0">
-                <section className="max-w-7xl mx-auto bg-slate-200 p-8 py-14">
+                <section className="max-w-7xl mx-auto rounded-2xl drop-shadow-sm bg-slate-200 p-8 py-14">
                     <h1 className="text-3xl md:text-5xl font-bold mb-10">Payment Options</h1>
 
                     <section className="grid lg:grid-cols-2 gap-10">
                         <section
-                            className={`p-4 border cursor-pointer ${selectedMethod === "COD" ? "border-primary bg-primary text-white" : "border-gray-300"
+                            className={`p-4 border rounded-2xl drop-shadow-sm cursor-pointer ${selectedMethod === "COD" ? "border-primary bg-primary text-white" : "border-gray-300"
                                 }`}
                             onClick={() => handlePaymentSelection("COD")}
                         >
@@ -73,7 +73,7 @@ const Payment = () => {
                         </section>
 
                         <section
-                            className={`p-4 border cursor-pointer ${selectedMethod === "AamarPay" ? "border-[#FE9A02] bg-[#FE9A02]" : "border-gray-300"
+                            className={`p-4 border  rounded-2xl drop-shadow-sm  cursor-pointer ${selectedMethod === "AamarPay" ? "border-[#FE9A02] bg-[#FE9A02]" : "border-gray-300"
                                 }`}
                             onClick={() => handlePaymentSelection("AamarPay")}
                         >
@@ -86,7 +86,7 @@ const Payment = () => {
                         <Button
                             type="submit"
                             onClick={handlePaymentSubmit}
-                            className="rounded-none text-2xl font-bold py-1">
+                            className="rounded-full text-2lg font-bold py-1">
                             {buttonText}
                         </Button>
                     </div>

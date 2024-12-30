@@ -5,7 +5,7 @@ import { Link, NavLink } from "react-router-dom"
 import { Menu, X } from "lucide-react";
 import UserDropdown from "./UserDropdown";
 import { useAppSelector } from "@/redux/hooks";
-import CartDropdown from "@/cart/CartDropdown";
+import CartDrawer from "@/cart/CartDrawer";
 
 const Navbar = () => {
     const [isMobileNavOpen, setIsMobileAppOpen] = useState(false);
@@ -40,7 +40,7 @@ const Navbar = () => {
 
     return (
         <header className={`bg-slate-100 border-b w-full sticky top-0 z-50 ${isVisible ? "bg-opacity-35 backdrop-blur" : ""}`}>
-            <nav className="max-w-7xl mx-auto flex justify-between items-center h-20 px-4 xl:px-0 relative">
+            <nav className="max-w-7xl mx-auto flex justify-between items-center h-20 px-4 xl:px-0">
                 <div>
                     {/* <img className="w-1- h-10" src="" alt="" /> */}
                     <Link to="/">
@@ -55,7 +55,7 @@ const Navbar = () => {
                             navLinks?.map((nav) => <li className="font-bold uppercase text-lg" key={nav?.title}><NavLink to={nav?.path}>{nav?.title}</NavLink></li>)
                         }
                     </ul>
-                    <CartDropdown cartDrop={cartDrop} setCartDrop={setCartDrop} />
+                    <CartDrawer cartDrop={cartDrop} setCartDrop={setCartDrop} />
                     {
                         user?.role ? <UserDropdown /> : <NavLink to="/login">
                             <Button className="hidden md:flex rounded-full md:text-xl">

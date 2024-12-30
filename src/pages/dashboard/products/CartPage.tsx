@@ -93,8 +93,8 @@ const CartPage = () => {
                 <div className="grid lg:grid-cols-8 gap-7 mt-14">
                     <div className="lg:col-span-5">
                         <h1 className="text-xl md:text-2xl lg:text-4xl font-bold ">My Cart</h1>
-                        <div className=" border-t border-primary mt-7">
-                            <div className="overflow-y-scroll md:h-[600px] mt-7 bg-white px-4">
+                        <div className="border-t border-primary mt-7">
+                            <div className="overflow-y-scroll md:h-[600px] mt-7 bg-white px-4 rounded-2xl overflow-hidden drop-shadow-sm">
                                 {
                                     cartProducts.length > 0 ? cartProducts?.map((product: any) => <CartPageCard key={product?._id} product={product} />) : <div className="flex items-center justify-center h-full">
                                         <p className=" text-2xl">Add items to your cart to continue your purchase.</p>
@@ -106,7 +106,7 @@ const CartPage = () => {
                     <div className="lg:col-span-3">
                         <h1 className="text-xl sm:text-2xl md:text-4xl">Order Summery</h1>
                         <div className="border-t border-primary mt-7">
-                            <div className="bg-white px-5 py-10 mt-7">
+                            <div className="bg-white px-5 py-10 mt-7 rounded-2xl drop-shadow-sm">
                                 <ul>
                                     <li className="mb-3 text-md py-1 hover:bg-primary hover:text-white px-2 flex justify-between items-center">
                                         <span className="font-bold ">Total Products :</span>
@@ -127,8 +127,8 @@ const CartPage = () => {
                                     <li className="relative mb-3 py-1 px-2">
                                         <span className="font-bold ">Coupon Code(if have):</span> <div className="flex w-full items-center mt-3">
                                             <Puzzle className="w-4 h-4 absolute left-6" />
-                                            <Input className=" w-full rounded-none focus:outline-none focus:border-none active:outline-none active:border-none pl-10" type="email" placeholder="Enter Coupon Code" />
-                                            <Button className="rounded-none" type="submit">Apply Coupon</Button>
+                                            <Input className=" w-full rounded-l-full focus:outline-none focus:border-none active:outline-none active:border-none pl-10" type="email" placeholder="Enter Coupon Code" />
+                                            <Button className="rounded-r-full" type="submit">Apply Coupon</Button>
                                         </div>
                                     </li>
                                 </ul>
@@ -138,10 +138,10 @@ const CartPage = () => {
                                 <p className="text-lg  flex justify-between items-center  py-1 px-2"><span className="font-bold ">Grad Total  :</span> <span className="font-bold">${grandTotal}</span></p>
 
                                 <div className="mt-7 flex items-center gap-4 px-2">
-                                    <button onClick={handleClearCart} className="px-4 py-1 border  bg-white  hover:text-white hover:bg-red-500">Clear All</button>
+                                    <button onClick={handleClearCart} className="px-4 py-1 border  bg-white  hover:text-white hover:bg-red-500 rounded-full">Clear All</button>
                                     <button
                                         disabled={cartProducts?.length <= 0}
-                                        onClick={() => handleCart()} className={`${(cartProducts?.length <= 0) ? "opacity-75" : ""} px-4 py-1 border  bg-primary text-white font-bold w-32`}
+                                        onClick={() => handleCart()} className={`${(cartProducts?.length <= 0) ? "opacity-75" : ""} px-4 py-1 border rounded-full bg-primary text-white font-bold w-32`}
                                     >Checkout</button>
                                 </div>
                             </div>

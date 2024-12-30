@@ -6,14 +6,15 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem,
 import {
     Table,
     TableBody,
-    TableCaption,
     TableCell,
     TableHead,
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
 import { useCancelBookingMutation, useGetAllBookingsUserQuery } from "@/redux/features/bookings/bookingsApi";
+import { useAppSelector } from "@/redux/hooks";
 import { CircleOff, Settings, SquareArrowUpRight } from "lucide-react";
+import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
@@ -21,6 +22,22 @@ const MyBookings = () => {
     const { data: bookings, isLoading } = useGetAllBookingsUserQuery(undefined);
     const [cancelBooking] = useCancelBookingMutation();
     const navigate = useNavigate();
+    const currentUser = useAppSelector((state) => state.auth.user);
+    const myBookings = bookings?.data?.filter((booking: any) => booking?.user?._id === currentUser?.id);
+
+    const itemsPerPage = 7;
+    const [currentPage, setCurrentPage] = useState(1);
+    // pagination
+    const totalPages = Math.ceil(myBookings?.length / itemsPerPage);
+    const currentItems = useMemo(() => {
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        return myBookings?.slice(startIndex, endIndex);
+    }, [myBookings, currentPage]);
+
+    const handleChangePage = (page: number) => {
+        setCurrentPage(page);
+    };
 
     const handleCancel = async (id: string) => {
         const isProceed = window.confirm("Cancel Order");
@@ -47,16 +64,15 @@ const MyBookings = () => {
     }
 
 
-    console.log(bookings)
+    console.log(bookings, "bookings")
 
     return (
         <div className="py-10">
-            <h1 className="gap-8 text-3xl md:text-4xl lg:text-5xl xl:text-7xl font-extrabold">
+            <h1 className="gap-8 text-3xl md:text-4xl lg:text-5xl font-bold">
                 My Bookings
             </h1>
-            <section className="mt-14">
-                <Table className="bg-white rounded-lg">
-                    <TableCaption>My Bookings</TableCaption>
+            <section className="mt-6">
+                <Table className="bg-white rounded-t-2xl drop-shadow-sm">
                     <TableHeader>
                         <TableRow>
                             <TableHead className="w-[100px]">No.</TableHead>
@@ -70,7 +86,7 @@ const MyBookings = () => {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {bookings?.data?.map((booking: any, index: any) =>
+                        {currentItems?.map((booking: any, index: any) =>
                             <TableRow key={booking?._id}>
                                 <TableCell className="font-medium">{index + 1}</TableCell>
                                 <TableCell>
@@ -139,6 +155,21 @@ const MyBookings = () => {
                         }
                     </TableBody>
                 </Table>
+                <section className="bg-white flex items-center gap-4 justify-end rounded-b-2xl p-3 border-t pr-10">
+
+                    {/* Array.form  This creates an array of a specific length (totalPages in this case) */}
+                    {Array.from({ length: totalPages }, (_, index) => (
+                        <button
+                            className={`rounded-lg w-9 h-9 flex items-center justify-center ${currentPage === index + 1 ? "bg-black text-white" : "bg-slate-300 text-black border"}`}
+                            key={index}
+                            onClick={() => handleChangePage(index + 1)}
+                            //  disables the button for the currently active page, so user can't re select the page they are already on.
+                            disabled={currentPage === index + 1}
+                        >
+                            {index + 1}
+                        </button>
+                    ))}
+                </section>
             </section>
         </div>
     )

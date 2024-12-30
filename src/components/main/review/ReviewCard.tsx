@@ -31,7 +31,7 @@ const ReviewCard = ({ review }: any) => {
 
 
     if (isLoading) {
-        toast.loading("Creating...", { id: "deleteReviewToastId" });
+        toast.loading("Deleting...", { id: "deleteReviewToastId" });
     }
 
     if (error) {
@@ -45,7 +45,7 @@ const ReviewCard = ({ review }: any) => {
 
 
     return (
-        <div className="border-b border-slate-300 p-4 flex gap-4 relative bg-slate-100">
+        <div className="border-b border-slate-300 p-4 flex gap-4 relative bg-slate-100 rounded-2xl drop-shadow-sm">
 
             <div className="absolute right-4 top-4">
                 {
@@ -97,7 +97,7 @@ const ReviewCard = ({ review }: any) => {
                 <div className="flex flex-wrap gap-4 mt-5">
                     {
                         review?.reviewImages?.map((image: string, index: number) => (
-                            <img key={index + image} className="w-20 h-20 object-cover object-center" src={image} alt="" />
+                            <img key={index + image} className="w-20 h-20 rounded-xl object-cover object-center" src={image} alt="" />
                         ))
                     }
                 </div>

@@ -31,7 +31,7 @@ const FacilityCard = ({ facility, styles }: any) => {
                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
                 transition={{ duration: 0.5, ease: "easeOut" }}
             >
-                <Card className={`w-full  min-h-[400px] relative rounded-none border-none bg-slate-200 ${styles} border-2 transition-all duration-200 delay-100 hover:shadow-xl bg-primary hover:shadow-[#2E2E2E] hover:-translate-y-2 hover:scale-105 rounded-none border-slate-100 hover:border-[#2E2E2E]`}>
+                <Card className={`w-full  min-h-[400px] relative rounded-2xl overflow-hidden border-none bg-slate-200 ${styles} border-2 transition-all duration-200 delay-100 hover:shadow-xl bg-primary hover:shadow-[#2E2E2E] hover:-translate-y-2 hover:scale-105 border-slate-100 hover:border-[#2E2E2E]`}>
                     <CardHeader className="p-0 mb-3 ">
                         <img className="w-full h-[200px] object-cover object-center" src={facility?.image ? facility?.image[0] : "https://res.cloudinary.com/dymo0iyee/image/upload/v1725689329/1752_x3nrjw.jpg"} alt="" />
                     </CardHeader>

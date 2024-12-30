@@ -36,8 +36,8 @@ const ImageSlider = ({ images }: any) => {
             >
                 {
                     images?.map((image: string, index: number) => (
-                        <SwiperSlide key={index + image}>
-                            <img className=" max-h-[500px] object-cover object-center" src={image} />
+                        <SwiperSlide className="rounded-2xl overflow-hidden drop-shadow" key={index + image}>
+                            <img className="rounded-2xl overflow-hidden max-h-[500px] object-cover object-center" src={image} />
                         </SwiperSlide>
                     ))
                 }
@@ -53,8 +53,8 @@ const ImageSlider = ({ images }: any) => {
             >
                 {
                     images?.map((image: string, index: number) => (
-                        <SwiperSlide key={(index % Math.random()) + image}>
-                            <img className="cursor-pointer max-w-44 max-h-28 object-cover object-center" src={image} />
+                        <SwiperSlide className="rounded-2xl overflow-hidden drop-shadow" key={(index % Math.random()) + image}>
+                            <img className="cursor-pointer max-w-44 max-h-28 object-cover object-center rounded-2xl" src={image} />
                         </SwiperSlide>
                     ))
                 }

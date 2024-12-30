@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import NotificationDropdown from "@/components/dashboard/NotificationDropdown";
 import UserDropdownDashboard from "@/components/dashboard/UserDropdownDashboard";
 import { AlignJustify, AlignLeft } from "lucide-react";
 
@@ -21,8 +22,10 @@ const Header = ({ isSidebarOpen, setIsSidebarOpen }: any) => {
                     )}
                 </button>
             </div>
-
-            <UserDropdownDashboard />
+            <div className="flex flex-row items-center gap-7">
+                <NotificationDropdown />
+                <UserDropdownDashboard />
+            </div>
         </header>
     )
 };

@@ -15,7 +15,7 @@ const App = () => {
   PageTopByDefault();
 
   return (
-    <main>
+    <main className="relative">
       <Helmet>
         <title>PlayTime Pro | Home</title>
         <meta
@@ -31,7 +31,7 @@ const App = () => {
       <WinterSaleFacilities />
       <FeaturedFacilities />
       <ExploreFacilities />
-      {/* <FeaturedProducts/> */}
+      {/* <FeaturedProducts /> */}
       <ShopSection />
       <Testimonial />
       <MosaicSportsGallery />

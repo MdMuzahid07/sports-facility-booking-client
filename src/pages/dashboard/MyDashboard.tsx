@@ -9,7 +9,7 @@ const MyDashboard = () => {
 
     return (
         <section className="py-10">
-            <h3 className="text-3xl font-extrabold mb-10 mt-10">My Dashboard</h3>
+            <h3 className="text-3xl font-extrabold mb-6">My Dashboard</h3>
             {
                 user && user?.role === "user" ? (<UserDashboard />) : (<AdminDashboard />)
             }

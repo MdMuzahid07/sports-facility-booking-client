@@ -102,12 +102,12 @@ const MyProfile = () => {
 
     return (
         <div className="py-10">
-            <h1 className="gap-8 text-3xl md:text-4xl lg:text-5xl xl:text-7xl font-extrabold mb-10">
+            <h1 className="gap-8 text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
                 My Profile
             </h1>
             <div className="grid md:grid-cols-8 gap-6">
                 <section className="w-full col-span-12 lg:col-span-3">
-                    <div className="bg-white min-h-[400px] pb-10 p-6 rounded-lg">
+                    <div className="bg-white min-h-[400px] pb-10 p-6 rounded-2xl drop-shadow-sm">
                         <Label title="click to choose image" className="flex items-center gap-2 relative cursor-pointer" htmlFor="profileImage">
                             <Avatar className="w-44 h-44">
                                 {/* Display the selected image preview */}
@@ -118,7 +118,7 @@ const MyProfile = () => {
                                 )}
                                 <AvatarFallback>CN</AvatarFallback>
                             </Avatar>
-                            <div className="absolute bottom-3 text-white bg-primary w-10 h-10 rounded-lg left-[38%] flex justify-center items-center">
+                            <div className="absolute bottom-3 text-white bg-primary w-10 h-10 rounded-full left-[28%] flex justify-center items-center">
                                 <Pencil size={20} />
                             </div>
                         </Label>
@@ -132,7 +132,7 @@ const MyProfile = () => {
                     </div>
                 </section>
                 <section className="col-span-12 lg:col-span-5">
-                    <div className="bg-white w-full min-h-[450px] rounded-lg py-10">
+                    <div className="bg-white w-full min-h-[450px] rounded-2xl drop-shadow-sm py-10">
                         <section className="p-4 md:p-8">
                             <form onSubmit={handleSubmit(onSubmit)}>
                                 <div className="grid gap-4">
@@ -142,7 +142,7 @@ const MyProfile = () => {
                                             <Input
                                                 {...register("name", { required: false })}
                                                 id="name"
-                                                className="rounded-lg"
+                                                className="rounded-full drop-shadow-sm"
                                                 type="text"
                                                 placeholder="Your full name"
                                             />
@@ -153,7 +153,7 @@ const MyProfile = () => {
                                                 {...register("phone", { required: false })}
                                                 type="text"
                                                 id="phone"
-                                                className="rounded-lg"
+                                                className="rounded-full drop-shadow-sm"
                                                 placeholder="Contact number"
                                             />
                                         </div>
@@ -163,13 +163,13 @@ const MyProfile = () => {
                                         <Textarea
                                             {...register("address", { required: false })}
                                             id="address"
-                                            className="rounded-lg"
+                                            className="rounded-2xl drop-shadow-sm"
                                             placeholder="Your address"
                                         />
                                     </div>
                                 </div>
                                 <CardFooter className="p-0 mt-14 flex justify-end">
-                                    <Button className="rounded-lg" type="submit">Update Profile</Button>
+                                    <Button className="rounded-full text-lg" type="submit">Update Profile</Button>
                                 </CardFooter>
                             </form>
                         </section>

@@ -47,7 +47,7 @@ const HowItWorks = () => {
                                     animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
                                     transition={{ duration: 0.5, ease: "easeOut" }}
                                 >
-                                    <div key={index + title} className="w-full h-[270px] border-2 border-[#2E2E2E] px-5 py-8 hover:bg-[#2B2C2D] hover:text-white transition ease-in delay-50">
+                                    <div key={index + title} className="w-full h-[270px] border-2 border-[#2E2E2E] px-5 py-8 hover:bg-[#2B2C2D] hover:text-white transition ease-in delay-50 rounded-2xl">
                                         <div className="flex flew-col  justify-center">
                                             <Button className="w-12 h-12 p-2 rounded-full">
                                                 {icon}

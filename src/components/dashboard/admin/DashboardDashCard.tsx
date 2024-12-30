@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 const DashboardDashCard = ({ cardInfo }: any) => {
     return (
-        <Card className="w-full border-2 transition-all duration-200 delay-100 hover:shadow-xl bg-slate-100 hover:shadow-[#2E2E2E] hover:-translate-y-2 hover:scale-105 rounded-lg border-slate-100 hover:border-[#2E2E2E]">
+        <Card className="w-full border-2 transition-all duration-200 delay-100 hover:shadow-xl bg-slate-100 hover:shadow-[#2E2E2E] hover:-translate-y-2 hover:scale-105 rounded-2xl drop-shadow-sm border-slate-100 hover:border-[#2E2E2E]">
             <CardHeader title="click to view details" className="p-0 cursor-pointer">
 
             </CardHeader>

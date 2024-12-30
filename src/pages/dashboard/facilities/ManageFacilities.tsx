@@ -3,7 +3,6 @@
 import {
     Table,
     TableBody,
-    TableCaption,
     TableCell,
     TableHead,
     TableHeader,
@@ -27,6 +26,8 @@ import { useDeleteAFacilityMutation, useGetAllFacilitiesQuery } from "@/redux/fe
 import { useNavigate } from "react-router-dom"
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query"
 
+import { useMemo, useState } from "react"
+
 type TError = {
     message?: string;
 };
@@ -35,6 +36,8 @@ const ManageFacilities = () => {
     const { data: allFacilities } = useGetAllFacilitiesQuery(undefined);
     const [deleteAFacility, { error }] = useDeleteAFacilityMutation();
     const navigate = useNavigate();
+    const itemsPerPage = 7;
+    const [currentPage, setCurrentPage] = useState(1);
 
     const handleDelete = async (id: string) => {
         const proceed = window.confirm("Delete facility");
@@ -66,14 +69,29 @@ const ManageFacilities = () => {
     };
 
 
+
+
+    // pagination
+    const totalPages = Math.ceil(allFacilities?.data?.length / itemsPerPage);
+    const currentItems = useMemo(() => {
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        return allFacilities?.data?.slice(startIndex, endIndex);
+    }, [allFacilities, currentPage]);
+
+    const handleChangePage = (page: number) => {
+        setCurrentPage(page);
+    };
+
+
+
     return (
         <div className="py-10">
-            <h1 className="gap-8 text-3xl md:text-4xl lg:text-5xl xl:text-7xl font-extrabold">
+            <h1 className="gap-8 text-3xl md:text-4xl font-bold">
                 Manage Facilities
             </h1>
-            <section className="mt-14">
-                <Table className="bg-white rounded-lg">
-                    <TableCaption>A list of facilities</TableCaption>
+            <section className="mt-6">
+                <Table className="bg-white rounded-t-2xl drop-shadow-sm">
                     <TableHeader>
                         <TableRow>
                             <TableHead className="w-[100px]">No.</TableHead>
@@ -85,7 +103,7 @@ const ManageFacilities = () => {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {allFacilities?.data?.map((facility: any, index: any) => (
+                        {currentItems?.map((facility: any, index: any) => (
                             <TableRow key={facility?._id}>
                                 <TableCell className="font-medium">{index + 1}</TableCell>
                                 <TableCell>
@@ -134,9 +152,41 @@ const ManageFacilities = () => {
                         ))}
                     </TableBody>
                 </Table>
+
+                <section className="bg-white flex items-center gap-4 justify-end rounded-b-2xl p-3 border-t pr-10">
+
+                    {/* Array.form  This creates an array of a specific length (totalPages in this case) */}
+                    {Array.from({ length: totalPages }, (_, index) => (
+                        <button
+                            className={`rounded-lg w-9 h-9 flex items-center justify-center ${currentPage === index + 1 ? "bg-black text-white" : "bg-slate-300 text-black border"}`}
+                            key={index}
+                            onClick={() => handleChangePage(index + 1)}
+                            //  disables the button for the currently active page, so user can't re select the page they are already on.
+                            disabled={currentPage === index + 1}
+                        >
+                            {index + 1}
+                        </button>
+                    ))}
+                </section>
             </section>
-        </div>
+
+
+        </div >
     )
 };
 
 export default ManageFacilities;
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -74,15 +74,15 @@ const Facilities = () => {
             </Helmet>
 
             <section className="bg-slate-200">
-                <div className="max-w-7xl mx-auto px-4 xl:px-0 py-32">
-                    <h3 className="text-3xl md:text-5xl font-extrabold mb-5">Facilities</h3>
+                <div className="max-w-7xl mx-auto px-4 xl:px-0 pt-20 pb-32">
+                    <h3 className="text-3xl md:text-5xl font-bold mb-5">Facilities</h3>
                     <p className="text-xl md:text-2xl lg:text-3xl">
                         Explore world-class facilities designed to elevate your experience. Discover everything you need to achieve your goals and enjoy unmatched comfort.
                     </p>
 
                     <section className="grid grid-cols-1 lg:grid-cols-4 lg:gap-10 mt-20">
                         {/* Search and Filter Section */}
-                        <aside className="col-span-1 max-h-[700px] sticky top-24 bg-slate-100 p-6 w-full mb-10 lg:mb-0">
+                        <aside className="col-span-1 max-h-[700px] sticky top-24 bg-slate-100 p-6 w-full mb-10 lg:mb-0 rounded-2xl shadow-md border">
                             <h2 className="text-2xl font-extrabold  mb-10">Filter Facility</h2>
                             {/* Search Input */}
                             <section className="mb-8">
@@ -91,7 +91,7 @@ const Facilities = () => {
                                     value={searchQuery}
                                     onChange={handleSearch}
                                     type="text"
-                                    className="rounded-none"
+                                    className="rounded-full drop-shadow"
                                     placeholder="write here..."
                                 />
                             </section>
@@ -99,7 +99,7 @@ const Facilities = () => {
                             <section>
                                 <label className="block font-semibold mb-2">Filter by price</label>
                                 <Select onValueChange={(value) => handleFilterByPriceChange(value)}>
-                                    <SelectTrigger className="w-full rounded-none">
+                                    <SelectTrigger className="w-full rounded-full drop-shadow-sm">
                                         <SelectValue placeholder="Select price range" />
                                     </SelectTrigger>
                                     <SelectContent className="rounded-none">
@@ -130,7 +130,7 @@ const Facilities = () => {
                         {/* Array.form  This creates an array of a specific length (totalPages in this case) */}
                         {Array.from({ length: totalPages }, (_, index) => (
                             <Button
-                                className="rounded-none"
+                                className="rounded-full w-10 h-10 flex items-center justify-center"
                                 key={index}
                                 onClick={() => handleChangePage(index + 1)}
                                 //  disables the button for the currently active page, so user can't re select the page they are already on.

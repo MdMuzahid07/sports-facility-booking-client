@@ -33,6 +33,10 @@ import {
 import MyDashboard from "@/pages/dashboard/MyDashboard";
 import ShippingAddressFrom from "@/pages/main/ShippingAddressFrom";
 import Payment from "@/pages/main/Payment";
+import MyReviews from "@/pages/dashboard/reviews/MyReviews";
+import CancelledOrders from "@/pages/dashboard/cancelled-orders/CancelledOrders";
+import CancelledBookings from "@/pages/dashboard/cancelled-bookings/CancelledBookings";
+import CancelledBookingsUser from "@/pages/dashboard/cancelled-bookings/CancelledBookingsUser";
 
 const routes = createBrowserRouter([
     {
@@ -142,8 +146,24 @@ const routes = createBrowserRouter([
                 element: <MyOrders />
             },
             {
+                path: "cancelled-orders",
+                element: <CancelledOrders />
+            },
+            {
+                path: "cancelled-bookings",
+                element: <CancelledBookings />
+            },
+            {
+                path: "cancelled-bookings-user",
+                element: <CancelledBookingsUser />
+            },
+            {
                 path: "my-testimonial",
                 element: <MyTestimonial />
+            },
+            {
+                path: "my-reviews",
+                element: <MyReviews />
             },
             {
                 path: "add-products",

@@ -77,10 +77,10 @@ const AddProduct = () => {
 
     return (
         <section className="py-10">
-            <h1 className="gap-8 text-3xl md:text-4xl lg:text-5xl xl:text-7xl font-extrabold">
+            <h1 className="gap-8 text-3xl md:text-4xl font-bold">
                 Add Product
             </h1>
-            <section className="bg-white p-8 rounded-lg mt-10 min-h-[450px] relative">
+            <section className="bg-white p-8 rounded-2xl drop-shadow-sm mt-6 min-h-[450px] relative">
                 <form onSubmit={handleSubmit(onSubmit)}>
 
                     <div className="mb-8">
@@ -88,6 +88,7 @@ const AddProduct = () => {
                         <MultipleImageSelector
                             onImagesSelected={handleImageSelection}
                             multiple={true}
+                            style="rounded-2xl"
                             maxFiles={3}
                             accept="image/png, image/jpeg"
                         />
@@ -95,20 +96,20 @@ const AddProduct = () => {
                     <section className="grid sm:grid-cols-2 gap-8 mb-8">
                         <section>
                             <Label htmlFor="title">Product Title</Label>
-                            <Input {...register("title", { required: true })} type="text" placeholder="Product Title" />
+                            <Input className="rounded-full drop-shadow-sm" {...register("title", { required: true })} type="text" placeholder="Product Title" />
                         </section>
 
                         <section>
                             <Label htmlFor="price">Price</Label>
-                            <Input {...register("price", { required: true })} type="number" placeholder="Price" />
+                            <Input className="rounded-full drop-shadow-sm"  {...register("price", { required: true })} type="number" placeholder="Price" />
                         </section>
                         <section>
                             <Label htmlFor="quantity">Minimum quantity buy </Label>
-                            <Input {...register("quantity", { required: true })} type="number" placeholder="Quantity" />
+                            <Input className="rounded-full drop-shadow-sm"  {...register("quantity", { required: true })} type="number" placeholder="Quantity" />
                         </section>
                         <section>
                             <Label htmlFor="stock">Stock</Label>
-                            <Input {...register("stock", { required: true })} type="number" placeholder="Stock" />
+                            <Input className="rounded-full drop-shadow-sm"  {...register("stock", { required: true })} type="number" placeholder="Stock" />
                         </section>
                     </section>
 
@@ -122,7 +123,7 @@ const AddProduct = () => {
 
 
                     <section className="flex justify-end mt-16">
-                        <Button type="submit" className="text-lg">Add Product</Button>
+                        <Button type="submit" className="text-lg rounded-full">Add Product</Button>
                     </section>
                 </form>
             </section>

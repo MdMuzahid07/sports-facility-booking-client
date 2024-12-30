@@ -22,11 +22,11 @@ const CartCard = ({ product }: any) => {
 
     return (
         <div className="flex gap-2 py-5 border-b border-primary relative">
-            <img className="w-20 border drop-shadow-sm h-20 object-cover " src={product?.imageUrl?.[0]} alt="" />
+            <img className="w-20 border rounded-xl drop-shadow-sm h-20 object-cover " src={product?.imageUrl?.[0]} alt="" />
             <div className="py-1">
                 <h1 className="text-md">{product?.title}</h1>
                 <div className="flex items-center gap-2">
-                    <div className="flex items-center justify-center gap-1 border px-2 w-16">
+                    <div className="flex items-center justify-center gap-1 border px-2 w-16 rounded-full bg-white">
                         <button onClickCapture={() => handleQuantity("decrement", product?._id)} className="text-md w-4 h-4 flex justify-center items-center" >-</button>
                         <p className="text-xs">{product?.purchaseQuantity}</p>
                         <button onClickCapture={() => handleQuantity("increment", product?._id)} className="text-md w-4 h-4 flex justify-center items-center" >+</button>

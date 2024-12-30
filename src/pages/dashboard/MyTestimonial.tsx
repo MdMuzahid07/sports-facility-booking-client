@@ -45,16 +45,17 @@ const MyTestimonial = () => {
 
     return (
         <section className="py-10">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-7xl font-extrabold mb-14">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
                 Share Your Testimonial
             </h1>
-            <div className="bg-white w-full p-8 rounded-lg">
+            <div className="bg-white w-full p-8 rounded-2xl drop-shadow-sm">
                 <section className="space-y-6">
                     <div>
                         <Label htmlFor="occupation">Occupation</Label>
                         <Input
                             id="occupation"
                             name="occupation"
+                            className="rounded-full drop-shadow-sm"
                             type="text"
                             value={occupation}
                             onChange={(e) => setOccupation(e.target.value)}
@@ -68,13 +69,14 @@ const MyTestimonial = () => {
                             id="testimonialText"
                             name="testimonialText"
                             value={testimonialText}
+                            className="rounded-2xl drop-shadow-sm"
                             onChange={(e) => setTestimonialText(e.target.value)}
                             placeholder="Write your testimonial here"
                             required
                         />
                     </div>
                     <div className="flex justify-end">
-                        <Button onClick={handleSubmit} className="text-lg">
+                        <Button onClick={handleSubmit} className="text-lg rounded-full">
                             Post
                         </Button>
                     </div>

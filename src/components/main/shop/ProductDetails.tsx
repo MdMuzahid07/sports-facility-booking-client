@@ -14,6 +14,7 @@ import { useAddReviewMutation, useGetAllReviewQuery } from '@/redux/features/rev
 import { Label } from '@/components/ui/label';
 import MultipleImageSelector from '@/utils/MultipleImageSelector';
 import { toast } from 'sonner';
+import { ShoppingCart } from 'lucide-react';
 
 
 
@@ -152,10 +153,10 @@ const ProductDetails = () => {
                                 <div>
                                     <Button
                                         onClick={() => handleAddCart(product?.data)}
-                                        className="text-2xl rounded-none py-1"
+                                        className="text-lg rounded-full py-1"
                                         disabled={product?.data?.stock === 0}
                                     >
-                                        Add to Cart
+                                        Add to Cart <ShoppingCart className="ml-2 w-5 h-5" />
                                     </Button>
                                 </div>
                             </div>
@@ -167,13 +168,13 @@ const ProductDetails = () => {
                         <div className="my-10">
                             <div className="tabs flex space-x-4 mb-4">
                                 <Button
-                                    className={`tab ${activeTab === "details" ? "active" : "bg-white text-black"} font-bold rounded-none`}
+                                    className={`tab ${activeTab === "details" ? "active" : "bg-white text-black"} font-bold rounded-full`}
                                     onClick={() => handleTabSwitch("details")}
                                 >
                                     Product Details
                                 </Button>
                                 <Button
-                                    className={`tab ${activeTab === "reviews" ? "active" : "bg-white text-black"} font-bold rounded-none`}
+                                    className={`tab ${activeTab === "reviews" ? "active" : "bg-white text-black"} font-bold rounded-full`}
                                     onClick={() => handleTabSwitch("reviews")}
                                 >
                                     Reviews
@@ -232,14 +233,14 @@ const ProductDetails = () => {
                                                         multiple={true}
                                                         maxFiles={3}
                                                         accept="image/png, image/jpeg"
-                                                        style="rounded-none"
+                                                        style="rounded-2xl"
                                                     />
                                                 </div>
 
                                                 <div className="mb-4">
                                                     <label className="block text-sm font-medium">Review Text</label>
                                                     <textarea
-                                                        className="w-full p-2 border focus:outline-none"
+                                                        className="w-full rounded-2xl p-2 border-none drop-shadow-sm focus:outline-none"
                                                         rows={4}
                                                         value={reviewText}
                                                         onChange={(e) => setReviewText(e.target.value)}
@@ -247,7 +248,7 @@ const ProductDetails = () => {
                                                     ></textarea>
                                                 </div>
 
-                                                <Button disabled={!user && !(user as any)?.id} type="submit" className="btn rounded-none text-white py-2 px-4 ">
+                                                <Button disabled={!user && !(user as any)?.id} type="submit" className="btn rounded-full text-white py-2 px-4 ">
                                                     Submit Review
                                                 </Button>
                                                 {

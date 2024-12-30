@@ -26,7 +26,7 @@ createRoot(document.getElementById('root')!).render(
       theme="system"
       toastOptions={{
         style: {
-          borderRadius: "0px",
+          borderRadius: "15px",
           padding: "16px",
           minHeight: "60px",
           boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.25)",

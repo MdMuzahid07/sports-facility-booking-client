@@ -36,7 +36,7 @@ const BookingPaidUnpaidPieChart = () => {
     const COLORS = ["#34D399", "#EF4444"]; // Green for Paid, Red for Unpaid
 
     return (
-        <section className="bg-slate-100 rounded-xl shadow-xl p-6">
+        <section className="bg-slate-100 rounded-2xl drop-shadow-sm p-6">
             <h2 className="text-lg font-semibold mb-2">Sports Facility : Bookings Payment</h2>
             <div>
                 <ResponsiveContainer width="100%" height={400}>

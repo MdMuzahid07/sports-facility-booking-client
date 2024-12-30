@@ -6,7 +6,7 @@ import { memo } from "react";
 const TestimonialCard = ({ testimonial }: any) => {
 
     return (
-        <section className="mx-4 h-[170px] overflow-hidden border-2 border-[#2B2C2D] relative p-4 bg-slate-100">
+        <section className="mx-4 h-[170px] rounded-2xl drop-shadow overflow-hidden border-2 border-[#2B2C2D] relative p-4 bg-slate-100">
             <p className="flex gap-2 text-md">
                 <span><Quote /></span>
                 {testimonial?.testimonialText}</p>

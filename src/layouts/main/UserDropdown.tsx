@@ -40,11 +40,11 @@ const UserDropdown = () => {
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
                 <Avatar>
-                    <AvatarImage className="w-10 h-10 rounded-full overflow-hidden object-cover object-center" src={(user && user.avatar) ? user?.avatar : "https://github.com/shadcn.png"} alt="@shadcn" />
+                    <AvatarImage className="w-10 h-10 rounded-full cursor-pointer overflow-hidden object-cover object-center" src={(user && user.avatar) ? user?.avatar : "https://github.com/shadcn.png"} alt="@shadcn" />
                     <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-56 rounded-none border-2 border-[#171717] bg-slate-100 bg-opacity-45 backdrop-blur-sm py-4">
+            <DropdownMenuContent align="end" className="w-56 rounded-2xl drop-shadow-md bg-slate-100 bg-opacity-45 backdrop-blur-sm py-4 mt-8">
                 <DropdownMenuLabel>
                     <span className="text-xl">Hello, </span>
                     <br />
@@ -53,7 +53,7 @@ const UserDropdown = () => {
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
                     <NavLink to="/dashboard/home" >
-                        <DropdownMenuItem className="rounded-none">
+                        <DropdownMenuItem className="rounded-full">
                             <User className="mr-2 h-4 w-4" />
                             <span>My Dashboard</span>
                             <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
@@ -61,7 +61,7 @@ const UserDropdown = () => {
                     </NavLink>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={handleLogout} className="rounded-none">
+                <DropdownMenuItem onClick={handleLogout} className="rounded-full">
                     <LogOut className="mr-2 h-4 w-4" />
                     <span>Log out</span>
                     <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>

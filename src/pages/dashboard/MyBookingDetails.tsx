@@ -9,10 +9,10 @@ const MyBookingDetails = () => {
 
     return (
         <section className="max-w-7xl mx-auto px-4 xl:px-0 py-10">
-            <h1 className="gap-8 text-3xl md:text-4xl lg:text-5xl xl:text-7xl font-extrabold">
+            <h1 className="gap-8 text-3xl md:text-4xl font-bold">
                 Booking Details
             </h1>
-            <section className="bg-white rounded-lg p-6 mt-14">
+            <section className="bg-white rounded-2xl drop-shadow-sm p-6 mt-6">
 
                 {/* Facility Information */}
                 <section className="mb-6">
@@ -20,7 +20,7 @@ const MyBookingDetails = () => {
                     <section className="grid md:grid-cols-2 mt-4 gap-6">
                         <div>
                             <img
-                                className="w-full max-h-[500px] rounded-lg"
+                                className="w-full max-h-[500px] rounded-2xl drop-shadow-sm"
                                 src={facility?.image?.[0]}
                                 alt={facility?.name}
                             />
