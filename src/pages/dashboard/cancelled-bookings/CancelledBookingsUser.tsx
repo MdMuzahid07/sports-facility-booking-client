@@ -2,7 +2,6 @@
 import {
     Table,
     TableBody,
-    TableCaption,
     TableCell,
     TableHead,
     TableHeader,
@@ -52,7 +51,6 @@ const CancelledBookingsUser = () => {
             </h1>
             <section className="mt-6">
                 <Table className="bg-white rounded-t-2xl drop-shadow-sm">
-                    <TableCaption className="text-lg font-bold">User bookings</TableCaption>
                     <TableHeader>
                         <TableRow>
                             <TableHead className="w-[50px]">No.</TableHead>
