@@ -161,3 +161,33 @@
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: #555; /* Darker grey on hover */
 }
+
+.custom-loader {
+  width: 20%;
+  height: 2.8px;
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+}
+.custom-loader::after {
+  content: "";
+  width: 60px;
+  height: 4.8px;
+  background: #c2c2c2;
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  animation: hitZak 0.6s ease-in-out infinite alternate;
+}
+
+@keyframes hitZak {
+  0% {
+    left: 0;
+    transform: translateX(-1%);
+  }
+  100% {
+    left: 100%;
+    transform: translateX(-99%);
+  }
+}
