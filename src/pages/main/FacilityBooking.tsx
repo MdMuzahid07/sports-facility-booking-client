@@ -78,6 +78,7 @@ const FacilityBooking = () => {
     }
 
     if (error) {
+        console.log(error, "facility booking")
         toast.error((error as any)?.data?.message, { id: "createBookingByUserToastId" });
     }
 

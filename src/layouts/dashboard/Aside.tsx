@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useAppSelector } from "@/redux/hooks";
-import { BaggageClaim, BookCheck, LayoutDashboard, ListCheck, ListPlus, MessageSquareQuote, NotebookPen, Plus, Settings2, ShieldPlus, ShoppingBasket, Star, Trophy } from "lucide-react";
+import { BaggageClaim, BookCheck, LayoutDashboard, ListCheck, ListPlus, MessageSquareQuote, NotebookPen, Plus, Settings2, ShieldPlus, ShoppingBasket, Star, Trophy, Wallet } from "lucide-react";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
@@ -70,6 +70,12 @@ const Aside = ({ isSidebarOpen, setIsSidebarOpen }: any) => {
                                         </button>
                                     </NavLink>
 
+                                    <NavLink to="/dashboard/my-transaction">
+                                        <button className=" font-semibold py-2 text-xs 2xl:text-sm bg-primary text-left rounded-lg text-slate-200 w-full mb-5  flex items-center gap-2">
+                                            <Wallet size={15} />  My Transaction
+                                        </button>
+                                    </NavLink>
+
                                     <NavLink to="/dashboard/my-reviews">
                                         <button className=" font-semibold py-2 text-xs 2xl:text-sm bg-primary text-left rounded-lg text-slate-200 w-full mb-5  flex items-center gap-2">
                                             <Star size={15} />  My Reviews
@@ -94,6 +100,13 @@ const Aside = ({ isSidebarOpen, setIsSidebarOpen }: any) => {
                         {
                             (user && (userRole === "admin")) && (
                                 <>
+                                    <NavLink to="/dashboard/all-transaction">
+                                        <button className=" font-semibold py-2 text-xs 2xl:text-sm bg-primary text-left rounded-lg text-slate-200 w-full mb-5  flex items-center gap-2">
+                                            <Wallet size={15} />
+                                            All Transaction</button>
+                                    </NavLink>
+
+
                                     <NavLink to="/dashboard/add-admin">
                                         <button className=" font-semibold py-2 text-xs 2xl:text-sm bg-primary text-left rounded-lg text-slate-200 w-full mb-5  flex items-center gap-2">
                                             <ShieldPlus size={15} />
