@@ -37,6 +37,8 @@ import MyReviews from "@/pages/dashboard/reviews/MyReviews";
 import CancelledOrders from "@/pages/dashboard/cancelled-orders/CancelledOrders";
 import CancelledBookings from "@/pages/dashboard/cancelled-bookings/CancelledBookings";
 import CancelledBookingsUser from "@/pages/dashboard/cancelled-bookings/CancelledBookingsUser";
+import MyTransaction from "@/pages/dashboard/transaction/MyTransaction";
+import AllTransaction from "@/pages/dashboard/transaction/AllTransaction";
 
 const routes = createBrowserRouter([
     {
@@ -116,6 +118,14 @@ const routes = createBrowserRouter([
             {
                 path: "my-bookings",
                 element: <MyBookings />
+            },
+            {
+                path: "my-transaction",
+                element: <MyTransaction />
+            },
+            {
+                path: "all-transaction",
+                element: <AllTransaction />
             },
             {
                 path: "my-booking-details/:myBookingId",
